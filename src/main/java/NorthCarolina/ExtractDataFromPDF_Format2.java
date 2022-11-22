@@ -13,12 +13,12 @@ import mainPackage.RunnerClass;
 public class ExtractDataFromPDF_Format2 
 {
 	public static boolean petFlag;
-	//public boolean arizona() throws Exception
-	public static void main(String[] args) throws Exception 
+	public boolean arizona() throws Exception
+	//public static void main(String[] args) throws Exception 
 	{
 		NC_PropertyWare.petFlag = false;
-		File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\North Carolinas format 1- 2\\Lease_9.21_9.22_92_E_Painted_Way_NC_Kerns_Dowell.pdf");
-		//File file = RunnerClass.getLastModified();
+		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\North Carolinas format 1- 2\\Lease_9.21_9.22_92_E_Painted_Way_NC_Kerns_Dowell.pdf");
+		File file = RunnerClass.getLastModified();
 		FileInputStream fis = new FileInputStream(file);
 		PDDocument document = PDDocument.load(fis);
 	    String text = new PDFTextStripper().getText(document);
@@ -191,7 +191,7 @@ public class ExtractDataFromPDF_Format2
 	    	NC_PropertyWare.additionalLateChargesLimit = "Error";
 	    	e.printStackTrace();
 	    }
-	    /*
+	    
 	    try
 	    {
 	    if(NC_RunnerClass.pdfFormatType.equalsIgnoreCase("Format1"))
@@ -206,7 +206,7 @@ public class ExtractDataFromPDF_Format2
 	    	e.printStackTrace();
 	    }
 	    
-	    */
+	    
 	  //Prepayment Charge
 	    try
 	    {
@@ -438,7 +438,7 @@ public class ExtractDataFromPDF_Format2
 	    catch(Exception e)
 	    {}
 	    document.close();
-		//return true;
+		return true;
 	}
 	
 }
