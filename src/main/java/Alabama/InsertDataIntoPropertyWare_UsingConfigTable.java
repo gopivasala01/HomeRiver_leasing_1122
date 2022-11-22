@@ -162,8 +162,8 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 			AL_RunnerClass.AZ_driver.findElement(Locators.moveInChargeDate).sendKeys(moveInCharges[i][3]);
 			//Save or Cancel button
 			Thread.sleep(2000);
-			AL_RunnerClass.AZ_driver.findElement(Locators.moveInChargeCancel).click();
-			//AL_RunnerClass.AZ_driver.findElement(Locators.moveInChargeSaveButton).click();
+			//AL_RunnerClass.AZ_driver.findElement(Locators.moveInChargeCancel).click();
+			AL_RunnerClass.AZ_driver.findElement(Locators.moveInChargeSaveButton).click();
 			Thread.sleep(2000);
 			try
 			{
@@ -283,8 +283,8 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 				}
 				//Save and Cancel
 				Thread.sleep(2000);
-				AL_RunnerClass.AZ_driver.findElement(Locators.autoCharge_CancelButton).click();
-				//AL_RunnerClass.AZ_driver.findElement(Locators.autoCharge_SaveButton).click();
+				//AL_RunnerClass.AZ_driver.findElement(Locators.autoCharge_CancelButton).click();
+				AL_RunnerClass.AZ_driver.findElement(Locators.autoCharge_SaveButton).click();
 				Thread.sleep(2000);
 				try
 				{
@@ -808,7 +808,7 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 			try
 			{
 				Thread.sleep(2000);
-				//AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).click(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).build().perform();
+				AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).click(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).build().perform();
 			}
 			catch(Exception e)
 			{

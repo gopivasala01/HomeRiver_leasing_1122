@@ -94,11 +94,11 @@ public class RunnerClass
 			     else InsertDataIntoDatabase.insertData(leaseName, "Review",5);
 			
 			System.out.println(market +" ---- " + leaseName+" ---- "+ leaseCompletedStatus);
-			//AL_RunnerClass.AZ_driver.close();
+			AL_RunnerClass.AZ_driver.close();
 			}
 			catch(Exception e)
 			{
-				//AL_RunnerClass.AZ_driver.close();
+				AL_RunnerClass.AZ_driver.close();
 			}
 			
 		}

@@ -162,8 +162,8 @@ public class InsertDataIntoPropertyWare
 			FL_RunnerClass.FL_driver.findElement(Locators.moveInChargeDate).sendKeys(moveInCharges[i][3]);
 			//Save or Cancel button
 			Thread.sleep(2000);
-			FL_RunnerClass.FL_driver.findElement(Locators.moveInChargeCancel).click();
-			//FL_RunnerClass.FL_driver.findElement(Locators.moveInChargeSaveButton).click();
+			//FL_RunnerClass.FL_driver.findElement(Locators.moveInChargeCancel).click();
+			FL_RunnerClass.FL_driver.findElement(Locators.moveInChargeSaveButton).click();
 			Thread.sleep(2000);
 			try
 			{
@@ -283,8 +283,8 @@ public class InsertDataIntoPropertyWare
 				}
 				//Save and Cancel
 				Thread.sleep(2000);
-				FL_RunnerClass.FL_driver.findElement(Locators.autoCharge_CancelButton).click();
-				//FL_RunnerClass.FL_driver.findElement(Locators.autoCharge_SaveButton).click();
+				//FL_RunnerClass.FL_driver.findElement(Locators.autoCharge_CancelButton).click();
+				FL_RunnerClass.FL_driver.findElement(Locators.autoCharge_SaveButton).click();
 				Thread.sleep(2000);
 				try
 				{
@@ -808,7 +808,7 @@ public class InsertDataIntoPropertyWare
 			try
 			{
 				Thread.sleep(2000);
-				//FL_RunnerClass.FL_actions.moveToElement(FL_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(FL_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+				FL_RunnerClass.FL_actions.moveToElement(FL_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(FL_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
 			}
 			catch(Exception e)
 			{
