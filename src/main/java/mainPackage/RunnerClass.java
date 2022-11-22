@@ -81,23 +81,19 @@ public class RunnerClass
 			//case "Arkansas":
 				AL_RunnerClass alabama = new AL_RunnerClass();
 				alabama.runAutomation(portfolio,leaseName,leaseOwnerName);
+				RunnerClass.updateLeaseStatus();
+				AL_RunnerClass.AZ_driver.close();
 				break;
 			case "Florida":
-				//case "Arkansas":
-					FL_RunnerClass florida = new FL_RunnerClass();
-					florida.runAutomation(portfolio,leaseName,leaseOwnerName);
-					break;
+			//case "Arkansas":
+				FL_RunnerClass florida = new FL_RunnerClass();
+				florida.runAutomation(portfolio,leaseName,leaseOwnerName);
+				RunnerClass.updateLeaseStatus();
+				FL_RunnerClass.FL_driver.close();
+				break;
 			
 			}
 			
-			//Test
-			if(leaseCompletedStatus==1)
-			InsertDataIntoDatabase.insertData(leaseName, "Completed", 4);
-			else if(leaseCompletedStatus==2)InsertDataIntoDatabase.insertData(leaseName, "Failed", 3);
-			     else InsertDataIntoDatabase.insertData(leaseName, "Review",5);
-			
-			System.out.println(market +" ---- " + leaseName+" ---- "+ leaseCompletedStatus);
-			AL_RunnerClass.AZ_driver.close();
 			try
 			{
 			 //String filePath = AppConfig.PDFFilePath+"\\"+market+"\\"+leaseName.replaceAll("[^a-zA-Z0-9]+","");
@@ -121,6 +117,16 @@ public class RunnerClass
 			}
 			
 		}
+	}
+	public static void updateLeaseStatus() throws Exception
+	{
+		//Test
+		if(leaseCompletedStatus==1)
+		InsertDataIntoDatabase.insertData(leaseName, "Completed", 4);
+		else if(leaseCompletedStatus==2)InsertDataIntoDatabase.insertData(leaseName, "Failed", 3);
+		     else InsertDataIntoDatabase.insertData(leaseName, "Review",5);
+		
+		System.out.println(market +" ---- " + leaseName+" ---- "+ leaseCompletedStatus);
 	}
 	public static boolean onlyDigits(String str)
     {
