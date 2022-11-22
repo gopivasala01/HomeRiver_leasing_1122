@@ -275,6 +275,7 @@ public class AL_PropertyWare
 		else return false;
 		
 	}
+	//
 	
 	public static double calculatTaxes(String monthlyRent)
 	{
