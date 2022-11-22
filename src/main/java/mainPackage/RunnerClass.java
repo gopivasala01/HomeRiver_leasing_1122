@@ -3,6 +3,7 @@ package mainPackage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -40,6 +42,7 @@ public class RunnerClass
 	public static String leaseName;
 	public static int leaseCompletedStatus = 0;
 	public static String portfolio;
+	public static String downloadFilePath;
 	
 	public static void main(String[] args) throws Exception
 	{
@@ -95,6 +98,22 @@ public class RunnerClass
 			
 			System.out.println(market +" ---- " + leaseName+" ---- "+ leaseCompletedStatus);
 			AL_RunnerClass.AZ_driver.close();
+			try
+			{
+			 //String filePath = AppConfig.PDFFilePath+"\\"+market+"\\"+leaseName.replaceAll("[^a-zA-Z0-9]+","");
+			 File f = new File(RunnerClass.downloadFilePath);
+			 if(f.exists())
+			 {
+	         FileUtils.cleanDirectory(f); //clean out directory (this is optional -- but good know)
+	         FileUtils.forceDelete(f); //delete directory
+			 }
+	         //FileUtils.forceMkdir(f); //create directory
+			}
+			catch(Exception e) 
+			{
+				e.printStackTrace();
+			}
+			
 			}
 			catch(Exception e)
 			{
@@ -286,9 +305,10 @@ public class RunnerClass
 		               }
           return month;		
 	}
-	public static File getLastModified()
+	public static File getLastModified() throws Exception
 	{
-	    File directory = new File(AppConfig.PDFFilePath);
+		
+	    File directory = new File(RunnerClass.downloadFilePath);
 	    File[] files = directory.listFiles(File::isFile);
 	    long lastModifiedTime = Long.MIN_VALUE;
 	    File chosenFile = null;

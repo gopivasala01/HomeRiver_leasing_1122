@@ -3,12 +3,14 @@ package Florida;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.JavascriptExecutor;
@@ -111,12 +113,22 @@ public static String pdfFormatType;
 		return true;
 	}
 
-	public  static void openBrowser()
+	public  static void openBrowser() throws Exception
 	{
 		Map<String, Object> prefs = new HashMap<String, Object>();
         // Use File.separator as it will work on any OS
-        prefs.put("download.default_directory",
-                "C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS");
+		RunnerClass.downloadFilePath = "C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\"+RunnerClass.leaseName.replaceAll("[^a-zA-Z0-9]+","");
+	    // Use File.separator as it will work on any OS
+		File file = new File(RunnerClass.downloadFilePath);
+		//file.mkdir();
+		if(file.exists())
+		{
+			FileUtils.cleanDirectory(file);
+			FileUtils.deleteDirectory(file);
+		}
+		FileUtils.forceMkdir(file);
+	    prefs.put("download.default_directory",
+	    		RunnerClass.downloadFilePath);
         // Adding cpabilities to ChromeOptions
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs", prefs);
@@ -144,12 +156,13 @@ public static String pdfFormatType;
 	    FL_PropertyWare.pdfText  = text;
 	    if(text.contains(AppConfig.PDFFormatConfirmationText)) 
 	    {
-	    	
+	    	document.close();
 			return "Format1";
 	    	
 	    }
 	    else if(text.contains(AppConfig.PDFFormat2ConfirmationText))
 	         {
+	    	document.close();
             return "Format2";	
 	         }
 	         else 
@@ -157,6 +170,7 @@ public static String pdfFormatType;
 	        	System.out.println("Wrong PDF Format");
 	 	    	InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Wrong Lease Agreement PDF Format"+'\n');
 	 			RunnerClass.leaseCompletedStatus = 3;
+	 			document.close();
 	 			return "Others";
 	          }
 		}

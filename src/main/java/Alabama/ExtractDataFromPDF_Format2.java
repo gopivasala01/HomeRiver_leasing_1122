@@ -446,6 +446,7 @@ public class ExtractDataFromPDF_Format2
 	    }
 	    catch(Exception e)
 	    {}
+	    document.close();
 		return true;
 	}
 	

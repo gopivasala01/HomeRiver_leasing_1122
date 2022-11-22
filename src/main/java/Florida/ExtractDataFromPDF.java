@@ -510,7 +510,7 @@ public class ExtractDataFromPDF
 	    catch(Exception e)
 	    {}
 	    
-	  
+	  document.close();
 	    return true;
     }
 
