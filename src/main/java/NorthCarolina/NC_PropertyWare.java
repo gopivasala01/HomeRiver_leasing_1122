@@ -87,6 +87,10 @@ public class NC_PropertyWare
     public static ArrayList<String> serviceAnimalPetType;
     public static ArrayList<String> serviceAnimalPetBreed;
     public static ArrayList<String> serviceAnimalPetWeight;
+    public static String lateFeeType ="";
+    public static String flatFeeAmount ="";
+    public static String lateFeePercentage="";
+   
     public void login() throws Exception
 	{
 		NC_RunnerClass.FL_driver.get(AppConfig.propertyWareURL);

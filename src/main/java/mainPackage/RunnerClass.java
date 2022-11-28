@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
@@ -23,6 +24,7 @@ import Alabama.AL_PropertyWare;
 import Alabama.AL_RunnerClass;
 import Arizona.AZ_RunnerClass;
 import Florida.FL_RunnerClass;
+import NorthCarolina.NC_RunnerClass;
 //import Arizona.AZ_PropertyWare;
 //import Arizona.AZ_RunnerClass;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -91,6 +93,14 @@ public class RunnerClass
 				RunnerClass.updateLeaseStatus();
 				FL_RunnerClass.FL_driver.close();
 				break;
+				
+			case "North Carolina":
+				//case "Arkansas":
+					NC_RunnerClass northCarolina = new NC_RunnerClass();
+					northCarolina.runAutomation(portfolio,leaseName,leaseOwnerName);
+					RunnerClass.updateLeaseStatus();
+					NC_RunnerClass.FL_driver.close();
+					break;
 			
 			}
 			
@@ -127,6 +137,10 @@ public class RunnerClass
 		     else InsertDataIntoDatabase.insertData(leaseName, "Review",5);
 		
 		System.out.println(market +" ---- " + leaseName+" ---- "+ leaseCompletedStatus);
+	}
+	public static void keyBoardActions()
+	{
+		NC_RunnerClass.FL_actions.sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).build().perform();
 	}
 	public static boolean onlyDigits(String str)
     {

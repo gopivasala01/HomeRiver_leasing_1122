@@ -67,8 +67,10 @@ public class Locators
     public static By serviceAnimalBreed = By.xpath("//*[text()='Pet 2 Breed']/following::input[1]");
     public static By serviceAnimalWeight = By.xpath("//*[text()='Pet 2 Weight']/following::input[1]");
     public static By petAmount = By.xpath("//*[text()='Pet Rent Amount']/following::input[1]");
+    public static By petAmount2 = By.xpath("//*[text()='Pet Rent Amount']/following::input[1]");
     public static By petDepositAmount = By.xpath("//*[text()='Pet Deposit Amount']/following::input[1]");
     public static By tenantOneTimePetFee = By.xpath("//*[text()='Tenant One-time Pet Fee']/following::input[1]");
+    public static By tenantOneTimePetFee2 = By.xpath("//*[text()='Tenant One-Time Pet Fee']/following::input[1]");
     public static By petSpecialProvisions = By.xpath("//*[text()='Pet Special Provisions']/following::input[1]");
     public static By lateFeeDueDay = By.name("entity.lateFee.dueDay");
     public static By initialFee = By.name("entity.lateFee.initial");
@@ -81,6 +83,10 @@ public class Locators
     public static By saveLease = By.xpath("(//*[@class='primaryButtons'])[2]/input[1]");
     public static By initialMonthlyRent = By.xpath("//*[text()='Initial Monthly Rent']/following::input[1]");
     public static By somethingWrongInSavingCharge = By.xpath("//*[text()='You must correct the following:']");
+    
+    public static By lateFeeType = By.name("entity.lateFee.feeType");
+    public static By flatFee = By.xpath("//*[text()='Flat Fee']/following::input[1]");
+    public static By lateFeePercentage =By.xpath("//*[text()='Percentage']/following::input[1]"); 
     
 
 }

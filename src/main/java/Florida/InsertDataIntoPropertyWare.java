@@ -825,6 +825,9 @@ public class InsertDataIntoPropertyWare
 		{
 			e.printStackTrace();
 			RunnerClass.leaseCompletedStatus = 2;
+			FL_RunnerClass.FL_js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+			Thread.sleep(2000);
+			FL_RunnerClass.FL_actions.moveToElement(FL_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(FL_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
 			return false;
 		}
 			
@@ -834,12 +837,22 @@ public class InsertDataIntoPropertyWare
 	{
 		// Get List of Charges from table
 		GetDataFromDB.getChargesFromConfigurationTable();
-		
+		String DayInCommensementDate = RunnerClass.convertDate(FL_PropertyWare.commensementDate).split("/")[1].trim();
 		//Update Start date and End Date
-		String firstFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
-		
+		String firstFullMonth=null;
+		String secondFullMonth = null;
+		if(DayInCommensementDate.equalsIgnoreCase("01")||DayInCommensementDate.equalsIgnoreCase("1"))
+		{
+			firstFullMonth = RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim();
+			secondFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
+		}
+		else 
+		{
+		firstFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
+		secondFullMonth = RunnerClass.NextMonthOffirstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
+		}
 		String updateStartDateAndEndDate = "Update [Automation].[ChargeCodesConfiguration] Set StartDate='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
-				+ "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate))+"' where AutoCharge =1 \n"
+				+ "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+firstFullMonth+"' where AutoCharge =1 \n"
 						+ "Update [Automation].[ChargeCodesConfiguration] Set endDate='"+RunnerClass.DateModified(firstFullMonth)+"' where Charge ='Pro Rate Rent' ";
 		InsertDataIntoDatabase.updateTable(updateStartDateAndEndDate);
 		//If there is an increased rent, add add date to previous monthly rent in auto charges
@@ -853,9 +866,9 @@ public class InsertDataIntoPropertyWare
 		//If Prorate Rent is under 200$, Monthly Rent Start date should be next month of First Full Month
 		try
 		{
-		if(FL_PropertyWare.portfolioType=="Others") //Double.parseDouble(FL_PropertyWare.proratedRent.trim())<=200.00||
+		if(FL_PropertyWare.portfolioType=="Others"||FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true) //Double.parseDouble(FL_PropertyWare.proratedRent.trim())<=200.00||
 		{
-			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+RunnerClass.NextMonthOffirstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate))+"' where ID=2";
+			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+secondFullMonth+"' where ID=2";
 			InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers);
 		}
 		}

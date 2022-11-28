@@ -25,13 +25,14 @@ public class PDFAppConfig_Format2
 	
 	public static String lateFeeDay_Prior = "11:59 PM of the ";
 	
-	public static String initialLateChargeFee_Prior = "day of the month equal to $";
+	public static String initialLateChargeFee_Prior = "Tenant will pay Landlord for each late payment a late fee of";
 	
 	public static String additionaLateCharge_Prior = "and additional late charge of $";
 	
-	public static String lateChargePerDayFee = "and additional late charge of $";
+	public static String lateChargePerDayFee = "of the monthly rent or $";
 	
 	public static String petAgreementAvailabilityCheck = "THIS PET ADDENDUM (this";
+	public static String petAgreementAvailabilityCheck2="PET AUTHORIZATION AND PET DESCRIPTION:";
 
 	public static String securityDeposit_Prior = "Deposit with Landlord, the sum of $";
 	public static String securityDeposit_After = " (the �Security Deposit�)";
@@ -43,6 +44,8 @@ public class PDFAppConfig_Format2
 	public static String petType_After = "Breed:";
 	
 	public static String typeWord_Prior = "[Please provide the following for each pet, service or ESA]";
+	public static String typeWord_Prior2 = "Tenant may keep the following pet(s) on the Property until the above-referenced lease ends.";
+	public static String typeWord_After3 = "B. CONSIDERATION:";
 	public static String typeWord_After = "A photograph of the Pet shall be provided to Landlord by Tenant";
 	public static String typeWord_After2 = "3. Tenant will pay Landlord monthly pet rent in the amount of";
 	
@@ -56,6 +59,8 @@ public class PDFAppConfig_Format2
 	
 	static String AB_serviceAnimal_typeWord_Prior = "Tenant has the following Service/Support Animal(s) on the Property until the above-referenced lease ends.";
 	static String AB_serviceAnimal_typeWord_After = "B. SERVICE/SUPPORT ANIMAL RULES";
+	
+	static String monthlyRentAvailabilityCheck ="*Per the Landlord, Monthly Rent";
 	
 	
 	

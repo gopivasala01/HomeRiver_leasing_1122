@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Alabama.Locators;
-
+import Florida.FL_PropertyWare;
 import mainPackage.InsertDataIntoDatabase;
 import mainPackage.RunnerClass;
 
@@ -94,13 +94,15 @@ public class InsertDataIntoPropertyWare
 		
 		 System.out.println("------Move In Charges-------");
 		// Get Move in charges
+		 try
+		 {
 		GetDataFromDB.getMoveInCharges();
 		for(int i=0;i<moveInCharges.length;i++)
 		{
 			System.out.println(moveInCharges[i][0]+"   "+moveInCharges[i][1]+"   "+moveInCharges[i][2]+"   "+moveInCharges[i][3]+"  "+moveInCharges[i][4]);
 			int flagToCheckIfMoveInChargeAlreadyAvailable =0;
-			NC_RunnerClass.FL_driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
-			NC_RunnerClass.FL_wait = new WebDriverWait(NC_RunnerClass.FL_driver, Duration.ofSeconds(10));
+			NC_RunnerClass.FL_driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
+			NC_RunnerClass.FL_wait = new WebDriverWait(NC_RunnerClass.FL_driver, Duration.ofSeconds(5));
 			//Check if the Move In Charge is already available
 			
 			try
@@ -177,6 +179,12 @@ public class InsertDataIntoPropertyWare
 			{}
 			NC_RunnerClass.FL_driver.navigate().refresh();
 		}
+		 }
+		 catch(Exception e) 
+		 {
+			 e.printStackTrace();
+			 System.out.println("Something went wrong in Move In charges");
+		 }
 		
 		// Get Auto charges
 	     GetDataFromDB.getAutoCharges();
@@ -324,7 +332,7 @@ public class InsertDataIntoPropertyWare
 			}
 			//Early Termination
 			Thread.sleep(2000);
-			
+			/*
 			try
 			{
 				if(NC_PropertyWare.earlyTermination.equalsIgnoreCase("Error"))
@@ -354,6 +362,7 @@ public class InsertDataIntoPropertyWare
 				e.printStackTrace();
 				temp=1;
 			}
+			*/
 			//Enrolled in FilterEasy
 			if(NC_PropertyWare.airFilterFee!="Error")
 			{
@@ -379,7 +388,7 @@ public class InsertDataIntoPropertyWare
 			NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.needsNewLease)).build().perform();
 			NC_RunnerClass.FL_driver.findElement(Locators.needsNewLease).click();
 			Select needsNewLease_List = new Select(NC_RunnerClass.FL_driver.findElement(Locators.needsNewLease_List));
-			needsNewLease_List.selectByVisibleText("No");
+			needsNewLease_List.selectByVisibleText("NO");
 			}
 			catch(Exception e)
 			{
@@ -468,6 +477,8 @@ public class InsertDataIntoPropertyWare
 					}
 					else
 					{
+						try
+						{
 					NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.petAmount)).build().perform();
 					//NC_RunnerClass.FL_driver.findElement(Locators.petAmount).clear();
 					NC_RunnerClass.FL_driver.findElement(Locators.petAmount).click();
@@ -476,6 +487,18 @@ public class InsertDataIntoPropertyWare
 					Thread.sleep(1000);
 					//NC_RunnerClass.FL_actions.click(NC_RunnerClass.FL_driver.findElement(Locators.petAmount)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
 					NC_RunnerClass.FL_driver.findElement(Locators.petAmount).sendKeys(NC_PropertyWare.petRent);
+						}
+						catch(Exception e)
+						{
+							NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.petAmount2)).build().perform();
+							//NC_RunnerClass.FL_driver.findElement(Locators.petAmount).clear();
+							NC_RunnerClass.FL_driver.findElement(Locators.petAmount2).click();
+							//NC_PropertyWare.clearTextField();
+							NC_RunnerClass.FL_driver.findElement(Locators.petAmount2).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+							Thread.sleep(1000);
+							//NC_RunnerClass.FL_actions.click(NC_RunnerClass.FL_driver.findElement(Locators.petAmount)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+							NC_RunnerClass.FL_driver.findElement(Locators.petAmount2).sendKeys(NC_PropertyWare.petRent);
+						}
 					}
 				}
 				catch(Exception e)
@@ -492,6 +515,8 @@ public class InsertDataIntoPropertyWare
 					}
 					else
 					{
+						try
+						{
 					NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee)).build().perform();
 					NC_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee).click();
 					Thread.sleep(1000);
@@ -499,6 +524,17 @@ public class InsertDataIntoPropertyWare
 					//NC_PropertyWare.clearTextField();
 					//NC_RunnerClass.FL_actions.click(NC_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
 					NC_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee).sendKeys(NC_PropertyWare.petOneTimeNonRefundableFee);
+						}
+						catch(Exception e)
+						{
+							NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee2)).build().perform();
+							NC_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee2).click();
+							Thread.sleep(1000);
+							NC_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee2).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+							//NC_PropertyWare.clearTextField();
+							//NC_RunnerClass.FL_actions.click(NC_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+							NC_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee2).sendKeys(NC_PropertyWare.petOneTimeNonRefundableFee);
+						}
 					}
 				}
 				catch(Exception e)
@@ -630,179 +666,9 @@ public class InsertDataIntoPropertyWare
 				temp=1;
 			}
 			
-			//Late Charges
-			Thread.sleep(2000);
-			if(NC_PropertyWare.additionalLateChargesLimit.contains("375"))
-			{
-				NC_PropertyWare.lateChargeDay = "2";
-			}
-			else NC_PropertyWare.lateChargeDay = String.valueOf(NC_PropertyWare.lateChargeDay.trim().charAt(0));
-
-			try
-			{
-				if(NC_PropertyWare.lateChargeDay.equalsIgnoreCase("Error"))
-				{
-					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Day"+'\n');
-					temp=1;
-				}
-				else
-				{
-				NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)).build().perform();
-				Select dueDayList = new Select(NC_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)) ;
-				dueDayList.selectByVisibleText(NC_PropertyWare.lateChargeDay);
-				}
-			}
-			catch(Exception e)
-			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Day"+'\n');
-				temp=1;
-			}
-			// Initial Fee
-			Thread.sleep(2000);
-			try
-			{
-				if(NC_PropertyWare.lateChargeFee.equalsIgnoreCase("Error"))
-				{
-					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee"+'\n');
-					temp=1;
-				}
-				else
-				{
-				NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.initialFee)).build().perform();
-				NC_RunnerClass.FL_driver.findElement(Locators.initialFee).click();
-				Thread.sleep(1000);
-				NC_RunnerClass.FL_driver.findElement(Locators.initialFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
-				//NC_PropertyWare.clearTextField();
-				//NC_RunnerClass.FL_actions.click(NC_RunnerClass.FL_driver.findElement(Locators.initialFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-				NC_RunnerClass.FL_driver.findElement(Locators.initialFee).sendKeys(NC_PropertyWare.lateChargeFee);
-				}
-			}
-			catch(Exception e)
-			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee"+'\n');
-				temp=1;
-			}
-			Thread.sleep(2000);
-			//Initial Fee Dropdown
+			//Late Fee Rule
+			InsertDataIntoPropertyWare.lateFeeRuleMethod(NC_PropertyWare.lateFeeType);
 			
-			try
-			{
-				if(NC_PropertyWare.lateChargeFee.contains("%"))
-				{
-				Select initialDropdown = new Select(NC_RunnerClass.FL_driver.findElement(Locators.initialFeeDropdown)) ;
-				initialDropdown.selectByVisibleText("% of Rent Charges");
-				}
-				else 
-				{
-					Select initialDropdown = new Select(NC_RunnerClass.FL_driver.findElement(Locators.initialFeeDropdown)) ;
-					initialDropdown.selectByVisibleText("Fixed Amount");
-				}
-			}
-			catch(Exception e)
-			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Initial fee Dropdown"+'\n');
-				temp=1;
-			}
-			
-			//Per Day Fee
-			Thread.sleep(2000);
-			try
-			{
-				if(NC_PropertyWare.lateFeeChargePerDay.equalsIgnoreCase("Error"))
-				{
-					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Per Day"+'\n');
-					temp=1;
-				}
-				else
-				{
-				NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.perDayFee)).build().perform();
-				NC_RunnerClass.FL_driver.findElement(Locators.perDayFee).click();
-				Thread.sleep(1000);
-				NC_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
-				//NC_PropertyWare.clearTextField();
-				//NC_RunnerClass.FL_actions.click(NC_RunnerClass.FL_driver.findElement(Locators.perDayFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-				NC_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(NC_PropertyWare.lateFeeChargePerDay);
-				}
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Per Day"+'\n');
-				temp=1;
-			}
-            //Per Day Fee Dropdown
-			Thread.sleep(2000);
-			try
-			{
-			Select perDayFeeDropdown = new Select(NC_RunnerClass.FL_driver.findElement(Locators.perDayFeeDropdown)) ;
-			perDayFeeDropdown.selectByVisibleText("Fixed Amount");
-			}
-			catch(Exception e)
-			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Per Day Dropdown"+'\n');
-				temp=1;
-			}
-			if(NC_RunnerClass.pdfFormatType.equalsIgnoreCase("Format1"))
-		    {
-			
-				//Maximum
-				Thread.sleep(2000);
-				try
-				{
-				Select maximumDropdown = new Select(NC_RunnerClass.FL_driver.findElement(Locators.maximumYesNoDropdown)) ;
-				maximumDropdown.selectByVisibleText("Yes");
-				}
-				catch(Exception e)
-				{
-					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Fee Maximum dropdown"+'\n');
-					temp=1;
-				}
-				// Additional Late charges Limit
-				
-				String maximumLimitDropdown = "";
-				if(NC_PropertyWare.additionalLateChargesLimit.contains("30"))
-				{
-					NC_PropertyWare.additionalLateChargesLimit = "12";
-				    maximumLimitDropdown = "% of Rent Charges";
-				}
-				else
-					maximumLimitDropdown = "Fixed Amount";
-				Thread.sleep(2000);
-				try
-				{
-					if(NC_PropertyWare.additionalLateChargesLimit.equalsIgnoreCase("Error"))
-					{
-						InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Limit"+'\n');
-						temp=1;
-					}
-					else
-					{
-						NC_RunnerClass.FL_driver.findElement(Locators.maximumDatField).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
-						NC_RunnerClass.FL_driver.findElement(Locators.maximumDatField).clear();
-						NC_RunnerClass.FL_driver.findElement(Locators.maximumDatField).click();
-						Thread.sleep(1000);
-						//NC_PropertyWare.clearTextField();
-						//NC_RunnerClass.FL_actions.click(NC_RunnerClass.FL_driver.findElement(Locators.maximumDatField)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-						NC_RunnerClass.FL_driver.findElement(Locators.maximumDatField).sendKeys(NC_PropertyWare.additionalLateChargesLimit);
-					}
-				}
-				catch(Exception e)
-				{
-					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Limit"+'\n');
-					temp=1;
-				}
-				Thread.sleep(2000);
-				try
-				{
-				Select maximumDropdown2 = new Select(NC_RunnerClass.FL_driver.findElement(Locators.maximumDropdown2)) ;
-				maximumDropdown2.selectByVisibleText(maximumLimitDropdown);
-				}
-				catch(Exception e)
-				{
-					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Maximum Limit Dropdown 2"+'\n');
-					temp=1;
-				}
-		    }
 			Thread.sleep(2000);
 			NC_RunnerClass.FL_js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
 			try
@@ -825,6 +691,8 @@ public class InsertDataIntoPropertyWare
 		{
 			e.printStackTrace();
 			RunnerClass.leaseCompletedStatus = 2;
+			Thread.sleep(2000);
+			NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(NC_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
 			return false;
 		}
 			
@@ -834,28 +702,38 @@ public class InsertDataIntoPropertyWare
 	{
 		// Get List of Charges from table
 		GetDataFromDB.getChargesFromConfigurationTable();
-		
+		String DayInCommensementDate = RunnerClass.convertDate(FL_PropertyWare.commensementDate).split("/")[1].trim();
 		//Update Start date and End Date
-		String firstFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(NC_PropertyWare.commensementDate));
-		
-		String updateStartDateAndEndDate = "Update [Automation].[ChargeCodesConfiguration] Set StartDate='"+RunnerClass.convertDate(NC_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
-				+ "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(NC_PropertyWare.commensementDate))+"' where AutoCharge =1 \n"
+		String firstFullMonth=null;
+		String secondFullMonth = null;
+		if(DayInCommensementDate.equalsIgnoreCase("01")||DayInCommensementDate.equalsIgnoreCase("1"))
+		{
+			firstFullMonth = RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim();
+			secondFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
+		}
+		else 
+		{
+		firstFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
+		secondFullMonth = RunnerClass.NextMonthOffirstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
+		}
+		String updateStartDateAndEndDate = "Update [Automation].[ChargeCodesConfiguration] Set StartDate='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
+				+ "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+firstFullMonth+"' where AutoCharge =1 \n"
 						+ "Update [Automation].[ChargeCodesConfiguration] Set endDate='"+RunnerClass.DateModified(firstFullMonth)+"' where Charge ='Pro Rate Rent' ";
 		InsertDataIntoDatabase.updateTable(updateStartDateAndEndDate);
 		//If there is an increased rent, add add date to previous monthly rent in auto charges
 		
-		if(RunnerClass.onlyDigits(NC_PropertyWare.increasedRent_amount.trim().replace(",", "").replace(".", ""))==true)
+		if(RunnerClass.onlyDigits(FL_PropertyWare.increasedRent_amount.trim().replace(",", "").replace(".", ""))==true)
 		{
-		String updateMonthlyRentStartDateToNextMonthOfFirstFullMonth = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(NC_PropertyWare.commensementDate))+"',EndDate ='"+RunnerClass.convertDate(NC_PropertyWare.increasedRent_previousRentEndDate.trim())+"'  where ID=2";
+		String updateMonthlyRentStartDateToNextMonthOfFirstFullMonth = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate))+"',EndDate ='"+RunnerClass.convertDate(FL_PropertyWare.increasedRent_previousRentEndDate.trim())+"'  where ID=2";
 		InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateToNextMonthOfFirstFullMonth);
 		}
 		else {
 		//If Prorate Rent is under 200$, Monthly Rent Start date should be next month of First Full Month
 		try
 		{
-		if(NC_PropertyWare.portfolioType=="Others") //Double.parseDouble(NC_PropertyWare.proratedRent.trim())<=200.00||
+		if(FL_PropertyWare.portfolioType=="Others"||FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true) //Double.parseDouble(FL_PropertyWare.proratedRent.trim())<=200.00||
 		{
-			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+RunnerClass.NextMonthOffirstDayOfFullMonth(RunnerClass.convertDate(NC_PropertyWare.commensementDate))+"' where ID=2";
+			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+secondFullMonth+"' where ID=2";
 			InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers);
 		}
 		}
@@ -1042,6 +920,243 @@ public class InsertDataIntoPropertyWare
 		    }
 		}
 	}
+	
+	public static void lateFeeRule() throws Exception
+	{
+		//Late Charges
+		Thread.sleep(2000);
+		if(NC_PropertyWare.additionalLateChargesLimit.contains("375"))
+		{
+			NC_PropertyWare.lateChargeDay = "2";
+		}
+		else NC_PropertyWare.lateChargeDay = String.valueOf(NC_PropertyWare.lateChargeDay.trim().charAt(0));
+
+		try
+		{
+			if(NC_PropertyWare.lateChargeDay.equalsIgnoreCase("Error"))
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Day"+'\n');
+				//temp=1;
+			}
+			else
+			{
+			NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)).build().perform();
+			Select dueDayList = new Select(NC_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)) ;
+			dueDayList.selectByVisibleText(NC_PropertyWare.lateChargeDay);
+			}
+		}
+		catch(Exception e)
+		{
+			InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Day"+'\n');
+			//temp=1;
+		}
+		// Initial Fee
+		Thread.sleep(2000);
+		try
+		{
+			if(NC_PropertyWare.lateChargeFee.equalsIgnoreCase("Error"))
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee"+'\n');
+				//temp=1;
+			}
+			else
+			{
+			NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.initialFee)).build().perform();
+			NC_RunnerClass.FL_driver.findElement(Locators.initialFee).click();
+			Thread.sleep(1000);
+			NC_RunnerClass.FL_driver.findElement(Locators.initialFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+			//NC_PropertyWare.clearTextField();
+			//NC_RunnerClass.FL_actions.click(NC_RunnerClass.FL_driver.findElement(Locators.initialFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+			NC_RunnerClass.FL_driver.findElement(Locators.initialFee).sendKeys(NC_PropertyWare.lateChargeFee);
+			}
+		}
+		catch(Exception e)
+		{
+			InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee"+'\n');
+			//temp=1;
+		}
+		Thread.sleep(2000);
+		//Initial Fee Dropdown
+		
+		try
+		{
+			if(NC_PropertyWare.lateChargeFee.contains("%"))
+			{
+			Select initialDropdown = new Select(NC_RunnerClass.FL_driver.findElement(Locators.initialFeeDropdown)) ;
+			initialDropdown.selectByVisibleText("% of Rent Charges");
+			}
+			else 
+			{
+				Select initialDropdown = new Select(NC_RunnerClass.FL_driver.findElement(Locators.initialFeeDropdown)) ;
+				initialDropdown.selectByVisibleText("Fixed Amount");
+			}
+		}
+		catch(Exception e)
+		{
+			InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Initial fee Dropdown"+'\n');
+			//temp=1;
+		}
+		
+		//Per Day Fee
+		Thread.sleep(2000);
+		try
+		{
+			if(NC_PropertyWare.lateFeeChargePerDay.equalsIgnoreCase("Error"))
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Per Day"+'\n');
+				//temp=1;
+			}
+			else
+			{
+			NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.perDayFee)).build().perform();
+			NC_RunnerClass.FL_driver.findElement(Locators.perDayFee).click();
+			Thread.sleep(1000);
+			NC_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+			//NC_PropertyWare.clearTextField();
+			//NC_RunnerClass.FL_actions.click(NC_RunnerClass.FL_driver.findElement(Locators.perDayFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+			NC_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(NC_PropertyWare.lateFeeChargePerDay);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Per Day"+'\n');
+			//temp=1;
+		}
+        //Per Day Fee Dropdown
+		Thread.sleep(2000);
+		try
+		{
+		Select perDayFeeDropdown = new Select(NC_RunnerClass.FL_driver.findElement(Locators.perDayFeeDropdown)) ;
+		perDayFeeDropdown.selectByVisibleText("Fixed Amount");
+		}
+		catch(Exception e)
+		{
+			InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Per Day Dropdown"+'\n');
+			//temp=1;
+		}
+		if(NC_RunnerClass.pdfFormatType.equalsIgnoreCase("Format1"))
+	    {
+		
+			//Maximum
+			Thread.sleep(2000);
+			try
+			{
+			Select maximumDropdown = new Select(NC_RunnerClass.FL_driver.findElement(Locators.maximumYesNoDropdown)) ;
+			maximumDropdown.selectByVisibleText("Yes");
+			}
+			catch(Exception e)
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Fee Maximum dropdown"+'\n');
+				//temp=1;
+			}
+			// Additional Late charges Limit
+			
+			String maximumLimitDropdown = "";
+			if(NC_PropertyWare.additionalLateChargesLimit.contains("30"))
+			{
+				NC_PropertyWare.additionalLateChargesLimit = "12";
+			    maximumLimitDropdown = "% of Rent Charges";
+			}
+			else
+				maximumLimitDropdown = "Fixed Amount";
+			Thread.sleep(2000);
+			try
+			{
+				if(NC_PropertyWare.additionalLateChargesLimit.equalsIgnoreCase("Error"))
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Limit"+'\n');
+					//temp=1;
+				}
+				else
+				{
+					NC_RunnerClass.FL_driver.findElement(Locators.maximumDatField).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					NC_RunnerClass.FL_driver.findElement(Locators.maximumDatField).clear();
+					NC_RunnerClass.FL_driver.findElement(Locators.maximumDatField).click();
+					Thread.sleep(1000);
+					//NC_PropertyWare.clearTextField();
+					//NC_RunnerClass.FL_actions.click(NC_RunnerClass.FL_driver.findElement(Locators.maximumDatField)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+					NC_RunnerClass.FL_driver.findElement(Locators.maximumDatField).sendKeys(NC_PropertyWare.additionalLateChargesLimit);
+				}
+			}
+			catch(Exception e)
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Limit"+'\n');
+				//temp=1;
+			}
+			Thread.sleep(2000);
+			try
+			{
+			Select maximumDropdown2 = new Select(NC_RunnerClass.FL_driver.findElement(Locators.maximumDropdown2)) ;
+			maximumDropdown2.selectByVisibleText(maximumLimitDropdown);
+			}
+			catch(Exception e)
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Maximum Limit Dropdown 2"+'\n');
+				//temp=1;
+			}
+	    }
+	}
+	
+	public static boolean lateFeeRuleMethod(String type) throws Exception
+	{
+		
+		//if(NC_PropertyWare.lateFeeType =="GreaterOfFlatFeeOrPercentage")
+		//{
+			try
+			{
+		    NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.lateFeeType)).build().perform();
+			Select feeType = new Select(NC_RunnerClass.FL_driver.findElement(Locators.lateFeeType));
+			feeType.selectByVisibleText("Greater of Flat Fee or Percentage");
+			}
+			catch(Exception e)
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Fee Rule"+'\n');
+				return false;
+			}
+			Thread.sleep(2000);
+			try
+			{
+			NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)).build().perform();
+			Select dueDayList = new Select(NC_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)) ;
+			dueDayList.selectByVisibleText(NC_PropertyWare.lateChargeDay);
+			}
+			catch(Exception e)
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Fee Due Day"+'\n');
+			}
+			Thread.sleep(2000);
+			try
+			{
+			NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.flatFee)).build().perform();
+			NC_RunnerClass.FL_driver.findElement(Locators.flatFee).click();
+			//NC_RunnerClass.FL_driver.findElement(Locators.flatFee).clear();
+			RunnerClass.keyBoardActions();
+			NC_RunnerClass.FL_driver.findElement(Locators.flatFee).sendKeys(NC_PropertyWare.flatFeeAmount);
+			}
+			catch(Exception e)
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Flat Fee"+'\n');
+			}
+			Thread.sleep(2000);
+			try
+			{
+			NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage)).build().perform();
+			NC_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage).click();
+			RunnerClass.keyBoardActions();
+			//NC_RunnerClass.FL_actions.sendKeys(Keys.END).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+			NC_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage).sendKeys(NC_PropertyWare.lateFeePercentage);
+			}
+			catch(Exception e)
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Percentage"+'\n');
+			}
+		//}
+			return true;
+		
+	}
+	
+	
 
 }
 

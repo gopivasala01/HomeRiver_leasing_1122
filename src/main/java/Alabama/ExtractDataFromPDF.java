@@ -23,7 +23,7 @@ public class ExtractDataFromPDF
 		AL_PropertyWare.petFlag = false;
 		//AL_RunnerClass.emptyAllValues();
 		File file = RunnerClass.getLastModified();
-		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\Lease_03.22_03.23_4850_Woodford_Way_AL_Spigne.pdf");
+		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\North Carolina Format - 3\\Lease_1222_1223_6017_Orange_Valley_Cv_AR_Bo.pdf");
 		FileInputStream fis = new FileInputStream(file);
 		PDDocument document = PDDocument.load(fis);
 	    String text = new PDFTextStripper().getText(document);
@@ -33,7 +33,7 @@ public class ExtractDataFromPDF
 	    	System.out.println("Wrong PDF Format");
 	    	InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Wrong Lease Agreement PDF Format");
 			RunnerClass.leaseCompletedStatus = 3;
-			return false;
+			//return false;
 	    	
 	    }
 	    text = text.replaceAll(System.lineSeparator(), " ");

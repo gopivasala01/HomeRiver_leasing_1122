@@ -41,7 +41,7 @@ static String AB_commencementDate_Prior = "Commencement Date:";
 	static String AB_lateChargeDay_Prior = "11:59 p.m. on the ";
 	static String AB_lateChargeDay_After = "day of the month in which it is due";
 	
-	static String AB_lateFee_Prior = "day of the month equal to $";
+	static String AB_lateFee_Prior = " initial late charge equal to";
 	static String AB_lateFee_After = " of one month�s rent; and; ";
 	
 	static String AB_petAgreementAvailabilityCheck = "PET AUTHORIZATION AND PET DESCRIPTION:";
@@ -94,11 +94,11 @@ static String AB_commencementDate_Prior = "Commencement Date:";
 	
 	static String AB_lateFeeAmount_After =" Beginning on the 4th day of the month additional late charges of";
 	
-	static String AB_additionalLateChargesPerDay_Prior = "additional late charge of $";
+	static String AB_additionalLateChargesPerDay_Prior = "charges of $";
 	static String AB_additionalLateChargesPerDay_After = " per day thereafter until rent \r\n"
 			+ "and late charges are paid in full. ";
 	
-	static String AB_additionalLateChargesLimit_Prior = "Total late charges (initial and additional) may not exceed $";
+	static String AB_additionalLateChargesLimit_Prior = "payment may not exceed more than";
 	static String AB_additionalLateChargesLimit_After = "B. For the purposes of paying rent and late charges, the mailbox is not the agent for receipt for Landlord and the";
 
 	static String AB1_commencementDate_Prior = "shall commence on";
@@ -151,6 +151,16 @@ static String AB_commencementDate_Prior = "Commencement Date:";
 	
 	static String concessionAddendumText ="This is a CONCESSION ADDENDUM to your Lease Agreement";
 	
-
-
+	static String lateFeeRuleText_Prior = "LATE CHARGES:";
+	static String lateFeeRuleText_After = "Returned Checks/NSF Fees:";
+	static String lateFeeRuleText_After2 = "RETURNED CHECKS:";
+	
+	static String lateFeeRule_whicheverIsGreater= "whichever is greater";
+	static String lateFeeRule_mayNotExceedMoreThan30Days = "may not exceed more than 30 days";
+	static String lateFeeRule_mayNotExceedAmount = "(initial and additional) may not exceed";
+	static String lateFeeRule_whicheverIsGreater_dueDay_Prior = "Page 3 of 13:";
+	static String lateFeeRule_whicheverIsGreater_dueDay_After = " day of the month in which it is due";
+	static String lateFeeRule_whicheverIsGreater_lateFeePercentage = "Tenant will pay Landlord for each late payment a late fee of";
+	static String lateFeeRule_whicheverIsGreater_lateFeeAmount = "rent or $";
+	
 }

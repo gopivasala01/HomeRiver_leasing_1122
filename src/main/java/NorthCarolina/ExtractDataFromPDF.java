@@ -3,6 +3,8 @@ package NorthCarolina;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -14,7 +16,7 @@ import mainPackage.RunnerClass;
 public class ExtractDataFromPDF 
 {
 	public static boolean petFlag;
-	   
+	public static String text="";
 	public boolean arizona() throws Exception
 	//public static void main(String args[]) throws Exception
 	{
@@ -22,10 +24,10 @@ public class ExtractDataFromPDF
 		NC_PropertyWare.petFlag = false;
 		//FL_RunnerClass.emptyAllValues();
 		File file = RunnerClass.getLastModified();
-		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\Florida\\SINGLE FAMILY RESIDENCE OR CONDOMINIUM LEASE\\SINGLE FAMILY RESIDENCE OR CONDOMINIUM LEASE\\Lease_10.21_09.22_1556_SE_Crowberry_Dr_FL_Mullings_-_Burton (2).pdf");
+		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\North Carolinas Format -1\\NC\\Lease_1021_0922_1509_Hughes_Ct_NC_Young.pdf");
 		FileInputStream fis = new FileInputStream(file);
 		PDDocument document = PDDocument.load(fis);
-	    String text = new PDFTextStripper().getText(document);
+	    text = new PDFTextStripper().getText(document);
 	    NC_PropertyWare.pdfText  = text;
 	    if(!text.contains(AppConfig.PDFFormatConfirmationText)) 
 	    {
@@ -180,59 +182,10 @@ public class ExtractDataFromPDF
 		    e.printStackTrace();
 	    }
 	    System.out.println("Occupants = "+NC_PropertyWare.occupants.trim());
-	    try
-	    {
-		    NC_PropertyWare.lateChargeDay = text.substring(text.indexOf(PDFAppConfig.AB_lateChargeDay_Prior)+PDFAppConfig.AB_lateChargeDay_Prior.length(),text.indexOf(PDFAppConfig.AB_lateChargeDay_After));
-	        if(NC_PropertyWare.lateChargeDay.contains("rd"))
-	        {
-	        	NC_PropertyWare.lateChargeDay=NC_PropertyWare.lateChargeDay.trim().replace("rd", "");
-	        }
-	        else if(NC_PropertyWare.lateChargeDay.contains("st"))
-	        {
-	        	NC_PropertyWare.lateChargeDay=NC_PropertyWare.lateChargeDay.trim().replace("st", "");
-	        }
-	    }
-	    catch(Exception e)
-	    {
-	    	NC_PropertyWare.lateChargeDay = "Error";	
-	    	e.printStackTrace();
-	    }
-	    System.out.println("Late Charge Day = "+NC_PropertyWare.lateChargeDay.trim());
-	    try
-	    {
-		    NC_PropertyWare.lateChargeFee = text.substring(text.indexOf(PDFAppConfig.AB_lateFee_Prior)+PDFAppConfig.AB_lateFee_Prior.length()).split(" ")[0];
-		    //NC_PropertyWare.lateChargeFee =  NC_PropertyWare.lateChargeFee.substring(0,NC_PropertyWare.lateChargeFee.length()-1);
-	    }
-	    catch(Exception e)
-	    {
-		    NC_PropertyWare.lateChargeFee ="Error";	
-		    e.printStackTrace();
-	    }
-	    System.out.println("Late Charge Fee = "+NC_PropertyWare.lateChargeFee.trim());
-	    //Per Day Fee
-	    try
-	    {
-	    	NC_PropertyWare.lateFeeChargePerDay = text.substring(text.indexOf(PDFAppConfig.AB_additionalLateChargesPerDay_Prior)+PDFAppConfig.AB_additionalLateChargesPerDay_Prior.length()).split(" ")[0].trim();//,text.indexOf(PDFAppConfig.AB_additionalLateChargesPerDay_After));
-	    }
-	    catch(Exception e)
-	    {
-	    	NC_PropertyWare.lateFeeChargePerDay =  "Error";	
-	    	e.printStackTrace();
-	    }
-	    System.out.println("Per Day Fee = "+NC_PropertyWare.lateFeeChargePerDay.trim());
-	    //Additional Late Charges Limit
-	    try
-	    {
-	    	NC_PropertyWare.additionalLateChargesLimit = text.substring(text.indexOf(PDFAppConfig.AB_additionalLateChargesLimit_Prior)+PDFAppConfig.AB_additionalLateChargesLimit_Prior.length()).split(" ")[0]; //,text.indexOf(PDFAppConfig.AB_additionalLateChargesLimit_After));
-	    }
-	    catch(Exception e)
-	    {
-	    	NC_PropertyWare.additionalLateChargesLimit =  "Error";	
-	    	e.printStackTrace();
-	    }
-	    System.out.println("additional Late Charges Limit = "+NC_PropertyWare.additionalLateChargesLimit.trim());
 	    
-	    
+	    //Late charges 
+	    //Decide Late Fee Rule
+	   ExtractDataFromPDF.lateFeeRule();
 	    
 	  //Prepayment Charge
   		if(NC_PropertyWare.portfolioType.contains("MCH"))
@@ -389,50 +342,6 @@ public class ExtractDataFromPDF
 		    
 		    
 		    
-		    /*
-		    if(NC_PropertyWare.countOfTypeWordInText>2)
-	        {
-			    try
-			    {
-			    NC_PropertyWare.serviceAnimalType = text.substring(RunnerClass.nthOccurrence(text, "Type:", 3)+PDFAppConfig.AB_pet1Type_Prior.length(),RunnerClass.nthOccurrence(text, "Breed:", 3));
-			    }
-			    catch(Exception e)
-			    {
-			    	 NC_PropertyWare.serviceAnimalType = "Error";
-			    	 e.printStackTrace();
-			    }
-			    System.out.println("Service Animal Type = "+NC_PropertyWare.serviceAnimalType);
-			    try
-			    {
-				    int serviceAnimalBreedindex1 = RunnerClass.nthOccurrence(text, "Breed:", 3)+"Breed:".length()+1;
-				    String serviceAnimalsubString = text.substring(serviceAnimalBreedindex1);
-				    int serviceAnimalBreedindex2 = RunnerClass.nthOccurrence(serviceAnimalsubString,"Name:",1);
-				   // System.out.println("Index 2 = "+(index2+index1));
-				    NC_PropertyWare.serviceAnimalBreed = text.substring(serviceAnimalBreedindex1,(serviceAnimalBreedindex2+serviceAnimalBreedindex1));
-			    }
-			    catch(Exception e)
-			    {
-			    	NC_PropertyWare.serviceAnimalBreed = "Error";
-			    	e.printStackTrace();
-			    }
-			    System.out.println("Service Animal Breed = "+NC_PropertyWare.serviceAnimalBreed);
-		  
-			    try
-			    {
-			    int serviceAnimalWeightindex1 = RunnerClass.nthOccurrence(text, "Weight:", 3)+"Weight:".length()+1;
-			    String serviceAnimalWeightSubstring = text.substring(serviceAnimalWeightindex1);
-			    int serviceAnimalWeightIndex2 = RunnerClass.nthOccurrence(serviceAnimalWeightSubstring,"Age:",1);
-			   // System.out.println("Index 2 = "+(index2+index1));
-			    NC_PropertyWare.serviceAnimalWeight = text.substring(serviceAnimalWeightindex1,(serviceAnimalWeightIndex2+serviceAnimalWeightindex1));
-			    }
-			    catch(Exception e)
-			    {
-			    	NC_PropertyWare.serviceAnimalWeight = "Error";
-			    	e.printStackTrace();
-			    }  
-			    System.out.println("Service Animal Weight = "+NC_PropertyWare.serviceAnimalWeight);
-	        }
-	        */
 		    try
 		    {
 		    	NC_PropertyWare.petOneTimeNonRefundableFee = text.substring(text.indexOf(PDFAppConfig.AB_petFeeOneTime_Prior)+PDFAppConfig.AB_petFeeOneTime_Prior.length()).split(" ")[0];//,text.indexOf(PDFAppConfig.AB_petFeeOneTime_After));
@@ -511,8 +420,130 @@ public class ExtractDataFromPDF
 	    {}
 	    
 	  document.close();
-	    return true;
+	   return true;
     }
+	public static boolean lateFeeRule()
+	{
+		String lateFeeRuleText ="";
+		try
+		{
+		 lateFeeRuleText = text.substring(text.indexOf(PDFAppConfig.lateFeeRuleText_Prior)+PDFAppConfig.lateFeeRuleText_Prior.length(),text.indexOf(PDFAppConfig.lateFeeRuleText_After));
+		}
+		catch(Exception e)
+		{
+			try
+			{
+			lateFeeRuleText = text.substring(text.indexOf(PDFAppConfig.lateFeeRuleText_Prior)+PDFAppConfig.lateFeeRuleText_Prior.length(),text.indexOf(PDFAppConfig.lateFeeRuleText_After2));
+			}
+			catch(Exception e2)
+			{
+			return false;
+			}
+		}
+		if(lateFeeRuleText.contains(PDFAppConfig.lateFeeRule_whicheverIsGreater))
+		{
+			NC_PropertyWare.lateFeeType ="GreaterOfFlatFeeOrPercentage"; 
+		//Late charge day
+			try
+			{
+		   // NC_PropertyWare.lateChargeDay =  lateFeeRuleText.substring(lateFeeRuleText.indexOf(PDFAppConfig.lateFeeRule_whicheverIsGreater_dueDay_Prior)+PDFAppConfig.lateFeeRule_whicheverIsGreater_dueDay_Prior.length()).trim().split(" ")[0];
+				NC_PropertyWare.lateChargeDay =  lateFeeRuleText.split(PDFAppConfig.lateFeeRule_whicheverIsGreater_dueDay_After)[0].trim();
+				NC_PropertyWare.lateChargeDay =NC_PropertyWare.lateChargeDay.substring(NC_PropertyWare.lateChargeDay.lastIndexOf(" ")+1);
+		    NC_PropertyWare.lateChargeDay =  NC_PropertyWare.lateChargeDay.replaceAll("[^0-9]", "");
+			}
+			catch(Exception e)
+			{
+				NC_PropertyWare.lateChargeDay = "Error";
+			}
+         System.out.println("Late Charge Day = "+NC_PropertyWare.lateChargeDay);
+			
+		//Late Fee Percentage
+			try
+			{
+		    NC_PropertyWare.lateFeePercentage =  lateFeeRuleText.substring(lateFeeRuleText.indexOf(PDFAppConfig.lateFeeRule_whicheverIsGreater_lateFeePercentage)+PDFAppConfig.lateFeeRule_whicheverIsGreater_lateFeePercentage.length()).trim().split(" ")[0];
+		    NC_PropertyWare.lateFeePercentage = NC_PropertyWare.lateFeePercentage.replaceAll("[^0-9]", "");
+			}
+			catch(Exception e)
+			{
+				NC_PropertyWare.lateFeePercentage = "Error";
+			}
+         System.out.println("Late Fee Percentage = "+NC_PropertyWare.lateFeePercentage);
+         
+         //Late Fee Amount
+         try
+         {
+         String lateFeeAmount  = lateFeeRuleText.substring(lateFeeRuleText.indexOf(PDFAppConfig.lateFeeRule_whicheverIsGreater_lateFeeAmount)+PDFAppConfig.lateFeeRule_whicheverIsGreater_lateFeeAmount.length()).trim().split(" ")[0];
+         NC_PropertyWare.flatFeeAmount = lateFeeAmount.replaceAll("[^.0-9]", "");
+         }
+         catch(Exception e)
+         {
+        	 NC_PropertyWare.flatFeeAmount ="Error";
+         }
+         System.out.println("Late Fee Amount = "+NC_PropertyWare.flatFeeAmount);
+         
+        
+         return true;
+		}
+		else 
+		if(lateFeeRuleText.contains(PDFAppConfig.lateFeeRule_mayNotExceedMoreThan30Days))
+		{
+			NC_PropertyWare.lateFeeType ="initialFeePluPerDayFee"; 
+	         try
+	 	    {
+	 		    NC_PropertyWare.lateChargeFee = text.substring(text.indexOf(PDFAppConfig.AB_lateFee_Prior)+PDFAppConfig.AB_lateFee_Prior.length()).trim().split(" ")[0];
+	 		    //NC_PropertyWare.lateChargeFee =  NC_PropertyWare.lateChargeFee.substring(0,NC_PropertyWare.lateChargeFee.length()-1);
+	 	    }
+	 	    catch(Exception e)
+	 	    {
+	 		    NC_PropertyWare.lateChargeFee ="Error";	
+	 		    e.printStackTrace();
+	 	    }
+	 	    System.out.println("Late Charge Fee = "+NC_PropertyWare.lateChargeFee.trim());
+	 	    //Per Day Fee
+	 	    try
+	 	    {
+	 	    	NC_PropertyWare.lateFeeChargePerDay = text.substring(text.indexOf(PDFAppConfig.AB_additionalLateChargesPerDay_Prior)+PDFAppConfig.AB_additionalLateChargesPerDay_Prior.length()).split(" ")[0].trim();//,text.indexOf(PDFAppConfig.AB_additionalLateChargesPerDay_After));
+	 	    }
+	 	    catch(Exception e)
+	 	    {
+	 	    	NC_PropertyWare.lateFeeChargePerDay =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Per Day Fee = "+NC_PropertyWare.lateFeeChargePerDay.trim());
+	 	    //Additional Late Charges Limit
+	 	    try
+	 	    {
+	 	    	NC_PropertyWare.additionalLateChargesLimit = text.substring(text.indexOf(PDFAppConfig.AB_additionalLateChargesLimit_Prior)+PDFAppConfig.AB_additionalLateChargesLimit_Prior.length()).trim().split(" ")[0]; //,text.indexOf(PDFAppConfig.AB_additionalLateChargesLimit_After));
+	 	    }
+	 	    catch(Exception e)
+	 	    {
+	 	    	NC_PropertyWare.additionalLateChargesLimit =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("additional Late Charges Limit = "+NC_PropertyWare.additionalLateChargesLimit.trim());
+	 	   return true;
+		}
+		else if(lateFeeRuleText.contains(PDFAppConfig.lateFeeRule_mayNotExceedAmount))
+			{
+			try
+	 	    {
+			NC_PropertyWare.lateChargeDay = lateFeeRuleText.substring(lateFeeRuleText.indexOf("an initial late charge on the")+"an initial late charge on the".length()).trim().split(" ")[0];
+			NC_PropertyWare.lateChargeDay = NC_PropertyWare.lateChargeDay.replaceAll("[^0-9]", "");
+	 	    }
+			catch(Exception e)
+	 	    {
+	 	    	NC_PropertyWare.lateChargeDay =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Late Charge Due Day = "+NC_PropertyWare.lateChargeDay.trim());
+			return true;
+			}
+		else {
+			NC_PropertyWare.lateFeeType ="";
+			return false;
+		}
+		
+	}
 
 }
 

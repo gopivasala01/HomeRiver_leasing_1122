@@ -11,7 +11,7 @@ public class GetDataFromDB
 	public static  void  getChargesFromConfigurationTable() throws Exception
 	//public static void main(String[] args)  throws Exception
 	{
-		String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T";
+		String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -61,7 +61,7 @@ public class GetDataFromDB
 	public static  void  getMoveInCharges() throws Exception
 	//public static void main(String[] args)  throws Exception
 	{
-		String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T";
+		String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -116,7 +116,7 @@ public class GetDataFromDB
 	public static  void  getAutoCharges() throws Exception
 	//public static void main(String[] args)  throws Exception
 	{
-		String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T";
+		String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;

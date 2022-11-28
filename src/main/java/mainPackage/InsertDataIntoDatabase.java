@@ -15,7 +15,7 @@ import org.apache.poi.ss.usermodel.Row;
 	  public static void insertData(String buildingName, String status, int statusID) throws Exception
 	  {
 
-		  String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T";
+		  String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
 		  String sql;
 		  if(statusID==1)
 		   sql = "Update [Automation].[LeaseInfo] Set Status ='"+status+"', StatusID="+statusID+",NotAutomatedFields=NULL where BuildingName like '%"+buildingName+"%'";
@@ -38,7 +38,7 @@ import org.apache.poi.ss.usermodel.Row;
 	  public static void notAutomatedFields(String buildingName, String nextValue) throws Exception
 	  {
 
-		  String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T";
+		  String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
 		  String sql = "Update [Automation].[LeaseInfo] Set NotAutomatedFields =CONCAT((Select top 1 NotAutomatedFields from Automation.LeaseInfo where  BuildingName like '%"+buildingName+"%'),',"+nextValue+"') where BuildingName like '%"+buildingName+"%'";
 		    
 
@@ -57,7 +57,7 @@ import org.apache.poi.ss.usermodel.Row;
 	  public static void insertPropertyWareURL(String buildingName, String URL) throws Exception
 	  {
 
-		  String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T";
+		  String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
 		    String sql = "update [Automation].[LeaseInfo] Set PropertyWareURL ='"+URL+"' where BuildingName like  '%"+buildingName+"%'";
 
 		    try (Connection conn = DriverManager.getConnection(connectionUrl);
@@ -71,9 +71,9 @@ import org.apache.poi.ss.usermodel.Row;
 		      e.printStackTrace();
 		    }
 	  }
-	  public static void assignChargeCodes(String moveInChargesIDs, String autoChargesIDs)
+	  public static boolean assignChargeCodes(String moveInChargesIDs, String autoChargesIDs)
 		{
-		  String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T";
+		  String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
 		    String sql = "update [Automation].[ChargeCodesConfiguration] Set MoveInCharge ='1' where ID in  ("+moveInChargesIDs+")\n"
 		    		+ "update [Automation].[ChargeCodesConfiguration] Set AutoCharge ='1' where ID in  ("+autoChargesIDs+")";
 
@@ -84,13 +84,16 @@ import org.apache.poi.ss.usermodel.Row;
 		      System.out.println("Charge Codes are assigned");
 		      stmt.close();
 	            conn.close();
-		    } catch (SQLException e) {
+	            return true;
+		    } catch (SQLException e) 
+		    {
 		      e.printStackTrace();
+		      return false;
 		    }
 		}
 	 public static void updateTable(String query)
 	 {
-		 String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T";
+		 String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
 
 		    try (Connection conn = DriverManager.getConnection(connectionUrl);
 		        Statement stmt = conn.createStatement();) 

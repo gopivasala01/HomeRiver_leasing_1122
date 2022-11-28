@@ -244,6 +244,9 @@ public static String pdfFormatType;
 		NC_PropertyWare.increasedRent_newStartDate ="";
 		NC_PropertyWare.increasedRent_newEndDate ="";
 		NC_PropertyWare.serviceAnimalFlag = false;
+		NC_PropertyWare.lateFeeType ="";
+		NC_PropertyWare.flatFeeAmount ="";
+		NC_PropertyWare.lateFeePercentage="";
 	}
 	
 	
