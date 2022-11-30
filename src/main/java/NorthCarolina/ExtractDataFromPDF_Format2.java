@@ -21,8 +21,8 @@ public class ExtractDataFromPDF_Format2
 		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\MAPL421\\Lease_1222_1223_421_E_Maple_Ave_NC_Blackwel.pdf");
 		File file = RunnerClass.getLastModified();
 		FileInputStream fis = new FileInputStream(file);
-		PDDocument document = PDDocument.load(fis);
-	    text = new PDFTextStripper().getText(document);
+		NC_RunnerClass.document = PDDocument.load(fis);
+	    text = new PDFTextStripper().getText(NC_RunnerClass.document);
 	    text = text.replaceAll(System.lineSeparator(), " ");
 	    text = text.trim().replaceAll(" +", " ");
 	    System.out.println(text);
@@ -405,7 +405,7 @@ public class ExtractDataFromPDF_Format2
 	    }
 	    catch(Exception e)
 	    {}
-	    document.close();
+	    //document.close();
 		return true;
 	}
 	

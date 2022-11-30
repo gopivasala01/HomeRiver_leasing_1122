@@ -26,8 +26,8 @@ public class ExtractDataFromPDF
 		File file = RunnerClass.getLastModified();
 		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\North Carolinas Format -1\\NC\\Lease_1021_0922_1509_Hughes_Ct_NC_Young.pdf");
 		FileInputStream fis = new FileInputStream(file);
-		PDDocument document = PDDocument.load(fis);
-	    text = new PDFTextStripper().getText(document);
+		NC_RunnerClass.document = PDDocument.load(fis);
+	    text = new PDFTextStripper().getText(NC_RunnerClass.document);
 	    NC_PropertyWare.pdfText  = text;
 	    if(!text.contains(AppConfig.PDFFormatConfirmationText)) 
 	    {
@@ -419,7 +419,7 @@ public class ExtractDataFromPDF
 	    catch(Exception e)
 	    {}
 	    
-	  document.close();
+	 // document.close();
 	   return true;
     }
 	public static boolean lateFeeRule()

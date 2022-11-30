@@ -1,4 +1,4 @@
-package NorthCarolina;
+package Georgia;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,13 +18,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import mainPackage.InsertDataIntoDatabase;
 import mainPackage.RunnerClass;
 
-public class NC_RunnerClass 
+public class GA_RunnerClass 
 {
+	
 
 public static ChromeDriver FL_driver;
 public static Actions FL_actions;
@@ -40,17 +40,17 @@ public static PDDocument document;
 	public boolean runAutomation(String portfolio, String leaseName, String leaseOwnername)  throws Exception
 	{
 		
-		//NC_RunnerClass NC_RunnerClass = new NC_RunnerClass();
-		NC_RunnerClass.openBrowser();
+		//GA_RunnerClass GA_RunnerClass = new GA_RunnerClass();
+		GA_RunnerClass.openBrowser();
 		//Login to Propertyware
-		NC_PropertyWare downloadLeaseAgreement =new  NC_PropertyWare();
+		GA_PropertyWare downloadLeaseAgreement =new  GA_PropertyWare();
 		downloadLeaseAgreement.login();
 		
 		boolean selectLeaseResult = downloadLeaseAgreement.selectLease(leaseName);
 		if(selectLeaseResult==false)
 			return false;
 		//Empty all static variable values
-		NC_RunnerClass.emptyAllValues();
+		GA_RunnerClass.emptyAllValues();
 		
 		boolean downloadLeaseAgreementResult =  downloadLeaseAgreement.validateSelectedLease(leaseOwnername);//leaseOwnername
 		if(downloadLeaseAgreementResult==false)
@@ -59,22 +59,22 @@ public static PDDocument document;
 		
 		if(RunnerClass.portfolio.contains("MAN")||RunnerClass.portfolio.contains("HS")||RunnerClass.portfolio.contains("MCH"))
 		{
-		NC_PropertyWare.portfolioType = "MCH";
+		GA_PropertyWare.portfolioType = "MCH";
 		}
 		else
-		NC_PropertyWare.portfolioType = "Others";
+		GA_PropertyWare.portfolioType = "Others";
 		
 		// Decide the PDF Format
-        pdfFormatType = NC_RunnerClass.decidePDFFormat();
+        pdfFormatType = GA_RunnerClass.decidePDFFormat();
         try
         {
-        NC_RunnerClass.document.close();
+        GA_RunnerClass.document.close();
         }
         catch(Exception e) {}
         if(pdfFormatType.equalsIgnoreCase("Format1"))
         {
         	System.out.println("PDF Type = Format 1");
-        	ExtractDataFromPDF getDataFromPDF = new ExtractDataFromPDF();
+        	GA_ExtractDataFromPDF getDataFromPDF = new GA_ExtractDataFromPDF();
     		boolean getDataFromPDFResult =  getDataFromPDF.arizona();
     		if(getDataFromPDFResult == false)
     			return false;
@@ -82,7 +82,7 @@ public static PDDocument document;
         else if(pdfFormatType.equalsIgnoreCase("Format2"))
              {
         	    System.out.println("PDF Type = Format 2");
-        	    ExtractDataFromPDF_Format2 getDataFromPDF_format2 = new ExtractDataFromPDF_Format2();
+        	    GA_ExtractDataFromPDF_Format2 getDataFromPDF_format2 = new GA_ExtractDataFromPDF_Format2();
 	    		boolean getDataFromPDFResult =  getDataFromPDF_format2.arizona();
 	    		if(getDataFromPDFResult == false)
     			return false;
@@ -95,21 +95,21 @@ public static PDDocument document;
         String startDate="";
         try
         {
-        	startDate= RunnerClass.convertDate(NC_PropertyWare.commensementDate).trim();
+        	startDate= RunnerClass.convertDate(GA_PropertyWare.commensementDate).trim();
         }
         catch(Exception e)
         {
         	InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Unable to get Start Date"+'\n');
         	return false;
         }
-        String endDate = RunnerClass.convertDate(NC_PropertyWare.expirationDate).trim();
+        String endDate = RunnerClass.convertDate(GA_PropertyWare.expirationDate).trim();
 		//Check if the Start Date, End Date and Move In Date matches in both PW and Lease Agreement
-        if(!NC_PropertyWare.leaseStartDate_PW.trim().equalsIgnoreCase(startDate))
+        if(!GA_PropertyWare.leaseStartDate_PW.trim().equalsIgnoreCase(startDate))
         {
         	System.out.println("Start Date doesn't Match");
  	    	InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Start Date is not matched"+'\n');
         }
-        if(!NC_PropertyWare.leaseEndDate_PW.trim().equalsIgnoreCase(endDate))
+        if(!GA_PropertyWare.leaseEndDate_PW.trim().equalsIgnoreCase(endDate))
         {
         	System.out.println("End Date doesn't Match");
  	    	InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "End Date is not matched"+'\n');
@@ -118,7 +118,7 @@ public static PDDocument document;
         InsertDataIntoPropertyWare.insertData();
         try
         {
-        NC_RunnerClass.document.close();
+        GA_RunnerClass.document.close();
         }
         catch(Exception e) {}
 		return true;
@@ -162,9 +162,9 @@ public static PDDocument document;
 		{
 		File file = RunnerClass.getLastModified();
 		FileInputStream fis = new FileInputStream(file);
-		NC_RunnerClass.document = PDDocument.load(fis);
+		GA_RunnerClass.document = PDDocument.load(fis);
 	    String text = new PDFTextStripper().getText(document);
-	    NC_PropertyWare.pdfText  = text;
+	    GA_PropertyWare.pdfText  = text;
 	    if(text.contains(AppConfig.PDFFormatConfirmationText)) 
 	    {
 	    	document.close();
@@ -195,69 +195,69 @@ public static PDDocument document;
 	}
 	public static void emptyAllValues()
 	{
-		NC_PropertyWare.commensementDate ="";
-		NC_PropertyWare.expirationDate ="";
-		NC_PropertyWare.proratedRent ="";
-		NC_PropertyWare.proratedRentDate ="";
-		NC_PropertyWare.monthlyRent="";
-		NC_PropertyWare.monthlyRentDate="";
-		NC_PropertyWare.adminFee="";
-		NC_PropertyWare.airFilterFee="";
-		NC_PropertyWare.earlyTermination="";
-		NC_PropertyWare.occupants="";
-		NC_PropertyWare.lateChargeDay="";
-		NC_PropertyWare.lateChargeFee="";
-		NC_PropertyWare.proratedPetRent="";
-		NC_PropertyWare.petRentWithTax="";
-		NC_PropertyWare.proratedPetRentDate="";
-		NC_PropertyWare.petSecurityDeposit="";
-		NC_PropertyWare.RCDetails="";
-		NC_PropertyWare.petRent="";
-		NC_PropertyWare.petFee="";
-		NC_PropertyWare.pet1Type="";
-		NC_PropertyWare.pet2Type="";
-		NC_PropertyWare.serviceAnimalType="";
-		NC_PropertyWare.pet1Breed="";
-		NC_PropertyWare.pet2Breed="";
-		NC_PropertyWare.serviceAnimalBreed="";
-		NC_PropertyWare.pet1Weight="";
-		NC_PropertyWare.pet2Weight="";
-		NC_PropertyWare.serviceAnimalWeight="";
-		NC_PropertyWare.petOneTimeNonRefundableFee="";
-		NC_PropertyWare.countOfTypeWordInText=0;
-		NC_PropertyWare.lateFeeChargeDay="";
-		NC_PropertyWare.lateFeeAmount="";
-		NC_PropertyWare.lateFeeChargePerDay="";
-		NC_PropertyWare.additionalLateCharges="";
-		NC_PropertyWare.additionalLateChargesLimit="";
-		NC_PropertyWare.CDEType="";
-		NC_PropertyWare.monthlyTenantAdminFee_Amount=0.00;
-		NC_PropertyWare.calculatedPetRent=0.00;
-		NC_PropertyWare.df = new DecimalFormat("0.00");
-		NC_PropertyWare.pdfText="";
-		NC_PropertyWare.securityDeposit="";
-		NC_PropertyWare.leaseStartDate_PW="";
-		NC_PropertyWare.leaseEndDate_PW="";
-		NC_PropertyWare.prepaymentCharge="";
-		NC_PropertyWare.petType=null;
-		NC_PropertyWare.petBreed=null;
-		NC_PropertyWare.petWeight=null;
-		NC_PropertyWare.robot=null;
-		NC_PropertyWare.concessionAddendumFlag = false;
-		NC_PropertyWare.petSecurityDepositFlag = false;
-		NC_PropertyWare.petFlag = false;
-		NC_PropertyWare.portfolioType="";
-		NC_PropertyWare.incrementRentFlag = false;
-		NC_PropertyWare.proratedRentDateIsInMoveInMonthFlag=false;
-		NC_PropertyWare.increasedRent_previousRentStartDate ="";
-		NC_PropertyWare.increasedRent_previousRentEndDate ="";
-		NC_PropertyWare.increasedRent_amount ="";
-		NC_PropertyWare.increasedRent_newStartDate ="";
-		NC_PropertyWare.increasedRent_newEndDate ="";
-		NC_PropertyWare.serviceAnimalFlag = false;
-		NC_PropertyWare.lateFeeType ="";
-		NC_PropertyWare.flatFeeAmount ="";
-		NC_PropertyWare.lateFeePercentage="";
+		GA_PropertyWare.commensementDate ="";
+		GA_PropertyWare.expirationDate ="";
+		GA_PropertyWare.proratedRent ="";
+		GA_PropertyWare.proratedRentDate ="";
+		GA_PropertyWare.monthlyRent="";
+		GA_PropertyWare.monthlyRentDate="";
+		GA_PropertyWare.adminFee="";
+		GA_PropertyWare.airFilterFee="";
+		GA_PropertyWare.earlyTermination="";
+		GA_PropertyWare.occupants="";
+		GA_PropertyWare.lateChargeDay="";
+		GA_PropertyWare.lateChargeFee="";
+		GA_PropertyWare.proratedPetRent="";
+		GA_PropertyWare.petRentWithTax="";
+		GA_PropertyWare.proratedPetRentDate="";
+		GA_PropertyWare.petSecurityDeposit="";
+		GA_PropertyWare.RCDetails="";
+		GA_PropertyWare.petRent="";
+		GA_PropertyWare.petFee="";
+		GA_PropertyWare.pet1Type="";
+		GA_PropertyWare.pet2Type="";
+		GA_PropertyWare.serviceAnimalType="";
+		GA_PropertyWare.pet1Breed="";
+		GA_PropertyWare.pet2Breed="";
+		GA_PropertyWare.serviceAnimalBreed="";
+		GA_PropertyWare.pet1Weight="";
+		GA_PropertyWare.pet2Weight="";
+		GA_PropertyWare.serviceAnimalWeight="";
+		GA_PropertyWare.petOneTimeNonRefundableFee="";
+		GA_PropertyWare.countOfTypeWordInText=0;
+		GA_PropertyWare.lateFeeChargeDay="";
+		GA_PropertyWare.lateFeeAmount="";
+		GA_PropertyWare.lateFeeChargePerDay="";
+		GA_PropertyWare.additionalLateCharges="";
+		GA_PropertyWare.additionalLateChargesLimit="";
+		GA_PropertyWare.CDEType="";
+		GA_PropertyWare.monthlyTenantAdminFee_Amount=0.00;
+		GA_PropertyWare.calculatedPetRent=0.00;
+		GA_PropertyWare.df = new DecimalFormat("0.00");
+		GA_PropertyWare.pdfText="";
+		GA_PropertyWare.securityDeposit="";
+		GA_PropertyWare.leaseStartDate_PW="";
+		GA_PropertyWare.leaseEndDate_PW="";
+		GA_PropertyWare.prepaymentCharge="";
+		GA_PropertyWare.petType=null;
+		GA_PropertyWare.petBreed=null;
+		GA_PropertyWare.petWeight=null;
+		GA_PropertyWare.robot=null;
+		GA_PropertyWare.concessionAddendumFlag = false;
+		GA_PropertyWare.petSecurityDepositFlag = false;
+		GA_PropertyWare.petFlag = false;
+		GA_PropertyWare.portfolioType="";
+		GA_PropertyWare.incrementRentFlag = false;
+		GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag=false;
+		GA_PropertyWare.increasedRent_previousRentStartDate ="";
+		GA_PropertyWare.increasedRent_previousRentEndDate ="";
+		GA_PropertyWare.increasedRent_amount ="";
+		GA_PropertyWare.increasedRent_newStartDate ="";
+		GA_PropertyWare.increasedRent_newEndDate ="";
+		GA_PropertyWare.serviceAnimalFlag = false;
+		GA_PropertyWare.lateFeeType ="";
+		GA_PropertyWare.flatFeeAmount ="";
+		GA_PropertyWare.lateFeePercentage="";
 	}
 	
 	

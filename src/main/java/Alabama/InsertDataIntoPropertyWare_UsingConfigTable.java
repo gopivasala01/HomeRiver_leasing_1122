@@ -9,7 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import Florida.FL_PropertyWare;
 import mainPackage.GetDataFromDataBase;
 import mainPackage.InsertDataIntoDatabase;
 import mainPackage.RunnerClass;
@@ -162,8 +161,9 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 			AL_RunnerClass.AZ_driver.findElement(Locators.moveInChargeDate).sendKeys(moveInCharges[i][3]);
 			//Save or Cancel button
 			Thread.sleep(2000);
-			//AL_RunnerClass.AZ_driver.findElement(Locators.moveInChargeCancel).click();
-			AL_RunnerClass.AZ_driver.findElement(Locators.moveInChargeSaveButton).click();
+			if(RunnerClass.saveButtonOnAndOff==false)
+			AL_RunnerClass.AZ_driver.findElement(Locators.moveInChargeCancel).click();
+			else AL_RunnerClass.AZ_driver.findElement(Locators.moveInChargeSaveButton).click();
 			Thread.sleep(2000);
 			try
 			{
@@ -283,8 +283,9 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 				}
 				//Save and Cancel
 				Thread.sleep(2000);
-				//AL_RunnerClass.AZ_driver.findElement(Locators.autoCharge_CancelButton).click();
-				AL_RunnerClass.AZ_driver.findElement(Locators.autoCharge_SaveButton).click();
+				if(RunnerClass.saveButtonOnAndOff==false)
+				AL_RunnerClass.AZ_driver.findElement(Locators.autoCharge_CancelButton).click();
+				else AL_RunnerClass.AZ_driver.findElement(Locators.autoCharge_SaveButton).click();
 				Thread.sleep(2000);
 				try
 				{
@@ -808,6 +809,7 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 			try
 			{
 				Thread.sleep(2000);
+				if(RunnerClass.saveButtonOnAndOff==true)
 				AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).click(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).build().perform();
 			}
 			catch(Exception e)
@@ -826,6 +828,7 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 			e.printStackTrace();
 			AL_RunnerClass.AZ_js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
 			Thread.sleep(2000);
+			if(RunnerClass.saveButtonOnAndOff==true)
 			AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).click(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).build().perform();
 			RunnerClass.leaseCompletedStatus = 2;
 			return false;
@@ -837,36 +840,36 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 	{
 		// Get List of Charges from table
 		GetDataFromDataBase.getChargesFromConfigurationTable();
-		String DayInCommensementDate = RunnerClass.convertDate(FL_PropertyWare.commensementDate).split("/")[1].trim();
+		String DayInCommensementDate = RunnerClass.convertDate(AL_PropertyWare.commensementDate).split("/")[1].trim();
 		//Update Start date and End Date
 		String firstFullMonth=null;
 		String secondFullMonth = null;
 		if(DayInCommensementDate.equalsIgnoreCase("01")||DayInCommensementDate.equalsIgnoreCase("1"))
 		{
-			firstFullMonth = RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim();
-			secondFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
+			firstFullMonth = RunnerClass.convertDate(AL_PropertyWare.commensementDate).trim();
+			secondFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(AL_PropertyWare.commensementDate));
 		}
 		else 
 		{
-		firstFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
-		secondFullMonth = RunnerClass.NextMonthOffirstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
+		firstFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(AL_PropertyWare.commensementDate));
+		secondFullMonth = RunnerClass.NextMonthOffirstDayOfFullMonth(RunnerClass.convertDate(AL_PropertyWare.commensementDate));
 		}
-		String updateStartDateAndEndDate = "Update [Automation].[ChargeCodesConfiguration] Set StartDate='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
+		String updateStartDateAndEndDate = "Update [Automation].[ChargeCodesConfiguration] Set StartDate='"+RunnerClass.convertDate(AL_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
 				+ "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+firstFullMonth+"' where AutoCharge =1 \n"
 						+ "Update [Automation].[ChargeCodesConfiguration] Set endDate='"+RunnerClass.DateModified(firstFullMonth)+"' where Charge ='Pro Rate Rent' ";
 		InsertDataIntoDatabase.updateTable(updateStartDateAndEndDate);
 		//If there is an increased rent, add add date to previous monthly rent in auto charges
 		
-		if(RunnerClass.onlyDigits(FL_PropertyWare.increasedRent_amount.trim().replace(",", "").replace(".", ""))==true)
+		if(RunnerClass.onlyDigits(AL_PropertyWare.increasedRent_amount.trim().replace(",", "").replace(".", ""))==true)
 		{
-		String updateMonthlyRentStartDateToNextMonthOfFirstFullMonth = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate))+"',EndDate ='"+RunnerClass.convertDate(FL_PropertyWare.increasedRent_previousRentEndDate.trim())+"'  where ID=2";
+		String updateMonthlyRentStartDateToNextMonthOfFirstFullMonth = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(AL_PropertyWare.commensementDate))+"',EndDate ='"+RunnerClass.convertDate(AL_PropertyWare.increasedRent_previousRentEndDate.trim())+"'  where ID=2";
 		InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateToNextMonthOfFirstFullMonth);
 		}
 		else {
 		//If Prorate Rent is under 200$, Monthly Rent Start date should be next month of First Full Month
 		try
 		{
-		if(FL_PropertyWare.portfolioType=="Others"||FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true) //Double.parseDouble(FL_PropertyWare.proratedRent.trim())<=200.00||
+		if(AL_PropertyWare.portfolioType=="Others"||AL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true) //Double.parseDouble(AL_PropertyWare.proratedRent.trim())<=200.00||
 		{
 			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+secondFullMonth+"' where ID=2";
 			InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers);

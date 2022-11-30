@@ -45,6 +45,7 @@ public class RunnerClass
 	public static int leaseCompletedStatus = 0;
 	public static String portfolio;
 	public static String downloadFilePath;
+	public static boolean saveButtonOnAndOff =false; 
 	
 	public static void main(String[] args) throws Exception
 	{
@@ -59,7 +60,7 @@ public class RunnerClass
 	public void splitLeasesByCompany(String[][] leasesList) throws Exception
 	{
 		// split leases by market
-		
+		saveButtonOnAndOff = false;
 		for(int i=0;i<leasesList.length;i++)
 		{
 			market = leasesList[i][0];
@@ -110,7 +111,7 @@ public class RunnerClass
 			 File f = new File(RunnerClass.downloadFilePath);
 			 if(f.exists())
 			 {
-	         FileUtils.cleanDirectory(f); //clean out directory (this is optional -- but good know)
+	         //FileUtils.cleanDirectory(f); //clean out directory (this is optional -- but good know)
 	         FileUtils.forceDelete(f); //delete directory
 			 }
 	         //FileUtils.forceMkdir(f); //create directory
