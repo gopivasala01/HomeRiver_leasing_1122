@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Alabama.AL_PropertyWare;
+import Alabama.AL_RunnerClass;
 import Alabama.Locators;
 import mainPackage.InsertDataIntoDatabase;
 import mainPackage.RunnerClass;
@@ -1111,7 +1113,7 @@ public class InsertDataIntoPropertyWare {
 			{
 		    GA_RunnerClass.FL_actions.moveToElement(GA_RunnerClass.FL_driver.findElement(Locators.lateFeeType)).build().perform();
 			Select feeType = new Select(GA_RunnerClass.FL_driver.findElement(Locators.lateFeeType));
-			feeType.selectByVisibleText("Greater of Flat Fee or Percentage");
+			feeType.selectByVisibleText("Initial Fee + Per Day Fee");
 			}
 			catch(Exception e)
 			{
@@ -1119,42 +1121,180 @@ public class InsertDataIntoPropertyWare {
 				return false;
 			}
 			Thread.sleep(2000);
+			//Late Charges
+			Thread.sleep(2000);
+			if(AL_PropertyWare.additionalLateChargesLimit.contains("375"))
+			{
+				AL_PropertyWare.lateChargeDay = "2";
+			}
+			else AL_PropertyWare.lateChargeDay = String.valueOf(AL_PropertyWare.lateChargeDay.trim().charAt(0));
+
 			try
 			{
-			GA_RunnerClass.FL_actions.moveToElement(GA_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)).build().perform();
-			Select dueDayList = new Select(GA_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)) ;
-			dueDayList.selectByVisibleText(GA_PropertyWare.lateChargeDay);
+				if(AL_PropertyWare.lateChargeDay.equalsIgnoreCase("Error"))
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Day"+'\n');
+					//temp=1;
+				}
+				else
+				{
+				AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.lateFeeDueDay)).build().perform();
+				Select dueDayList = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.lateFeeDueDay)) ;
+				dueDayList.selectByVisibleText(AL_PropertyWare.lateChargeDay);
+				}
 			}
 			catch(Exception e)
 			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Fee Due Day"+'\n');
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Day"+'\n');
+				//temp=1;
 			}
+			// Initial Fee
 			Thread.sleep(2000);
 			try
 			{
-			GA_RunnerClass.FL_actions.moveToElement(GA_RunnerClass.FL_driver.findElement(Locators.flatFee)).build().perform();
-			GA_RunnerClass.FL_driver.findElement(Locators.flatFee).click();
-			//GA_RunnerClass.FL_driver.findElement(Locators.flatFee).clear();
-			RunnerClass.keyBoardActions();
-			GA_RunnerClass.FL_driver.findElement(Locators.flatFee).sendKeys(GA_PropertyWare.flatFeeAmount);
+				if(AL_PropertyWare.lateChargeFee.equalsIgnoreCase("Error"))
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee"+'\n');
+					//temp=1;
+				}
+				else
+				{
+				AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.initialFee)).build().perform();
+				AL_RunnerClass.AZ_driver.findElement(Locators.initialFee).click();
+				Thread.sleep(1000);
+				AL_RunnerClass.AZ_driver.findElement(Locators.initialFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+				//AL_PropertyWare.clearTextField();
+				//AL_RunnerClass.AZ_actions.click(AL_RunnerClass.AZ_driver.findElement(Locators.initialFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+				AL_RunnerClass.AZ_driver.findElement(Locators.initialFee).sendKeys(AL_PropertyWare.lateChargeFee);
+				}
 			}
 			catch(Exception e)
 			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Flat Fee"+'\n');
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee"+'\n');
+				//temp=1;
 			}
+			Thread.sleep(2000);
+			//Initial Fee Dropdown
+			
+			try
+			{
+				if(AL_PropertyWare.lateChargeFee.contains("%"))
+				{
+				Select initialDropdown = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.initialFeeDropdown)) ;
+				initialDropdown.selectByVisibleText("% of Rent Charges");
+				}
+				else 
+				{
+					Select initialDropdown = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.initialFeeDropdown)) ;
+					initialDropdown.selectByVisibleText("Fixed Amount");
+				}
+			}
+			catch(Exception e)
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Initial fee Dropdown"+'\n');
+				//temp=1;
+			}
+			
+			//Per Day Fee
 			Thread.sleep(2000);
 			try
 			{
-			GA_RunnerClass.FL_actions.moveToElement(GA_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage)).build().perform();
-			GA_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage).click();
-			RunnerClass.keyBoardActions();
-			//GA_RunnerClass.FL_actions.sendKeys(Keys.END).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-			GA_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage).sendKeys(GA_PropertyWare.lateFeePercentage);
+				if(AL_PropertyWare.lateFeeChargePerDay.equalsIgnoreCase("Error"))
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Per Day"+'\n');
+					//temp=1;
+				}
+				else
+				{
+				AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.perDayFee)).build().perform();
+				AL_RunnerClass.AZ_driver.findElement(Locators.perDayFee).click();
+				Thread.sleep(1000);
+				AL_RunnerClass.AZ_driver.findElement(Locators.perDayFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+				//AL_PropertyWare.clearTextField();
+				//AL_RunnerClass.AZ_actions.click(AL_RunnerClass.AZ_driver.findElement(Locators.perDayFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+				AL_RunnerClass.AZ_driver.findElement(Locators.perDayFee).sendKeys(AL_PropertyWare.lateFeeChargePerDay);
+				}
 			}
 			catch(Exception e)
 			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Percentage"+'\n');
+				e.printStackTrace();
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Per Day"+'\n');
+				//temp=1;
 			}
+            //Per Day Fee Dropdown
+			Thread.sleep(2000);
+			try
+			{
+			Select perDayFeeDropdown = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.perDayFeeDropdown)) ;
+			perDayFeeDropdown.selectByVisibleText("Fixed Amount");
+			}
+			catch(Exception e)
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Per Day Dropdown"+'\n');
+				//temp=1;
+			}
+			if(AL_RunnerClass.pdfFormatType.equalsIgnoreCase("Format1"))
+		    {
+			
+				//Maximum
+				Thread.sleep(2000);
+				try
+				{
+				Select maximumDropdown = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.maximumYesNoDropdown)) ;
+				maximumDropdown.selectByVisibleText("Yes");
+				}
+				catch(Exception e)
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Fee Maximum dropdown"+'\n');
+					//temp=1;
+				}
+				// Additional Late charges Limit
+				
+				String maximumLimitDropdown = "";
+				if(AL_PropertyWare.additionalLateChargesLimit.contains("30"))
+				{
+					AL_PropertyWare.additionalLateChargesLimit = "12";
+				    maximumLimitDropdown = "% of Rent Charges";
+				}
+				else
+					maximumLimitDropdown = "Fixed Amount";
+				Thread.sleep(2000);
+				try
+				{
+					if(AL_PropertyWare.additionalLateChargesLimit.equalsIgnoreCase("Error"))
+					{
+						InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Limit"+'\n');
+						//temp=1;
+					}
+					else
+					{
+						AL_RunnerClass.AZ_driver.findElement(Locators.maximumDatField).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+						AL_RunnerClass.AZ_driver.findElement(Locators.maximumDatField).clear();
+						AL_RunnerClass.AZ_driver.findElement(Locators.maximumDatField).click();
+						Thread.sleep(1000);
+						//AL_PropertyWare.clearTextField();
+						//AL_RunnerClass.AZ_actions.click(AL_RunnerClass.AZ_driver.findElement(Locators.maximumDatField)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+						AL_RunnerClass.AZ_driver.findElement(Locators.maximumDatField).sendKeys(AL_PropertyWare.additionalLateChargesLimit);
+					}
+				}
+				catch(Exception e)
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Limit"+'\n');
+					//temp=1;
+				}
+				Thread.sleep(2000);
+				try
+				{
+				Select maximumDropdown2 = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.maximumDropdown2)) ;
+				maximumDropdown2.selectByVisibleText(maximumLimitDropdown);
+				}
+				catch(Exception e)
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Maximum Limit Dropdown 2"+'\n');
+					//temp=1;
+				}
+		    }
+			Thread.sleep(2000);
 		//}
 			return true;
 		

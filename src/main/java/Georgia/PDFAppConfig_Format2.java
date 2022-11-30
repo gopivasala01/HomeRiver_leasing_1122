@@ -25,9 +25,9 @@ package Georgia;
 		
 		public static String lateFeeDay_Prior = "11:59 PM of the ";
 		
-		public static String initialLateChargeFee_Prior = "Tenant will pay Landlord for each late payment a late fee of";
+		public static String initialLateChargeFee_Prior = "day of the month equal to $";
 		
-		public static String additionaLateCharge_Prior = "and additional late charge of $";
+		public static String additionaLateCharge_Prior = "additional late charge of $";
 		
 		public static String lateChargePerDayFee = "of the monthly rent or $";
 		

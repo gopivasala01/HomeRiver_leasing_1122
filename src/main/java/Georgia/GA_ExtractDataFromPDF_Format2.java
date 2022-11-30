@@ -409,6 +409,7 @@ public class GA_ExtractDataFromPDF_Format2 {
 	
 	public static void lateFeeRule()
 	{
+		//Late Charge Day
 		try
 	    {
 	    	GA_PropertyWare.lateChargeDay = text.substring(text.indexOf(PDFAppConfig_Format2.lateFeeDay_Prior)+PDFAppConfig_Format2.lateFeeDay_Prior.length()).trim().split(" ")[0].trim().replace("[^0-9]", "");
@@ -421,30 +422,30 @@ public class GA_ExtractDataFromPDF_Format2 {
 	    	e.printStackTrace();
 	    }
 	    
-	    
+	    //Late Charge Fee
 	    try
 	    {
-	    	GA_PropertyWare.lateFeePercentage = text.substring(text.indexOf(PDFAppConfig_Format2.initialLateChargeFee_Prior)+PDFAppConfig_Format2.initialLateChargeFee_Prior.length()).trim().split(" ")[0].trim();
-	    	GA_PropertyWare.lateFeePercentage = GA_PropertyWare.lateFeePercentage.replaceAll("[^0-9]", "");
-	    	System.out.println("Late Fee Percentage  = "+GA_PropertyWare.lateFeePercentage);//.substring(commensementDate.lastIndexOf(":")+1));
+	    	GA_PropertyWare.lateChargeFee = text.substring(text.indexOf(PDFAppConfig_Format2.initialLateChargeFee_Prior)+PDFAppConfig_Format2.initialLateChargeFee_Prior.length()).trim().split(" ")[0].trim();
+	    	GA_PropertyWare.lateChargeFee = GA_PropertyWare.lateChargeFee.replaceAll("[^0-9]", "");
 	    }
 	    catch(Exception e)
 	    {
-	    	GA_PropertyWare.lateFeePercentage = "Error";
+	    	GA_PropertyWare.lateChargeFee = "Error";
 	    	e.printStackTrace();
 	    }
+	    System.out.println("Late Fee = "+GA_PropertyWare.lateChargeFee);//.substring(commensementDate.lastIndexOf(":")+1));
 	    //Per Day Fee
 	    try
 	    {
-	    	GA_PropertyWare.flatFeeAmount = text.substring(text.indexOf(PDFAppConfig_Format2.lateChargePerDayFee)+PDFAppConfig_Format2.lateChargePerDayFee.length()).trim().split(" ")[0].trim();
-	    	GA_PropertyWare.flatFeeAmount = GA_PropertyWare.flatFeeAmount.replaceAll("[^.0-9]", "");
-	    	System.out.println("Per Day Fee  = "+GA_PropertyWare.lateFeeChargePerDay);//.substring(commensementDate.lastIndexOf(":")+1));
+	    	GA_PropertyWare.additionalLateCharges = text.substring(text.indexOf(PDFAppConfig_Format2.additionaLateCharge_Prior)+PDFAppConfig_Format2.additionaLateCharge_Prior.length()).trim().split(" ")[0].trim();
+	    	GA_PropertyWare.additionalLateCharges = GA_PropertyWare.additionalLateCharges.replaceAll("[^.0-9]", "");
 	    }
 	    catch(Exception e)
 	    {
-	    	GA_PropertyWare.flatFeeAmount = "Error";
+	    	GA_PropertyWare.additionalLateCharges = "Error";
 	    	e.printStackTrace();
 	    }
+	    System.out.println("Additional Late Charges  = "+GA_PropertyWare.additionalLateCharges);//.substring(commensementDate.lastIndexOf(":")+1));
 	    /*
 	    try
 	    {
