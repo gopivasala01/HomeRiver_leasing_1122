@@ -16,7 +16,7 @@ public class GA_ExtractDataFromPDF_Format2 {
 	//public static void main(String[] args) throws Exception 
 	{
 		GA_PropertyWare.petFlag = false;
-		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\Georgia Format 2\\Georgia Format 1\\Lease_09.21_09.22_6662_Blantyre_Blvd_GA_Chen (1).pdf");
+		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\Georgia Format 2\\Georgia Format 1\\Lease_10.21_10.22_6425_Raleigh_St_GA_Smith.pdf");
 		File file = RunnerClass.getLastModified();
 		FileInputStream fis = new FileInputStream(file);
 		GA_RunnerClass.document = PDDocument.load(fis);
@@ -426,7 +426,7 @@ public class GA_ExtractDataFromPDF_Format2 {
 	    try
 	    {
 	    	GA_PropertyWare.lateChargeFee = text.substring(text.indexOf(PDFAppConfig_Format2.initialLateChargeFee_Prior)+PDFAppConfig_Format2.initialLateChargeFee_Prior.length()).trim().split(" ")[0].trim();
-	    	GA_PropertyWare.lateChargeFee = GA_PropertyWare.lateChargeFee.replaceAll("[^0-9]", "");
+	    	GA_PropertyWare.lateChargeFee = GA_PropertyWare.lateChargeFee.replaceAll("[^.0-9]", "");
 	    }
 	    catch(Exception e)
 	    {

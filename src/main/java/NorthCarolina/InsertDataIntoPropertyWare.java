@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -290,6 +291,12 @@ public class InsertDataIntoPropertyWare
 				Thread.sleep(2000);
 				NC_RunnerClass.FL_driver.findElement(Locators.autoCharge_EndDate).sendKeys(autoCharges[i][5]);
 				}
+				
+				try
+				{
+					NC_RunnerClass.FL_driver.findElement(By.xpath("//*[text()='New Auto Charge']")).click();
+				}
+				catch(Exception e) {}
 				//Save and Cancel
 				Thread.sleep(2000);
 				if(RunnerClass.saveButtonOnAndOff==false)
@@ -335,7 +342,7 @@ public class InsertDataIntoPropertyWare
 			}
 			//Early Termination
 			Thread.sleep(2000);
-			/*
+			
 			try
 			{
 				if(NC_PropertyWare.earlyTermination.equalsIgnoreCase("Error"))
@@ -365,7 +372,7 @@ public class InsertDataIntoPropertyWare
 				e.printStackTrace();
 				temp=1;
 			}
-			*/
+			
 			//Enrolled in FilterEasy
 			if(NC_PropertyWare.airFilterFee!="Error")
 			{
@@ -744,6 +751,15 @@ public class InsertDataIntoPropertyWare
 		}
 		catch(Exception e) {}
 		}
+		try
+		{
+		if(NC_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&(NC_PropertyWare.proratedPetRent!=""||NC_PropertyWare.proratedPetRent!=null||!NC_PropertyWare.proratedPetRent.equalsIgnoreCase("na")||!NC_PropertyWare.proratedPetRent.equalsIgnoreCase("n/a"))) //Double.parseDouble(NC_PropertyWare.proratedRent.trim())<=200.00||
+		{
+			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+secondFullMonth+"' where ID=8";
+			InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers);
+		}
+		}
+		catch(Exception e) {}
 		String query =null;
 		for(int i=0;i<charges.length;i++)
 		{

@@ -18,7 +18,7 @@ public class ExtractDataFromPDF_Format2
 	//public static void main(String[] args) throws Exception 
 	{
 		NC_PropertyWare.petFlag = false;
-		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\MAPL421\\Lease_1222_1223_421_E_Maple_Ave_NC_Blackwel.pdf");
+		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\MAPL421\\Lease__10.21_10.22_5150_Rock_Place_Dr_GA_Mitchell_-_Robinson.pdf");
 		File file = RunnerClass.getLastModified();
 		FileInputStream fis = new FileInputStream(file);
 		NC_RunnerClass.document = PDDocument.load(fis);

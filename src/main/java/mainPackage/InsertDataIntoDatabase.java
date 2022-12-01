@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -15,12 +18,16 @@ import org.apache.poi.ss.usermodel.Row;
 	  public static void insertData(String buildingName, String status, int statusID) throws Exception
 	  {
 
+		  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+		   LocalDateTime now = LocalDateTime.now();  
+		   System.out.println(dtf.format(now));
+		   String currentTime = dtf.format(now);
 		  String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
 		  String sql;
 		  if(statusID==1)
-		   sql = "Update [Automation].[LeaseInfo] Set Status ='"+status+"', StatusID="+statusID+",NotAutomatedFields=NULL where BuildingName like '%"+buildingName+"%'";
+		   sql = "Update [Automation].[LeaseInfo] Set Status ='"+status+"', StatusID="+statusID+",NotAutomatedFields=NULL,StartTime= "+currentTime+" where BuildingName like '%"+buildingName+"%'";
 		  else 
-			sql = "Update [Automation].[LeaseInfo] Set Status ='"+status+"', StatusID="+statusID+" where BuildingName like '%"+buildingName+"%'";
+			sql = "Update [Automation].[LeaseInfo] Set Status ='"+status+"', StatusID="+statusID+",StartTime= '"+currentTime+"' where BuildingName like '%"+buildingName+"%'";
             //String sql = "Update [Automation].[LeaseInfo] Set Status = 'Completed', StatusID =4 where OwnerName='Duff, V.'";
 		  
 		    try (Connection conn = DriverManager.getConnection(connectionUrl);

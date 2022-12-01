@@ -24,6 +24,7 @@ import Alabama.AL_PropertyWare;
 import Alabama.AL_RunnerClass;
 import Arizona.AZ_RunnerClass;
 import Florida.FL_RunnerClass;
+import Georgia.GA_RunnerClass;
 import NorthCarolina.NC_RunnerClass;
 //import Arizona.AZ_PropertyWare;
 //import Arizona.AZ_RunnerClass;
@@ -101,6 +102,13 @@ public class RunnerClass
 					northCarolina.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
 					NC_RunnerClass.FL_driver.close();
+					break;
+			case "Georgia":
+				//case "Arkansas":
+					GA_RunnerClass georgia = new GA_RunnerClass();
+					georgia.runAutomation(portfolio,leaseName,leaseOwnerName);
+					RunnerClass.updateLeaseStatus();
+					GA_RunnerClass.FL_driver.close();
 					break;
 			
 			}

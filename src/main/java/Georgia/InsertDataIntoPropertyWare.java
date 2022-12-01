@@ -4,14 +4,14 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import Alabama.AL_PropertyWare;
-import Alabama.AL_RunnerClass;
 import Alabama.Locators;
+import NorthCarolina.NC_RunnerClass;
 import mainPackage.InsertDataIntoDatabase;
 import mainPackage.RunnerClass;
 
@@ -28,7 +28,7 @@ public class InsertDataIntoPropertyWare {
 		try
 		{
 		//Change all values in ChargeCodesConfiguration table to NULL
-		String query = "Update automation.ChargeCodesConfiguration Set Amount=NULL,StartDate=NULL,EndDate=NULL,MoveINCharge=NULL,autoCharge=NULL,AutoCharge_StartDate=NULL";
+		String query = "Update "+GA_RunnerClass.chargeCodesTable+" Set Amount=NULL,StartDate=NULL,EndDate=NULL,MoveINCharge=NULL,autoCharge=NULL,AutoCharge_StartDate=NULL";
 		InsertDataIntoDatabase.updateTable(query);
 
 		//Check if Prorated Rent Date is in Move in Date month
@@ -291,6 +291,11 @@ public class InsertDataIntoPropertyWare {
 				Thread.sleep(2000);
 				GA_RunnerClass.FL_driver.findElement(Locators.autoCharge_EndDate).sendKeys(autoCharges[i][5]);
 				}
+				try
+				{
+					NC_RunnerClass.FL_driver.findElement(By.xpath("//*[text()='New Auto Charge']")).click();
+				}
+				catch(Exception e) {}
 				//Save and Cancel
 				Thread.sleep(2000);
 				if(RunnerClass.saveButtonOnAndOff==false)
@@ -336,7 +341,7 @@ public class InsertDataIntoPropertyWare {
 			}
 			//Early Termination
 			Thread.sleep(2000);
-			/*
+			
 			try
 			{
 				if(GA_PropertyWare.earlyTermination.equalsIgnoreCase("Error"))
@@ -366,7 +371,7 @@ public class InsertDataIntoPropertyWare {
 				e.printStackTrace();
 				temp=1;
 			}
-			*/
+			
 			//Enrolled in FilterEasy
 			if(GA_PropertyWare.airFilterFee!="Error")
 			{
@@ -722,15 +727,15 @@ public class InsertDataIntoPropertyWare {
 		firstFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(GA_PropertyWare.commensementDate));
 		secondFullMonth = RunnerClass.NextMonthOffirstDayOfFullMonth(RunnerClass.convertDate(GA_PropertyWare.commensementDate));
 		}
-		String updateStartDateAndEndDate = "Update [Automation].[ChargeCodesConfiguration] Set StartDate='"+RunnerClass.convertDate(GA_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
-				+ "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+firstFullMonth+"' where AutoCharge =1 \n"
-						+ "Update [Automation].[ChargeCodesConfiguration] Set endDate='"+RunnerClass.DateModified(firstFullMonth)+"' where Charge ='Pro Rate Rent' ";
+		String updateStartDateAndEndDate = "Update "+GA_RunnerClass.chargeCodesTable+" Set StartDate='"+RunnerClass.convertDate(GA_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
+				+ "Update "+GA_RunnerClass.chargeCodesTable+" Set autoCharge_StartDate='"+firstFullMonth+"' where AutoCharge =1 \n"
+						+ "Update "+GA_RunnerClass.chargeCodesTable+" Set endDate='"+RunnerClass.DateModified(firstFullMonth)+"' where Charge ='Pro Rate Rent' ";
 		InsertDataIntoDatabase.updateTable(updateStartDateAndEndDate);
 		//If there is an increased rent, add add date to previous monthly rent in auto charges
 		
 		if(RunnerClass.onlyDigits(GA_PropertyWare.increasedRent_amount.trim().replace(",", "").replace(".", ""))==true)
 		{
-		String updateMonthlyRentStartDateToNextMonthOfFirstFullMonth = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(GA_PropertyWare.commensementDate))+"',EndDate ='"+RunnerClass.convertDate(GA_PropertyWare.increasedRent_previousRentEndDate.trim())+"'  where ID=2";
+		String updateMonthlyRentStartDateToNextMonthOfFirstFullMonth = "Update "+GA_RunnerClass.chargeCodesTable+" Set autoCharge_StartDate='"+RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(GA_PropertyWare.commensementDate))+"',EndDate ='"+RunnerClass.convertDate(GA_PropertyWare.increasedRent_previousRentEndDate.trim())+"'  where ID=2";
 		InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateToNextMonthOfFirstFullMonth);
 		}
 		else {
@@ -739,12 +744,21 @@ public class InsertDataIntoPropertyWare {
 		{
 		if(GA_PropertyWare.portfolioType=="Others"||GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true) //Double.parseDouble(GA_PropertyWare.proratedRent.trim())<=200.00||
 		{
-			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+secondFullMonth+"' where ID=2";
+			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update "+GA_RunnerClass.chargeCodesTable+" Set autoCharge_StartDate='"+secondFullMonth+"' where ID=2";
 			InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers);
 		}
 		}
 		catch(Exception e) {}
 		}
+		try
+		{
+		if(GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&(GA_PropertyWare.proratedPetRent!=""||GA_PropertyWare.proratedPetRent!=null||!GA_PropertyWare.proratedPetRent.equalsIgnoreCase("na")||!GA_PropertyWare.proratedPetRent.equalsIgnoreCase("n/a"))) //Double.parseDouble(GA_PropertyWare.proratedRent.trim())<=200.00||
+		{
+			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update "+GA_RunnerClass.chargeCodesTable+" Set autoCharge_StartDate='"+secondFullMonth+"' where ID=8";
+			InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers);
+		}
+		}
+		catch(Exception e) {}
 		String query =null;
 		for(int i=0;i<charges.length;i++)
 		{
@@ -753,45 +767,45 @@ public class InsertDataIntoPropertyWare {
 			switch(charge)
 			{
 			case "Pro Rate Rent":
-				query = "Update [Automation].[ChargeCodesConfiguration] Set Amount ='"+GA_PropertyWare.proratedRent+"' where charge ='Pro Rate Rent'";
+				query = "Update "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.proratedRent+"' where charge ='Pro Rate Rent'";
 				//InsertDataIntoDatabase.updateTable(query1);
 				continue;
 				
 			case "Monthly Rent":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+GA_PropertyWare.monthlyRent+"' where charge ='Monthly Rent'";
+				query = query+"\nUpdate "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.monthlyRent+"' where charge ='Monthly Rent'";
 				//InsertDataIntoDatabase.updateTable(query2);
 				continue;
 			case "Tenant Admin Revenue":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+GA_PropertyWare.adminFee+"' where charge ='Tenant Admin Revenue'";
+				query = query+"\nUpdate "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.adminFee+"' where charge ='Tenant Admin Revenue'";
 				//InsertDataIntoDatabase.updateTable(query3);
 				continue;
 			case "Pro Rated Pet Rent":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+GA_PropertyWare.proratedPetRent+"' where charge ='Pro Rated Pet Rent'";
+				query = query+"\nUpdate "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.proratedPetRent+"' where charge ='Pro Rated Pet Rent'";
 				//InsertDataIntoDatabase.updateTable(query4);
 				continue;
 			case "Pet Security Deposit":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+GA_PropertyWare.petSecurityDeposit+"' where charge ='Pet Security Deposit'";
+				query = query+"\nUpdate "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.petSecurityDeposit+"' where charge ='Pet Security Deposit'";
 				//InsertDataIntoDatabase.updateTable(query5);
 				continue;
 			case "Pet One Time Non Refundable":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+GA_PropertyWare.petOneTimeNonRefundableFee+"' where charge ='Pet One Time Non Refundable'";
+				query = query+"\nUpdate "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.petOneTimeNonRefundableFee+"' where charge ='Pet One Time Non Refundable'";
 				//InsertDataIntoDatabase.updateTable(query6);
 				continue;
 			case "HVAC Filter Fee":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+GA_PropertyWare.airFilterFee+"' where charge ='HVAC Filter Fee'";
+				query = query+"\nUpdate "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.airFilterFee+"' where charge ='HVAC Filter Fee'";
 				//InsertDataIntoDatabase.updateTable(query7);
 				continue;
 			case "Pet Rent":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+GA_PropertyWare.petRent+"' where charge ='Pet Rent'";
+				query = query+"\nUpdate "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.petRent+"' where charge ='Pet Rent'";
 				//InsertDataIntoDatabase.updateTable(query8);
 				continue;
 			case "Pre Payment Charge":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+GA_PropertyWare.prepaymentCharge+"' where charge ='Pre Payment Charge'";
+				query = query+"\nUpdate "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.prepaymentCharge+"' where charge ='Pre Payment Charge'";
 				//InsertDataIntoDatabase.updateTable(query9);
 				continue;
 			case "Increased Rent":
 				try {
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+GA_PropertyWare.increasedRent_amount+"',autoCharge_StartDate ='"+RunnerClass.convertDate(GA_PropertyWare.increasedRent_newStartDate)+"' where charge ='Increased Rent'";
+				query = query+"\nUpdate "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.increasedRent_amount+"',autoCharge_StartDate ='"+RunnerClass.convertDate(GA_PropertyWare.increasedRent_newStartDate)+"' where charge ='Increased Rent'";
 				//InsertDataIntoDatabase.updateTable(query10);
 				}
 				catch(Exception e) {}
@@ -807,7 +821,7 @@ public class InsertDataIntoPropertyWare {
 		{
 			moveInCharges_1 = "3";
 			autoCharges_1 = "7";
-			InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+			GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 		}
 		else
 		{
@@ -815,13 +829,13 @@ public class InsertDataIntoPropertyWare {
 			{
 				moveInCharges_1 = "3,6,4";
 				autoCharges_1 = "7,8";
-				InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 			else//(GA_PropertyWare.portfolioType=="Others"&&GA_PropertyWare.petFlag==true&&GA_PropertyWare.petSecurityDepositFlag==true)
 			{
 				moveInCharges_1 = "3,5,4";
 				autoCharges_1 = "7,8";
-				InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 		}
 	}
@@ -839,7 +853,7 @@ public class InsertDataIntoPropertyWare {
 			moveInCharges_1 = "2,3";
 			autoCharges_1 = "1,2,7";
 			}
-			InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+			GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 		}
 		else
 		{
@@ -855,13 +869,13 @@ public class InsertDataIntoPropertyWare {
 				moveInCharges_1 = "2,3,4,6";
 				autoCharges_1 = "1,2,7,8";
 				}
-				InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 			else//(GA_PropertyWare.portfolioType=="Others"&&GA_PropertyWare.petFlag==true&&GA_PropertyWare.petSecurityDepositFlag==true)
 			{
 				moveInCharges_1 = "2,3,4,5";
 				autoCharges_1 = "1,2,7,8";
-				InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 		}
 	}
@@ -873,7 +887,7 @@ public class InsertDataIntoPropertyWare {
 			if(GA_PropertyWare.incrementRentFlag == true)
 			autoCharges_1 = "2,7,10";
 			else autoCharges_1 = "2,7";
-			InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);	
+			GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);	
 		}
 		else
 		{
@@ -883,7 +897,7 @@ public class InsertDataIntoPropertyWare {
 				if(GA_PropertyWare.incrementRentFlag == true)
 				autoCharges_1 = "2,7,8,10";
 				else autoCharges_1 = "2,7,8";
-				InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 		    else
 		    {
@@ -893,7 +907,7 @@ public class InsertDataIntoPropertyWare {
 					if(GA_PropertyWare.incrementRentFlag == true)
 					autoCharges_1 = "2,7,8,10";
 					else autoCharges_1 = "2,7,8";
-					InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+					GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 				}
 		    }
 		}
@@ -905,7 +919,7 @@ public class InsertDataIntoPropertyWare {
 		{
 			moveInCharges_1 = "3";
 			autoCharges_1 = "7";
-			InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);	
+			GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);	
 		}
 		else
 		{
@@ -913,7 +927,7 @@ public class InsertDataIntoPropertyWare {
 			{
 				moveInCharges_1 = "3,6,4";
 				autoCharges_1 = "7,8";
-				InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 		    else
 		    {
@@ -921,7 +935,7 @@ public class InsertDataIntoPropertyWare {
 				{
 					moveInCharges_1 = "3,5,4";
 					autoCharges_1 = "7,8";
-					InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+					GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 				}
 		    }
 		}
@@ -1123,24 +1137,27 @@ public class InsertDataIntoPropertyWare {
 			Thread.sleep(2000);
 			//Late Charges
 			Thread.sleep(2000);
-			if(AL_PropertyWare.additionalLateChargesLimit.contains("375"))
-			{
-				AL_PropertyWare.lateChargeDay = "2";
-			}
-			else AL_PropertyWare.lateChargeDay = String.valueOf(AL_PropertyWare.lateChargeDay.trim().charAt(0));
-
 			try
 			{
-				if(AL_PropertyWare.lateChargeDay.equalsIgnoreCase("Error"))
+			if(GA_PropertyWare.additionalLateChargesLimit.contains("375"))
+			{
+				GA_PropertyWare.lateChargeDay = "2";
+			}
+			else GA_PropertyWare.lateChargeDay = String.valueOf(GA_PropertyWare.lateChargeDay.trim().charAt(0));
+			}
+			catch(Exception e) {}
+			try
+			{
+				if(GA_PropertyWare.lateChargeDay.equalsIgnoreCase("Error"))
 				{
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Day"+'\n');
 					//temp=1;
 				}
 				else
 				{
-				AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.lateFeeDueDay)).build().perform();
-				Select dueDayList = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.lateFeeDueDay)) ;
-				dueDayList.selectByVisibleText(AL_PropertyWare.lateChargeDay);
+				GA_RunnerClass.FL_actions.moveToElement(GA_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)).build().perform();
+				Select dueDayList = new Select(GA_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)) ;
+				dueDayList.selectByVisibleText(GA_PropertyWare.lateChargeDay.trim());
 				}
 			}
 			catch(Exception e)
@@ -1152,20 +1169,20 @@ public class InsertDataIntoPropertyWare {
 			Thread.sleep(2000);
 			try
 			{
-				if(AL_PropertyWare.lateChargeFee.equalsIgnoreCase("Error"))
+				if(GA_PropertyWare.lateChargeFee.equalsIgnoreCase("Error"))
 				{
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee"+'\n');
 					//temp=1;
 				}
 				else
 				{
-				AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.initialFee)).build().perform();
-				AL_RunnerClass.AZ_driver.findElement(Locators.initialFee).click();
+				GA_RunnerClass.FL_actions.moveToElement(GA_RunnerClass.FL_driver.findElement(Locators.initialFee)).build().perform();
+				GA_RunnerClass.FL_driver.findElement(Locators.initialFee).click();
 				Thread.sleep(1000);
-				AL_RunnerClass.AZ_driver.findElement(Locators.initialFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
-				//AL_PropertyWare.clearTextField();
-				//AL_RunnerClass.AZ_actions.click(AL_RunnerClass.AZ_driver.findElement(Locators.initialFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-				AL_RunnerClass.AZ_driver.findElement(Locators.initialFee).sendKeys(AL_PropertyWare.lateChargeFee);
+				GA_RunnerClass.FL_driver.findElement(Locators.initialFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+				//GA_PropertyWare.clearTextField();
+				//GA_RunnerClass.FL_actions.click(GA_RunnerClass.FL_driver.findElement(Locators.initialFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+				GA_RunnerClass.FL_driver.findElement(Locators.initialFee).sendKeys(GA_PropertyWare.lateChargeFee);
 				}
 			}
 			catch(Exception e)
@@ -1178,14 +1195,14 @@ public class InsertDataIntoPropertyWare {
 			
 			try
 			{
-				if(AL_PropertyWare.lateChargeFee.contains("%"))
+				if(GA_PropertyWare.lateChargeFee.contains("%"))
 				{
-				Select initialDropdown = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.initialFeeDropdown)) ;
+				Select initialDropdown = new Select(GA_RunnerClass.FL_driver.findElement(Locators.initialFeeDropdown)) ;
 				initialDropdown.selectByVisibleText("% of Rent Charges");
 				}
 				else 
 				{
-					Select initialDropdown = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.initialFeeDropdown)) ;
+					Select initialDropdown = new Select(GA_RunnerClass.FL_driver.findElement(Locators.initialFeeDropdown)) ;
 					initialDropdown.selectByVisibleText("Fixed Amount");
 				}
 			}
@@ -1199,20 +1216,20 @@ public class InsertDataIntoPropertyWare {
 			Thread.sleep(2000);
 			try
 			{
-				if(AL_PropertyWare.lateFeeChargePerDay.equalsIgnoreCase("Error"))
+				if(GA_PropertyWare.lateFeeChargePerDay.equalsIgnoreCase("Error"))
 				{
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Per Day"+'\n');
 					//temp=1;
 				}
 				else
 				{
-				AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.perDayFee)).build().perform();
-				AL_RunnerClass.AZ_driver.findElement(Locators.perDayFee).click();
+				GA_RunnerClass.FL_actions.moveToElement(GA_RunnerClass.FL_driver.findElement(Locators.perDayFee)).build().perform();
+				GA_RunnerClass.FL_driver.findElement(Locators.perDayFee).click();
 				Thread.sleep(1000);
-				AL_RunnerClass.AZ_driver.findElement(Locators.perDayFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
-				//AL_PropertyWare.clearTextField();
-				//AL_RunnerClass.AZ_actions.click(AL_RunnerClass.AZ_driver.findElement(Locators.perDayFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-				AL_RunnerClass.AZ_driver.findElement(Locators.perDayFee).sendKeys(AL_PropertyWare.lateFeeChargePerDay);
+				GA_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+				//GA_PropertyWare.clearTextField();
+				//GA_RunnerClass.FL_actions.click(GA_RunnerClass.FL_driver.findElement(Locators.perDayFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+				GA_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(GA_PropertyWare.additionalLateCharges);
 				}
 			}
 			catch(Exception e)
@@ -1225,7 +1242,7 @@ public class InsertDataIntoPropertyWare {
 			Thread.sleep(2000);
 			try
 			{
-			Select perDayFeeDropdown = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.perDayFeeDropdown)) ;
+			Select perDayFeeDropdown = new Select(GA_RunnerClass.FL_driver.findElement(Locators.perDayFeeDropdown)) ;
 			perDayFeeDropdown.selectByVisibleText("Fixed Amount");
 			}
 			catch(Exception e)
@@ -1233,14 +1250,14 @@ public class InsertDataIntoPropertyWare {
 				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Per Day Dropdown"+'\n');
 				//temp=1;
 			}
-			if(AL_RunnerClass.pdfFormatType.equalsIgnoreCase("Format1"))
+			if(GA_RunnerClass.pdfFormatType.equalsIgnoreCase("Format1"))
 		    {
 			
 				//Maximum
 				Thread.sleep(2000);
 				try
 				{
-				Select maximumDropdown = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.maximumYesNoDropdown)) ;
+				Select maximumDropdown = new Select(GA_RunnerClass.FL_driver.findElement(Locators.maximumYesNoDropdown)) ;
 				maximumDropdown.selectByVisibleText("Yes");
 				}
 				catch(Exception e)
@@ -1251,9 +1268,9 @@ public class InsertDataIntoPropertyWare {
 				// Additional Late charges Limit
 				
 				String maximumLimitDropdown = "";
-				if(AL_PropertyWare.additionalLateChargesLimit.contains("30"))
+				if(GA_PropertyWare.additionalLateChargesLimit.contains("30"))
 				{
-					AL_PropertyWare.additionalLateChargesLimit = "12";
+					GA_PropertyWare.additionalLateChargesLimit = "12";
 				    maximumLimitDropdown = "% of Rent Charges";
 				}
 				else
@@ -1261,20 +1278,20 @@ public class InsertDataIntoPropertyWare {
 				Thread.sleep(2000);
 				try
 				{
-					if(AL_PropertyWare.additionalLateChargesLimit.equalsIgnoreCase("Error"))
+					if(GA_PropertyWare.additionalLateChargesLimit.equalsIgnoreCase("Error"))
 					{
 						InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Limit"+'\n');
 						//temp=1;
 					}
 					else
 					{
-						AL_RunnerClass.AZ_driver.findElement(Locators.maximumDatField).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
-						AL_RunnerClass.AZ_driver.findElement(Locators.maximumDatField).clear();
-						AL_RunnerClass.AZ_driver.findElement(Locators.maximumDatField).click();
+						GA_RunnerClass.FL_driver.findElement(Locators.maximumDatField).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+						GA_RunnerClass.FL_driver.findElement(Locators.maximumDatField).clear();
+						GA_RunnerClass.FL_driver.findElement(Locators.maximumDatField).click();
 						Thread.sleep(1000);
-						//AL_PropertyWare.clearTextField();
-						//AL_RunnerClass.AZ_actions.click(AL_RunnerClass.AZ_driver.findElement(Locators.maximumDatField)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-						AL_RunnerClass.AZ_driver.findElement(Locators.maximumDatField).sendKeys(AL_PropertyWare.additionalLateChargesLimit);
+						//GA_PropertyWare.clearTextField();
+						//GA_RunnerClass.FL_actions.click(GA_RunnerClass.FL_driver.findElement(Locators.maximumDatField)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+						GA_RunnerClass.FL_driver.findElement(Locators.maximumDatField).sendKeys(GA_PropertyWare.additionalLateChargesLimit);
 					}
 				}
 				catch(Exception e)
@@ -1285,7 +1302,7 @@ public class InsertDataIntoPropertyWare {
 				Thread.sleep(2000);
 				try
 				{
-				Select maximumDropdown2 = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.maximumDropdown2)) ;
+				Select maximumDropdown2 = new Select(GA_RunnerClass.FL_driver.findElement(Locators.maximumDropdown2)) ;
 				maximumDropdown2.selectByVisibleText(maximumLimitDropdown);
 				}
 				catch(Exception e)

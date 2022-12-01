@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import mainPackage.InsertDataIntoDatabase;
 import Alabama.Locators;
+import NorthCarolina.NC_RunnerClass;
 import mainPackage.RunnerClass;
 
 public class InsertDataIntoPropertyWare 
@@ -284,6 +286,11 @@ public class InsertDataIntoPropertyWare
 				FL_RunnerClass.FL_driver.findElement(Locators.autoCharge_EndDate).sendKeys(autoCharges[i][5]);
 				}
 				//Save and Cancel
+				try
+				{
+					NC_RunnerClass.FL_driver.findElement(By.xpath("//*[text()='New Auto Charge']")).click();
+				}
+				catch(Exception e) {}
 				Thread.sleep(2000);
 				if(RunnerClass.saveButtonOnAndOff==false)
 				FL_RunnerClass.FL_driver.findElement(Locators.autoCharge_CancelButton).click();
@@ -880,6 +887,18 @@ public class InsertDataIntoPropertyWare
 		}
 		catch(Exception e) {}
 		}
+		//If there is a Prorated Pet Rent and Move In Date is 1st of the month, then Full Pet Rent should start secondFullMonth
+		try
+		{
+		if(FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&(FL_PropertyWare.proratedPetRent!=""||FL_PropertyWare.proratedPetRent!=null||!FL_PropertyWare.proratedPetRent.equalsIgnoreCase("na")||!FL_PropertyWare.proratedPetRent.equalsIgnoreCase("n/a"))) //Double.parseDouble(FL_PropertyWare.proratedRent.trim())<=200.00||
+		{
+			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+secondFullMonth+"' where ID=8";
+			InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers);
+		}
+		}
+		catch(Exception e) {}
+		
+		
 		String query =null;
 		for(int i=0;i<charges.length;i++)
 		{

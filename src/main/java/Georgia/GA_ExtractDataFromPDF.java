@@ -19,9 +19,8 @@ public class GA_ExtractDataFromPDF {
 	{
 		
 		GA_PropertyWare.petFlag = false;
-		//FL_RunnerClass.emptyAllValues();
 		File file = RunnerClass.getLastModified();
-		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\Georgia Format 1\\Georgia Format 2\\Lease_618_619_5709_Rockingwood_Dr_Quintana-Segarra.pdf");
+		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\Georgia Format 1\\Georgia Format 2\\Lease_10.21_09.22_2320_Rock_Mill_Ln_NE_GA_Mitchell.pdf");
 		FileInputStream fis = new FileInputStream(file);
 		GA_RunnerClass.document = PDDocument.load(fis);
 	    text = new PDFTextStripper().getText(GA_RunnerClass.document);
