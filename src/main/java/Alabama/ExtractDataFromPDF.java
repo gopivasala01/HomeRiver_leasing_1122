@@ -143,6 +143,12 @@ public class ExtractDataFromPDF
 		    e.printStackTrace();
 	    }
 	    System.out.println("Admin Fee = "+AL_PropertyWare.adminFee.trim());
+	    if(text.contains(PDFAppConfig_Format2.HVACFilterAddendumTextAvailabilityCheck)==true)
+	    {
+	    	AL_PropertyWare.HVACFilterFlag =true;
+	    }
+	    else
+	    {
 	    try
 	    {
 		   String[] airFilterFeeArray = text.substring(text.indexOf(PDFAppConfig.AB_airFilterFee_Prior)+PDFAppConfig.AB_airFilterFee_Prior.length()).split(" ");
@@ -156,6 +162,7 @@ public class ExtractDataFromPDF
 	    {
 	    AL_PropertyWare.airFilterFee = "Error";
 	    e.printStackTrace();
+	    }
 	    }
 	    System.out.println("Air Filter Fee = "+AL_PropertyWare.airFilterFee.trim());
 	    try

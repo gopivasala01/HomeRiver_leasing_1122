@@ -241,7 +241,7 @@ public class InsertDataIntoPropertyWare {
 				
 				try
 				{
-				if(autoCharges[i][4]==null||autoCharges[i][4].equalsIgnoreCase("n/a")||autoCharges[i][4]=="Error"||RunnerClass.onlyDigits(autoCharges[i][4].replace(",", "").replace(".", ""))==false)
+				if(autoCharges[i][4]==null||autoCharges[i][4].equalsIgnoreCase("n/a")||autoCharges[i][4].trim().equalsIgnoreCase("")||autoCharges[i][4]=="Error"||RunnerClass.onlyDigits(autoCharges[i][4].replace(",", "").replace(".", ""))==false)
 				{
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Auto Charge - "+autoCharges[i][0]+'\n');
 					temp=1;
@@ -381,7 +381,9 @@ public class InsertDataIntoPropertyWare {
 			GA_RunnerClass.FL_actions.moveToElement(GA_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy)).build().perform();
 			GA_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy).click();
 			Select enrolledInFilterEasyList = new Select(GA_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy_List));
+			if(GA_PropertyWare.HVACFilterFlag==false)
 			enrolledInFilterEasyList.selectByVisibleText("YES");
+			else enrolledInFilterEasyList.selectByVisibleText("NO");
 			}
 			catch(Exception e)
 			{

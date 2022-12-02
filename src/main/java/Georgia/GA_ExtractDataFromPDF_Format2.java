@@ -131,6 +131,12 @@ public class GA_ExtractDataFromPDF_Format2 {
 	    }
 	    System.out.println("Admin Fee = "+GA_PropertyWare.adminFee);//.substring(commensementDate.lastIndexOf(":")+1));
 	   
+	    if(text.contains(PDFAppConfig_Format2.HVACFilterAddendumTextAvailabilityCheck)==true)
+	    {
+	    	GA_PropertyWare.HVACFilterFlag =true;
+	    }
+	    else
+	    {
 	    try
 	    {
 	    	GA_PropertyWare.airFilterFee = text.substring(text.indexOf(PDFAppConfig_Format2.HVACAirFilter_prior)+PDFAppConfig_Format2.HVACAirFilter_prior.length()).split(" ")[0].trim();
@@ -144,7 +150,7 @@ public class GA_ExtractDataFromPDF_Format2 {
 	    	GA_PropertyWare.airFilterFee = "Error";
 	    	e.printStackTrace();
 	    }
-	    
+	    }
 	    System.out.println("HVAC Air Filter Fee = "+GA_PropertyWare.airFilterFee);//.substring(commensementDate.lastIndexOf(":")+1));
 	    try
 	    {

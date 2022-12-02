@@ -94,7 +94,7 @@ public static String pdfFormatType;
         catch(Exception e)
         {
         	InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Unable to get Start Date"+'\n');
-        	return false;
+        	//return false;
         }
         String endDate = RunnerClass.convertDate(FL_PropertyWare.expirationDate).trim();
 		//Check if the Start Date, End Date and Move In Date matches in both PW and Lease Agreement
@@ -244,6 +244,7 @@ public static String pdfFormatType;
 		FL_PropertyWare.increasedRent_newStartDate ="";
 		FL_PropertyWare.increasedRent_newEndDate ="";
 		FL_PropertyWare.serviceAnimalFlag = false;
+		FL_PropertyWare.HVACFilterFlag = false;
 	}
 	
 	

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
-
 import mainPackage.RunnerClass;
 
 public class ExtractDataFromPDF_Format2 
@@ -133,6 +132,12 @@ public class ExtractDataFromPDF_Format2
 	    }
 	    System.out.println("Admin Fee = "+NC_PropertyWare.adminFee);//.substring(commensementDate.lastIndexOf(":")+1));
 	   
+	    if(text.contains(PDFAppConfig_Format2.HVACFilterAddendumTextAvailabilityCheck)==true)
+	    {
+	    	NC_PropertyWare.HVACFilterFlag =true;
+	    }
+	    else
+	    {
 	    try
 	    {
 	    	NC_PropertyWare.airFilterFee = text.substring(text.indexOf(PDFAppConfig_Format2.HVACAirFilter_prior)+PDFAppConfig_Format2.HVACAirFilter_prior.length()).split(" ")[0].trim();
@@ -146,7 +151,7 @@ public class ExtractDataFromPDF_Format2
 	    	NC_PropertyWare.airFilterFee = "Error";
 	    	e.printStackTrace();
 	    }
-	    
+	    }
 	    System.out.println("HVAC Air Filter Fee = "+NC_PropertyWare.airFilterFee);//.substring(commensementDate.lastIndexOf(":")+1));
 	    try
 	    {

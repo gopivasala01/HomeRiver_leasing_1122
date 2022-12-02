@@ -61,7 +61,7 @@ public class PDFAppConfig_Format2
 	static String AB_serviceAnimal_typeWord_After = "B. SERVICE/SUPPORT ANIMAL RULES";
 	
 	static String monthlyRentAvailabilityCheck ="*Per the Landlord, Monthly Rent";
-	
+	static String HVACFilterAddendumTextAvailabilityCheck = "HVAC FILTER MAINTENANCE PROGRAM OPT-OUT ADDENDUM";
 	
 	
 }

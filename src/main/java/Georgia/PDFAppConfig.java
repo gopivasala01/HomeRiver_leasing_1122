@@ -31,8 +31,8 @@ static String AB_commencementDate_Prior = "Commencement Date:";
 			+ "Termination Fee�).";
 	
 	
-	static String AB_occupants_Prior = " (include names and ages of all occupants):";
-	static String AB_occupants_After = "B. Phone Numbers";
+	static String AB_occupants_Prior = "listed as follows:";
+	static String AB_occupants_After = "Property shall be used by Tenant and all occupants";
 	
 	static String AB_airFilterFee_Prior = "HVAC Filter Maintenance Program Fee of $";
 	static String AB_airFilterFee_After = " per month (�HVAC Program Fee�)";
@@ -161,5 +161,7 @@ static String AB_commencementDate_Prior = "Commencement Date:";
 	static String lateFeeRule_whicheverIsGreater_dueDay_After = " day of the month in which it is due";
 	static String lateFeeRule_whicheverIsGreater_lateFeePercentage = "Tenant will pay Landlord for each late payment a late fee of";
 	static String lateFeeRule_whicheverIsGreater_lateFeeAmount = "rent or $";
+	
+	
 	
 }

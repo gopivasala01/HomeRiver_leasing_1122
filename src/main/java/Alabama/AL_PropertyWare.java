@@ -87,6 +87,8 @@ public class AL_PropertyWare
     public static ArrayList<String> serviceAnimalPetType;
     public static ArrayList<String> serviceAnimalPetBreed;
     public static ArrayList<String> serviceAnimalPetWeight;
+    public static boolean HVACFilterFlag = false;
+    
     public void login() throws Exception
 	{
 		AL_RunnerClass.AZ_driver.get(AppConfig.propertyWareURL);
@@ -244,6 +246,18 @@ public class AL_PropertyWare
 					documents.get(i).click();
 					checkLeaseAgreementAvailable = true;
 					break;
+				}
+			}
+			if(checkLeaseAgreementAvailable==false)
+			{
+				for(int i =0;i<documents.size();i++)
+				{
+					if(documents.get(i).getText().contains("Lease_"))//&&documents.get(i).getText().contains(leaseFirstName))
+					{
+						documents.get(i).click();
+						checkLeaseAgreementAvailable = true;
+						break;
+					}
 				}
 			}
 			if(checkLeaseAgreementAvailable==false)

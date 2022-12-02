@@ -100,7 +100,7 @@ public static PDDocument document;
         catch(Exception e)
         {
         	InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Unable to get Start Date"+'\n');
-        	return false;
+        	//return false;
         }
         String endDate = RunnerClass.convertDate(NC_PropertyWare.expirationDate).trim();
 		//Check if the Start Date, End Date and Move In Date matches in both PW and Lease Agreement
@@ -258,6 +258,7 @@ public static PDDocument document;
 		NC_PropertyWare.lateFeeType ="";
 		NC_PropertyWare.flatFeeAmount ="";
 		NC_PropertyWare.lateFeePercentage="";
+		NC_PropertyWare.HVACFilterFlag = false;
 	}
 	
 	

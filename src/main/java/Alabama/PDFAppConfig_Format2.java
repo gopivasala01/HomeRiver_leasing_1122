@@ -57,6 +57,8 @@ public class PDFAppConfig_Format2
 	static String serviceAnimal_typeWord_Prior = "Tenant has the following Service/Support Animal(s) on the Property until the above-referenced lease ends.";
 	static String serviceAnimal_typeWord_After = "B. SERVICE/SUPPORT ANIMAL RULES";
 	
+	static String HVACFilterAddendumTextAvailabilityCheck = "HVAC FILTER MAINTENANCE PROGRAM OPT-OUT ADDENDUM";
+	
 	
 	
 }

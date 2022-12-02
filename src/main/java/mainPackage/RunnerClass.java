@@ -183,10 +183,11 @@ public class RunnerClass
 	
 	public static String convertDate(String date)
 	{
+		String month="";
 		try
 		{
 		String[] d = date.trim().split(" ");
-		String month = RunnerClass.convertMonth(d[0].trim());
+		month = RunnerClass.convertMonth(d[0].trim());
 		if(month.length()==1)
 			month = "0"+month;
 		String[] yearAndDate = date.trim().split(",");
@@ -197,8 +198,21 @@ public class RunnerClass
 		//System.out.println(dateIn);
 		return dateIn;
 		}
-		catch(Exception e) {
-			return null;
+		catch(Exception e) 
+		{
+			//e.printStackTrace();
+			try
+			{
+			String[] yearAndDate = date.trim().split(" ");
+			String day = yearAndDate[1].trim();
+			if(day.length()==1)
+				day = "0"+day;
+			String dateIn = month +"/"+day +"/"+yearAndDate[2].trim();
+			System.out.println();
+			return dateIn;
+			}catch(Exception e2) {
+				e2.printStackTrace();
+				return null;}
 		}
 	}
 	
@@ -222,7 +236,8 @@ public class RunnerClass
 			newDay = "25";
 		}
 		else newDay = String.valueOf(dayInDate);
-		date = date.replaceFirst(date.split("/")[1], newDay);
+		String dateArray[] = date.split("/"); //.replaceFirst(date.split("/")[1], newDay);
+		date = dateArray[0]+"/"+newDay+"/"+dateArray[2];
 		return date;
 	}
 	public static String extractNumber(String str) 

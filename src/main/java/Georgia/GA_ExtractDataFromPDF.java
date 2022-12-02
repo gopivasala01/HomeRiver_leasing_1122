@@ -20,7 +20,7 @@ public class GA_ExtractDataFromPDF {
 		
 		GA_PropertyWare.petFlag = false;
 		File file = RunnerClass.getLastModified();
-		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\Georgia Format 1\\Georgia Format 2\\Lease_10.21_09.22_2320_Rock_Mill_Ln_NE_GA_Mitchell.pdf");
+		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\Georgia Format 1\\Georgia Format 2\\Lease_9.21_1.23_2554_Dolostone_Way_GA_Richman.pdf");
 		FileInputStream fis = new FileInputStream(file);
 		GA_RunnerClass.document = PDDocument.load(fis);
 	    text = new PDFTextStripper().getText(GA_RunnerClass.document);
@@ -140,6 +140,12 @@ public class GA_ExtractDataFromPDF {
 		    e.printStackTrace();
 	    }
 	    System.out.println("Admin Fee = "+GA_PropertyWare.adminFee.trim());
+	    if(text.contains(PDFAppConfig_Format2.HVACFilterAddendumTextAvailabilityCheck)==true)
+	    {
+	    	GA_PropertyWare.HVACFilterFlag =true;
+	    }
+	    else
+	    {
 	    try
 	    {
 		   String[] airFilterFeeArray = text.substring(text.indexOf(PDFAppConfig.AB_airFilterFee_Prior)+PDFAppConfig.AB_airFilterFee_Prior.length()).split(" ");
@@ -153,6 +159,7 @@ public class GA_ExtractDataFromPDF {
 	    {
 	    GA_PropertyWare.airFilterFee = "Error";
 	    e.printStackTrace();
+	    }
 	    }
 	    System.out.println("Air Filter Fee = "+GA_PropertyWare.airFilterFee.trim());
 	    try
@@ -416,7 +423,7 @@ public class GA_ExtractDataFromPDF {
 	    {}
 	    
 	 // document.close();
-	   return true;
+	  return true;
     }
 	public static boolean lateFeeRule()
 	{

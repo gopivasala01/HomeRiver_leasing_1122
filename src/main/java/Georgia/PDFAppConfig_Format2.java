@@ -62,6 +62,8 @@ package Georgia;
 		
 		static String monthlyRentAvailabilityCheck ="*Per the Landlord, Monthly Rent";
 		
+		static String HVACFilterAddendumTextAvailabilityCheck = "HVAC FILTER MAINTENANCE PROGRAM OPT-OUT ADDENDUM";
+		
 		
 		
 	}

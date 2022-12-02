@@ -25,7 +25,7 @@ public class ExtractDataFromPDF_Format2
 		//Empty all values first
 		//AL_RunnerClass.emptyAllValues();
 		//TODO Auto-generated method stub
-		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\Lease_1122_0524__1032_Wyndham_Ln_Helena_AL_ (2).pdf");
+		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\HOLL117\\Lease_1222_1123_117_Holly_Fern_Dr_AL_Southa.pdf");
 		File file = RunnerClass.getLastModified();
 		FileInputStream fis = new FileInputStream(file);
 		PDDocument document = PDDocument.load(fis);
@@ -140,7 +140,12 @@ public class ExtractDataFromPDF_Format2
 	    	e.printStackTrace();
 	    }
 	    System.out.println("Admin Fee = "+AL_PropertyWare.adminFee);//.substring(commensementDate.lastIndexOf(":")+1));
-	   
+	    if(text.contains(PDFAppConfig_Format2.HVACFilterAddendumTextAvailabilityCheck)==true)
+	    {
+	    	AL_PropertyWare.HVACFilterFlag =true;
+	    }
+	    else
+	    {
 	    try
 	    {
 	    	AL_PropertyWare.airFilterFee = text.substring(text.indexOf(PDFAppConfig_Format2.HVACAirFilter_prior)+PDFAppConfig_Format2.HVACAirFilter_prior.length()).split(" ")[0].trim();
@@ -154,7 +159,7 @@ public class ExtractDataFromPDF_Format2
 	    	AL_PropertyWare.airFilterFee = "Error";
 	    	e.printStackTrace();
 	    }
-	    
+	    }
 	    System.out.println("HVAC Air Filter Fee = "+AL_PropertyWare.airFilterFee);//.substring(commensementDate.lastIndexOf(":")+1));
 	    try
 	    {

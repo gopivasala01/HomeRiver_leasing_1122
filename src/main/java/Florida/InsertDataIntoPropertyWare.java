@@ -12,7 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import mainPackage.InsertDataIntoDatabase;
 import Alabama.Locators;
-import NorthCarolina.NC_RunnerClass;
 import mainPackage.RunnerClass;
 
 public class InsertDataIntoPropertyWare 
@@ -235,7 +234,7 @@ public class InsertDataIntoPropertyWare
 				
 				try
 				{
-				if(autoCharges[i][4]==null||autoCharges[i][4].equalsIgnoreCase("n/a")||autoCharges[i][4]=="Error"||RunnerClass.onlyDigits(autoCharges[i][4].replace(",", "").replace(".", ""))==false)
+				if(autoCharges[i][4]==null||autoCharges[i][4].equalsIgnoreCase("n/a")||autoCharges[i][4].equalsIgnoreCase("")||autoCharges[i][4]=="Error"||RunnerClass.onlyDigits(autoCharges[i][4].replace(",", "").replace(".", ""))==false)
 				{
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Auto Charge - "+autoCharges[i][0]+'\n');
 					temp=1;
@@ -288,7 +287,7 @@ public class InsertDataIntoPropertyWare
 				//Save and Cancel
 				try
 				{
-					NC_RunnerClass.FL_driver.findElement(By.xpath("//*[text()='New Auto Charge']")).click();
+					FL_RunnerClass.FL_driver.findElement(By.xpath("//*[text()='New Auto Charge']")).click();
 				}
 				catch(Exception e) {}
 				Thread.sleep(2000);
@@ -374,7 +373,9 @@ public class InsertDataIntoPropertyWare
 			FL_RunnerClass.FL_actions.moveToElement(FL_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy)).build().perform();
 			FL_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy).click();
 			Select enrolledInFilterEasyList = new Select(FL_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy_List));
-			enrolledInFilterEasyList.selectByVisibleText("YES");
+			if(FL_PropertyWare.HVACFilterFlag==false)
+				enrolledInFilterEasyList.selectByVisibleText("YES");
+				else enrolledInFilterEasyList.selectByVisibleText("NO");
 			}
 			catch(Exception e)
 			{

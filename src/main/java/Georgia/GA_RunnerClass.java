@@ -101,7 +101,7 @@ public static String chargeCodesTable ="automation.chargeCodesConfiguration_GA";
         catch(Exception e)
         {
         	InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Unable to get Start Date"+'\n');
-        	return false;
+        	//return false;
         }
         String endDate = RunnerClass.convertDate(GA_PropertyWare.expirationDate).trim();
 		//Check if the Start Date, End Date and Move In Date matches in both PW and Lease Agreement
@@ -259,6 +259,7 @@ public static String chargeCodesTable ="automation.chargeCodesConfiguration_GA";
 		GA_PropertyWare.lateFeeType ="";
 		GA_PropertyWare.flatFeeAmount ="";
 		GA_PropertyWare.lateFeePercentage="";
+		GA_PropertyWare.HVACFilterFlag = false;
 	}
 	
 	

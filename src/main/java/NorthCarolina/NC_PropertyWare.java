@@ -90,6 +90,7 @@ public class NC_PropertyWare
     public static String lateFeeType ="";
     public static String flatFeeAmount ="";
     public static String lateFeePercentage="";
+    public static boolean HVACFilterFlag = false;
    
     public void login() throws Exception
 	{
@@ -249,6 +250,18 @@ public class NC_PropertyWare
 					checkLeaseAgreementAvailable = true;
 					break;
 				}
+			}
+			if(checkLeaseAgreementAvailable==false)
+			{
+			for(int i =0;i<documents.size();i++)
+			{
+				if(documents.get(i).getText().contains("Lease_"))//&&documents.get(i).getText().contains(leaseFirstName))
+				{
+					documents.get(i).click();
+					checkLeaseAgreementAvailable = true;
+					break;
+				}
+			}
 			}
 			if(checkLeaseAgreementAvailable==false)
 			{
