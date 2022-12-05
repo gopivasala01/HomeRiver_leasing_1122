@@ -338,7 +338,7 @@ public class InsertDataIntoPropertyWare {
 			{
 				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "RC Details"+'\n');
 				temp=1;
-			}
+			}*/
 			//Early Termination
 			Thread.sleep(2000);
 			
@@ -371,7 +371,7 @@ public class InsertDataIntoPropertyWare {
 				e.printStackTrace();
 				temp=1;
 			}
-			*/
+			
 			//Enrolled in FilterEasy
 			if(GA_PropertyWare.airFilterFee!="Error")
 			{
