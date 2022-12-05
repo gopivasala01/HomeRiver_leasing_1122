@@ -262,7 +262,7 @@ public class InsertDataIntoPropertyWare {
 					GA_RunnerClass.FL_driver.findElement(Locators.autoCharge_CancelButton).click();
 					
 				}
-				Thread.sleep(2000);
+				Thread.sleep(3000);
 				
 				//Charge Code
 				Select autoChargesDropdown = new Select(GA_RunnerClass.FL_driver.findElement(Locators.accountDropdown));
@@ -317,7 +317,7 @@ public class InsertDataIntoPropertyWare {
 			
 			//Other Fields
             Thread.sleep(4000);
-			
+		/*	
 			// RC Field
 			try
 			{
@@ -371,7 +371,7 @@ public class InsertDataIntoPropertyWare {
 				e.printStackTrace();
 				temp=1;
 			}
-			
+			*/
 			//Enrolled in FilterEasy
 			if(GA_PropertyWare.airFilterFee!="Error")
 			{

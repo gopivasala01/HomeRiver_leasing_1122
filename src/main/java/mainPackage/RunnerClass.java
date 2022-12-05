@@ -82,19 +82,19 @@ public class RunnerClass
 			arizona.runAutomation(portfolio,leaseName,leaseOwnerName);
 			break;
 			case "Alabama":
-			//case "Arkansas":
-				AL_RunnerClass alabama = new AL_RunnerClass();
-				alabama.runAutomation(portfolio,leaseName,leaseOwnerName);
-				RunnerClass.updateLeaseStatus();
-				AL_RunnerClass.AZ_driver.close();
-				break;
+					AL_RunnerClass alabama = new AL_RunnerClass();
+					alabama.runAutomation(portfolio,leaseName,leaseOwnerName);
+					RunnerClass.updateLeaseStatus();
+					AL_RunnerClass.AZ_driver.close();
+					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
+					break;
 			case "Florida":
-			//case "Arkansas":
-				FL_RunnerClass florida = new FL_RunnerClass();
-				florida.runAutomation(portfolio,leaseName,leaseOwnerName);
-				RunnerClass.updateLeaseStatus();
-				FL_RunnerClass.FL_driver.close();
-				break;
+					FL_RunnerClass florida = new FL_RunnerClass();
+					florida.runAutomation(portfolio,leaseName,leaseOwnerName);
+					RunnerClass.updateLeaseStatus();
+					FL_RunnerClass.FL_driver.close();
+					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
+					break;
 				
 			case "North Carolina":
 				//case "Arkansas":
@@ -102,6 +102,7 @@ public class RunnerClass
 					northCarolina.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
 					NC_RunnerClass.FL_driver.close();
+					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			case "Georgia":
 				//case "Arkansas":
@@ -109,34 +110,33 @@ public class RunnerClass
 					georgia.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
 					GA_RunnerClass.FL_driver.close();
+					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			
-			}
-			
-			try
-			{
-			 //String filePath = AppConfig.PDFFilePath+"\\"+market+"\\"+leaseName.replaceAll("[^a-zA-Z0-9]+","");
-			 File f = new File(RunnerClass.downloadFilePath);
-			 if(f.exists())
-			 {
-	         //FileUtils.cleanDirectory(f); //clean out directory (this is optional -- but good know)
-	         FileUtils.forceDelete(f); //delete directory
-			 }
-	         //FileUtils.forceMkdir(f); //create directory
-			}
-			catch(Exception e) 
-			{
-				e.printStackTrace();
 			}
 			
 			}
 			catch(Exception e)
 			{
-				AL_RunnerClass.AZ_driver.close();
+				//AL_RunnerClass.AZ_driver.close();
 			}
 			
 		}
 	}
+	public static void deleteDirectory(String filePath) throws Exception
+	{
+		File fin = new File(filePath);
+	    File[] finlist = fin.listFiles();       
+	    for (int n = 0; n < finlist.length; n++) {
+	        if (finlist[n].isFile()) {
+	        System.gc();
+	        Thread.sleep(2000);
+	            finlist[n].delete();
+	        }
+	    } 
+	    FileUtils.forceDelete(fin);
+	}
+	
 	public static void updateLeaseStatus() throws Exception
 	{
 		//Test
@@ -210,8 +210,9 @@ public class RunnerClass
 			String dateIn = month +"/"+day +"/"+yearAndDate[2].trim();
 			System.out.println();
 			return dateIn;
-			}catch(Exception e2) {
-				e2.printStackTrace();
+			}catch(Exception e2) 
+			{
+			//	e2.printStackTrace();
 				return null;}
 		}
 	}
