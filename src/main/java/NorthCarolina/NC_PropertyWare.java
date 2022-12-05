@@ -242,6 +242,18 @@ public class NC_PropertyWare
 			//String leaseNamePartial = RunnerClass.leaseName.split("[(]+")[1].split(" ")[0];;
 			List<WebElement> documents = NC_RunnerClass.FL_driver.findElements(Locators.documentsList);
 			boolean checkLeaseAgreementAvailable = false;
+			
+			for(int i =0;i<documents.size();i++)
+			{
+				if(documents.get(i).getText().contains("REVISED_Lease_"))//&&documents.get(i).getText().contains(leaseFirstName))
+				{
+					documents.get(i).click();
+					checkLeaseAgreementAvailable = true;
+					break;
+				}
+			}
+			if(checkLeaseAgreementAvailable==false)
+			{
 			for(int i =0;i<documents.size();i++)
 			{
 				if(documents.get(i).getText().startsWith("Lease_"))//&&documents.get(i).getText().contains(leaseFirstName))
@@ -250,6 +262,7 @@ public class NC_PropertyWare
 					checkLeaseAgreementAvailable = true;
 					break;
 				}
+			}
 			}
 			if(checkLeaseAgreementAvailable==false)
 			{
