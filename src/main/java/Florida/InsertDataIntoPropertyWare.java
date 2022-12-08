@@ -891,7 +891,7 @@ public class InsertDataIntoPropertyWare
 		//If there is a Prorated Pet Rent and Move In Date is 1st of the month, then Full Pet Rent should start secondFullMonth
 		try
 		{
-		if(FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&(FL_PropertyWare.proratedPetRent!=""||FL_PropertyWare.proratedPetRent!=null||!FL_PropertyWare.proratedPetRent.equalsIgnoreCase("na")||!FL_PropertyWare.proratedPetRent.equalsIgnoreCase("n/a"))) //Double.parseDouble(FL_PropertyWare.proratedRent.trim())<=200.00||
+		if(FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&(FL_PropertyWare.proratedPetRent!=""||FL_PropertyWare.proratedPetRent!=null||!FL_PropertyWare.proratedPetRent.equalsIgnoreCase("na")||!FL_PropertyWare.proratedPetRent.equalsIgnoreCase("n/a"))&&(DayInCommensementDate.equalsIgnoreCase("01")||DayInCommensementDate.equalsIgnoreCase("1"))) //Double.parseDouble(FL_PropertyWare.proratedRent.trim())<=200.00||
 		{
 			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+secondFullMonth+"' where ID=8";
 			InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers);

@@ -754,7 +754,7 @@ public class InsertDataIntoPropertyWare {
 		}
 		try
 		{
-		if(GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&(GA_PropertyWare.proratedPetRent!=""||GA_PropertyWare.proratedPetRent!=null||!GA_PropertyWare.proratedPetRent.equalsIgnoreCase("na")||!GA_PropertyWare.proratedPetRent.equalsIgnoreCase("n/a"))) //Double.parseDouble(GA_PropertyWare.proratedRent.trim())<=200.00||
+		if(GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&(GA_PropertyWare.proratedPetRent!=""||GA_PropertyWare.proratedPetRent!=null||!GA_PropertyWare.proratedPetRent.equalsIgnoreCase("na")||!GA_PropertyWare.proratedPetRent.equalsIgnoreCase("n/a"))&&(DayInCommensementDate.equalsIgnoreCase("01")||DayInCommensementDate.equalsIgnoreCase("1"))) //Double.parseDouble(GA_PropertyWare.proratedRent.trim())<=200.00||
 		{
 			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update "+GA_RunnerClass.chargeCodesTable+" Set autoCharge_StartDate='"+secondFullMonth+"' where ID=8";
 			InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers);
