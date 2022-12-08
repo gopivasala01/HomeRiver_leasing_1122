@@ -114,17 +114,34 @@ public class FL_PropertyWare
 		System.out.println(RunnerClass.leaseName);
 		
 		// Select Lease from multiple leases
-		List<WebElement> displayedCompanies = FL_RunnerClass.FL_driver.findElements(Locators.searchedLeaseCompanyHeadings);
-		for(int i =0;i<=displayedCompanies.size();i++)
-		{
-			String companyName = displayedCompanies.get(i).getText();
-			if(companyName.contains("Florida")&&!companyName.contains("Legacy"))
-			{
-				FL_RunnerClass.FL_driver.findElement(By.xpath("(//*[@class='searchCat4'])["+(i+1)+"]/a")).click();
-				break;
-				//FL_RunnerClass.FL_driver.findElement(By.partialLinkText(leaseName)).click();
-			}
-		}
+				List<WebElement> displayedCompanies = FL_RunnerClass.FL_driver.findElements(Locators.searchedLeaseCompanyHeadings);
+				boolean leaseSelected = false;
+				for(int i =0;i<displayedCompanies.size();i++)
+				{
+					String companyName = displayedCompanies.get(i).getText();
+					if(companyName.contains("Florida")&&!companyName.contains("Legacy"))
+					{
+						//FL_RunnerClass.AZ_driver.findElement(By.xpath("(//*[@class='searchCat4'])["+(i+1)+"]/a")).click();
+						//break;
+						//AL_RunnerClass.AZ_driver.findElement(By.partialLinkText(leaseName)).click();
+						
+						List<WebElement> leaseList = FL_RunnerClass.FL_driver.findElements(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li/a"));
+						System.out.println(leaseList.size());
+						for(int j=0;j<leaseList.size();j++)
+						{
+							String lease = leaseList.get(j).getText();
+							if(lease.contains(RunnerClass.leaseName))
+							{
+								FL_RunnerClass.FL_driver.findElement(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li["+(j+1)+"]/a")).click();
+								leaseSelected = true;
+								break;
+									
+							}
+						}
+						
+					}
+					if(leaseSelected==true) break;
+				}
 		
 		//FL_RunnerClass.FL_driver.findElement(Locators.selectSearchedLease).click();
 		Thread.sleep(5000); 
