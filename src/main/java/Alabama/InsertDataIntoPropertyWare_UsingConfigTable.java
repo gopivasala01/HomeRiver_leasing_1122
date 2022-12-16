@@ -380,14 +380,7 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 				AL_RunnerClass.AZ_driver.findElement(Locators.residentBenefitsPackage).click();
 				Select residentBenefitsPackageList = new Select(AL_RunnerClass.AZ_driver.findElement(Locators.residentBenefitsPackage));
 				//if(NC_PropertyWare.HVACFilterFlag==false)
-				try
-				{
 				residentBenefitsPackageList.selectByVisibleText("YES");
-				}
-				catch(NoSuchElementException e)
-				{
-					
-				}
 				//else enrolledInFilterEasyList.selectByVisibleText("NO");
 				}
 				catch(Exception e)
