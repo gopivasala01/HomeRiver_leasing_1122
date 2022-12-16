@@ -260,6 +260,8 @@ public static String chargeCodesTable ="automation.chargeCodesConfiguration_GA";
 		GA_PropertyWare.flatFeeAmount ="";
 		GA_PropertyWare.lateFeePercentage="";
 		GA_PropertyWare.HVACFilterFlag = false;
+		GA_PropertyWare.HVACFilterFlag = false;
+		GA_PropertyWare.residentBenefitsPackageAvailabilityCheck = false;
 	}
 	
 	

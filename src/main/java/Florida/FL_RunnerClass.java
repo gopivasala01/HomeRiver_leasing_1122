@@ -245,6 +245,8 @@ public static String pdfFormatType;
 		FL_PropertyWare.increasedRent_newEndDate ="";
 		FL_PropertyWare.serviceAnimalFlag = false;
 		FL_PropertyWare.HVACFilterFlag = false;
+		FL_PropertyWare.HVACFilterFlag = false;
+		FL_PropertyWare.residentBenefitsPackageAvailabilityCheck = false;
 	}
 	
 	

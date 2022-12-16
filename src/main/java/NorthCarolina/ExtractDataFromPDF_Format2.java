@@ -131,7 +131,28 @@ public class ExtractDataFromPDF_Format2
 	    	e.printStackTrace();
 	    }
 	    System.out.println("Admin Fee = "+NC_PropertyWare.adminFee);//.substring(commensementDate.lastIndexOf(":")+1));
-	   
+	    //Resident Benefits Package 
+	    if(text.contains(PDFAppConfig.residentBenefitsPackageAddendumCheck))
+	    {
+	    	NC_PropertyWare.residentBenefitsPackageAvailabilityCheck = true;
+	    	 try
+	 	    {
+	 		    NC_PropertyWare.residentBenefitsPackage = text.substring(text.indexOf(PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior)+PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior.length()).split(" ")[0];
+	 		    if(NC_PropertyWare.residentBenefitsPackage.matches(".*[a-zA-Z]+.*"))
+	 		    {
+	 		    	NC_PropertyWare.residentBenefitsPackage = "Error";
+	 		    }
+	 	    }
+	 	    catch(Exception e)
+	 	    {
+	 		    NC_PropertyWare.residentBenefitsPackage = "Error";
+	 		    e.printStackTrace();
+	 	    }
+	    	//PDFAppConfig.AB1_residentBenefitsPackage_Prior
+	    	 System.out.println("Resident Benefits Package  = "+NC_PropertyWare.residentBenefitsPackage);
+	    }
+	    else
+	    {
 	    if(text.contains(PDFAppConfig_Format2.HVACFilterAddendumTextAvailabilityCheck)==true)
 	    {
 	    	NC_PropertyWare.HVACFilterFlag =true;
@@ -153,6 +174,7 @@ public class ExtractDataFromPDF_Format2
 	    }
 	    }
 	    System.out.println("HVAC Air Filter Fee = "+NC_PropertyWare.airFilterFee);//.substring(commensementDate.lastIndexOf(":")+1));
+	    }
 	    try
 	    {
 	    	NC_PropertyWare.occupants = text.substring(text.indexOf(PDFAppConfig_Format2.occupants_Prior)+PDFAppConfig_Format2.occupants_Prior.length(),text.indexOf(PDFAppConfig_Format2.occupants_After)).trim();
@@ -445,7 +467,7 @@ public class ExtractDataFromPDF_Format2
 	    {
 	    	NC_PropertyWare.flatFeeAmount = text.substring(text.indexOf(PDFAppConfig_Format2.lateChargePerDayFee)+PDFAppConfig_Format2.lateChargePerDayFee.length()).trim().split(" ")[0].trim();
 	    	NC_PropertyWare.flatFeeAmount = NC_PropertyWare.flatFeeAmount.replaceAll("[^.0-9]", "");
-	    	System.out.println("Per Day Fee  = "+NC_PropertyWare.lateFeeChargePerDay);//.substring(commensementDate.lastIndexOf(":")+1));
+	    	System.out.println("Per Day Fee  = "+NC_PropertyWare.flatFeeAmount);//.substring(commensementDate.lastIndexOf(":")+1));
 	    }
 	    catch(Exception e)
 	    {

@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Alabama.Locators;
-import NorthCarolina.NC_RunnerClass;
 import mainPackage.InsertDataIntoDatabase;
 import mainPackage.RunnerClass;
 
@@ -231,6 +230,12 @@ public class InsertDataIntoPropertyWare {
 						flagToCheckIfAutoChargeAvailable=1;
 						break;
 					}
+					if(autoCharges[i][1].contains(autoChargeCodes.trim().replace(".",""))&&autoChargeAmount.trim().replace(",", "").contains(autoCharges[i][4].trim().replace(",", "")))
+					{
+						System.out.println(autoCharges[i][1]+"   is already available");
+						flagToCheckIfAutoChargeAvailable=1;
+						break;
+					}
 				}
 				}
 				catch(Exception e)
@@ -293,7 +298,7 @@ public class InsertDataIntoPropertyWare {
 				}
 				try
 				{
-					NC_RunnerClass.FL_driver.findElement(By.xpath("//*[text()='New Auto Charge']")).click();
+					GA_RunnerClass.FL_driver.findElement(By.xpath("//*[text()='New Auto Charge']")).click();
 				}
 				catch(Exception e) {}
 				//Save and Cancel
@@ -371,26 +376,50 @@ public class InsertDataIntoPropertyWare {
 				e.printStackTrace();
 				temp=1;
 			}
-			
-			//Enrolled in FilterEasy
-			if(GA_PropertyWare.airFilterFee!="Error")
+			if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
 			{
-			Thread.sleep(2000);
-			try
-			{
-			GA_RunnerClass.FL_actions.moveToElement(GA_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy)).build().perform();
-			GA_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy).click();
-			Select enrolledInFilterEasyList = new Select(GA_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy_List));
-			if(GA_PropertyWare.HVACFilterFlag==false)
-			enrolledInFilterEasyList.selectByVisibleText("YES");
-			else enrolledInFilterEasyList.selectByVisibleText("NO");
+				if(GA_PropertyWare.residentBenefitsPackage!="Error")
+				{
+				Thread.sleep(2000);
+				try
+				{
+				GA_RunnerClass.FL_actions.moveToElement(GA_RunnerClass.FL_driver.findElement(Locators.residentBenefitsPackage)).build().perform();
+				GA_RunnerClass.FL_driver.findElement(Locators.residentBenefitsPackage).click();
+				Select residentBenefitsPackageList = new Select(GA_RunnerClass.FL_driver.findElement(Locators.residentBenefitsPackage));
+				//if(GA_PropertyWare.HVACFilterFlag==false)
+				residentBenefitsPackageList.selectByVisibleText("YES");
+				//else enrolledInFilterEasyList.selectByVisibleText("NO");
+				}
+				catch(Exception e)
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Resident Benefits Package"+'\n');
+					temp=1;
+					e.printStackTrace();
+				}
+				}
 			}
-			catch(Exception e)
+			else
 			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Enrolled in FilterEasy"+'\n');
-				temp=1;
-				e.printStackTrace();
-			}
+				//Enrolled in FilterEasy
+				if(GA_PropertyWare.airFilterFee!="Error")
+				{
+				Thread.sleep(2000);
+				try
+				{
+				GA_RunnerClass.FL_actions.moveToElement(GA_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy)).build().perform();
+				GA_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy).click();
+				Select enrolledInFilterEasyList = new Select(GA_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy_List));
+				if(GA_PropertyWare.HVACFilterFlag==false)
+				enrolledInFilterEasyList.selectByVisibleText("YES");
+				else enrolledInFilterEasyList.selectByVisibleText("NO");
+				}
+				catch(Exception e)
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Enrolled in FilterEasy"+'\n');
+					temp=1;
+					e.printStackTrace();
+				}
+				}
 			}
 			//Needs New Lease - No by default
 			Thread.sleep(2000);
@@ -812,6 +841,10 @@ public class InsertDataIntoPropertyWare {
 				}
 				catch(Exception e) {}
 				continue;
+			case "Resident Benefits Package":
+				query = query+"\nUpdate "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.residentBenefitsPackage+"',startDate ='"+RunnerClass.convertDate(GA_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where charge ='Resident Benefits Package'";
+				//InsertDataIntoDatabase.updateTable(query9);
+				continue;
 			}
 			
 		}
@@ -821,22 +854,46 @@ public class InsertDataIntoPropertyWare {
 	{
 		if(GA_PropertyWare.portfolioType=="Others"&&GA_PropertyWare.petFlag==false)
 		{
+			if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+			{
+				moveInCharges_1 = "3,11";
+				autoCharges_1 = "11";
+			}
+			else
+			{
 			moveInCharges_1 = "3";
 			autoCharges_1 = "7";
+			}
 			GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 		}
 		else
 		{
 			if(GA_PropertyWare.portfolioType=="Others"&&GA_PropertyWare.petFlag==true&&GA_PropertyWare.petSecurityDepositFlag==false)
 			{
+				if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+				{
+					moveInCharges_1 = "3,6,4,11";
+					autoCharges_1 = "11,8";
+				}
+				else
+				{
 				moveInCharges_1 = "3,6,4";
 				autoCharges_1 = "7,8";
+				}
 				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 			else//(GA_PropertyWare.portfolioType=="Others"&&GA_PropertyWare.petFlag==true&&GA_PropertyWare.petSecurityDepositFlag==true)
 			{
+				if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+				{
+					moveInCharges_1 = "3,5,4,11";
+					autoCharges_1 = "11,8";
+				}
+				else
+				{
 				moveInCharges_1 = "3,5,4";
 				autoCharges_1 = "7,8";
+				}
 				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 		}
@@ -847,14 +904,31 @@ public class InsertDataIntoPropertyWare {
 		{
 			if(GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag == true)
 			{
+				if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+				{
+					moveInCharges_1 = "1,2,3,11";
+					autoCharges_1 = "2,11";	
+				}
+				else
+				{
 				moveInCharges_1 = "1,2,3";
 				autoCharges_1 = "2,7";
+				}
 			}
 			else
 			{
-			moveInCharges_1 = "2,3";
-			autoCharges_1 = "1,2,7";
+				if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+				{
+			     moveInCharges_1 = "2,3,11";
+			     autoCharges_1 = "1,2,11";
+				}
+				else
+				{
+					moveInCharges_1 = "2,3";
+				     autoCharges_1 = "1,2,7";
+				}
 			}
+			//GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 		}
 		else
@@ -863,20 +937,44 @@ public class InsertDataIntoPropertyWare {
 			{
 				if(GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag == true)
 				{
+					if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+					{
+						moveInCharges_1 = "1,2,3,4,6,11";
+						autoCharges_1 = "2,11,8";
+					}
+					else
+					{
 					moveInCharges_1 = "1,2,3,4,6";
 					autoCharges_1 = "2,7,8";
+					}
 				}
 				else
 				{
-				moveInCharges_1 = "2,3,4,6";
-				autoCharges_1 = "1,2,7,8";
+					if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+					{
+						moveInCharges_1 = "2,3,4,6,11";
+						autoCharges_1 = "1,2,11,8";
+					}
+					else
+					{
+				      moveInCharges_1 = "2,3,4,6";
+				      autoCharges_1 = "1,2,7,8";
+					}
 				}
 				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 			else//(GA_PropertyWare.portfolioType=="Others"&&GA_PropertyWare.petFlag==true&&GA_PropertyWare.petSecurityDepositFlag==true)
 			{
+				if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+				{
+					moveInCharges_1 = "2,3,4,5,11";
+					autoCharges_1 = "1,2,11,8";
+				}
+				else
+				{
 				moveInCharges_1 = "2,3,4,5";
 				autoCharges_1 = "1,2,7,8";
+				}
 				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 		}
@@ -885,30 +983,60 @@ public class InsertDataIntoPropertyWare {
 	{
 		if(GA_PropertyWare.portfolioType=="MCH"&&GA_PropertyWare.petFlag==false)
 		{
+			if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+			{
+				moveInCharges_1 = "1,"+prepaymentChargeOrMonthlyRent+",3,11";
+				if(GA_PropertyWare.incrementRentFlag == true)
+				autoCharges_1 = "2,11,10";
+				else autoCharges_1 = "2,11";
+			}
+			else
+			{
 			moveInCharges_1 = "1,"+prepaymentChargeOrMonthlyRent+",3";
 			if(GA_PropertyWare.incrementRentFlag == true)
 			autoCharges_1 = "2,7,10";
 			else autoCharges_1 = "2,7";
+			}
 			GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);	
 		}
 		else
 		{
 			if(GA_PropertyWare.portfolioType=="MCH"&&GA_PropertyWare.petFlag==true&&GA_PropertyWare.petSecurityDepositFlag==false)
 			{
-				moveInCharges_1 = "1,"+prepaymentChargeOrMonthlyRent+",3,4,6";
+				if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+				{
+				moveInCharges_1 = "1,"+prepaymentChargeOrMonthlyRent+",3,4,6,11";
 				if(GA_PropertyWare.incrementRentFlag == true)
-				autoCharges_1 = "2,7,8,10";
-				else autoCharges_1 = "2,7,8";
+				autoCharges_1 = "2,11,8,10";
+				else autoCharges_1 = "2,11,8";
+				}
+				else
+				{
+					moveInCharges_1 = "1,"+prepaymentChargeOrMonthlyRent+",3,4,6";
+					if(GA_PropertyWare.incrementRentFlag == true)
+					autoCharges_1 = "2,7,8,10";
+					else autoCharges_1 = "2,7,8";
+				}
 				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 		    else
 		    {
 				if(GA_PropertyWare.portfolioType=="MCH"&&GA_PropertyWare.petFlag==true&&GA_PropertyWare.petSecurityDepositFlag==true)
 				{
+					if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+					{
+						moveInCharges_1 = "1,"+prepaymentChargeOrMonthlyRent+",3,4,5,11";
+						if(GA_PropertyWare.incrementRentFlag == true)
+						autoCharges_1 = "2,11,8,10";
+						else autoCharges_1 = "2,11,8";
+					}
+					else
+					{
 					moveInCharges_1 = "1,"+prepaymentChargeOrMonthlyRent+",3,4,5";
 					if(GA_PropertyWare.incrementRentFlag == true)
 					autoCharges_1 = "2,7,8,10";
 					else autoCharges_1 = "2,7,8";
+					}
 					GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 				}
 		    }
@@ -919,24 +1047,48 @@ public class InsertDataIntoPropertyWare {
 	{
 		if(GA_PropertyWare.portfolioType=="MCH"&&GA_PropertyWare.petFlag==false)
 		{
+			if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+			{
+				moveInCharges_1 = "3,11";
+				autoCharges_1 = "11";
+			}
+			else
+			{
 			moveInCharges_1 = "3";
 			autoCharges_1 = "7";
+			}
 			GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);	
 		}
 		else
 		{
 			if(GA_PropertyWare.portfolioType=="MCH"&&GA_PropertyWare.petFlag==true&&GA_PropertyWare.petSecurityDepositFlag==false)
 			{
+				if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+				{
+					moveInCharges_1 = "3,11,6,4";
+					autoCharges_1 = "11,8";
+				}
+				else
+				{
 				moveInCharges_1 = "3,6,4";
 				autoCharges_1 = "7,8";
+				}
 				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 		    else
 		    {
 				if(GA_PropertyWare.portfolioType=="MCH"&&GA_PropertyWare.petFlag==true&&GA_PropertyWare.petSecurityDepositFlag==true)
 				{
+					if(GA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
+					{
+						moveInCharges_1 = "3,5,4,11";
+						autoCharges_1 = "11,8";
+					}
+					else
+					{
 					moveInCharges_1 = "3,5,4";
 					autoCharges_1 = "7,8";
+					}
 					GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 				}
 		    }

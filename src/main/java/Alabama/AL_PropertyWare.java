@@ -88,6 +88,8 @@ public class AL_PropertyWare
     public static ArrayList<String> serviceAnimalPetBreed;
     public static ArrayList<String> serviceAnimalPetWeight;
     public static boolean HVACFilterFlag = false;
+    public static boolean residentBenefitsPackageAvailabilityCheck = false;
+    public static String residentBenefitsPackage = "";
     
     public void login() throws Exception
 	{

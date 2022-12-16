@@ -150,6 +150,8 @@ static String AB_commencementDate_Prior = "Commencement Date:";
 	
 	static String concessionAddendumText ="This is a CONCESSION ADDENDUM to your Lease Agreement";
 	
+	static String residentBenefitsPackageAddendumCheck ="Resident Benefits Package (RBP) Lease Addendum";
+	static String AB1_residentBenefitsPackage_Prior = "home second nature at a cost of $";
 
 
 }

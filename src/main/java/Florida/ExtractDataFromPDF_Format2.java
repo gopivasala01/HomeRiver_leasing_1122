@@ -136,27 +136,51 @@ public class ExtractDataFromPDF_Format2
 	    	e.printStackTrace();
 	    }
 	    System.out.println("Admin Fee = "+FL_PropertyWare.adminFee);//.substring(commensementDate.lastIndexOf(":")+1));
-	    if(text.contains(PDFAppConfig_Format2.HVACFilterAddendumTextAvailabilityCheck)==true)
+	  //Resident Benefits Package 
+	    if(text.contains(PDFAppConfig_Format2.residentBenefitsPackageAddendumCheck))
 	    {
-	    	FL_PropertyWare.HVACFilterFlag =true;
+	    	FL_PropertyWare.residentBenefitsPackageAvailabilityCheck = true;
+	    	 try
+	 	    {
+	 		    FL_PropertyWare.residentBenefitsPackage = text.substring(text.indexOf(PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior)+PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior.length()).split(" ")[0];
+	 		    if(FL_PropertyWare.residentBenefitsPackage.matches(".*[a-zA-Z]+.*"))
+	 		    {
+	 		    	FL_PropertyWare.residentBenefitsPackage = "Error";
+	 		    }
+	 	    }
+	 	    catch(Exception e)
+	 	    {
+	 		    FL_PropertyWare.residentBenefitsPackage = "Error";
+	 		    e.printStackTrace();
+	 	    }
+	    	 System.out.println("Resident Benefits Package  = "+FL_PropertyWare.residentBenefitsPackage.trim());
+	    	//PDFAppConfig.AB1_residentBenefitsPackage_Prior
 	    }
 	    else
 	    {
-	    try
-	    {
-	    	FL_PropertyWare.airFilterFee = text.substring(text.indexOf(PDFAppConfig_Format2.HVACAirFilter_prior)+PDFAppConfig_Format2.HVACAirFilter_prior.length()).split(" ")[0].trim();
-	    	if(FL_PropertyWare.airFilterFee.matches(".*[a-zA-Z]+.*"))
+	    
+		    if(text.contains(PDFAppConfig_Format2.HVACFilterAddendumTextAvailabilityCheck)==true)
+		    {
+		    	FL_PropertyWare.HVACFilterFlag =true;
+		    }
+		    else
+		    {
+		    try
+		    {
+		    	FL_PropertyWare.airFilterFee = text.substring(text.indexOf(PDFAppConfig_Format2.HVACAirFilter_prior)+PDFAppConfig_Format2.HVACAirFilter_prior.length()).split(" ")[0].trim();
+		    	if(FL_PropertyWare.airFilterFee.matches(".*[a-zA-Z]+.*"))
+			    {
+			    	FL_PropertyWare.airFilterFee = "Error";
+			    }
+		    }
+		    catch(Exception e)
 		    {
 		    	FL_PropertyWare.airFilterFee = "Error";
+		    	e.printStackTrace();
 		    }
+		    }
+		    System.out.println("HVAC Air Filter Fee = "+FL_PropertyWare.airFilterFee);//.substring(commensementDate.lastIndexOf(":")+1));
 	    }
-	    catch(Exception e)
-	    {
-	    	FL_PropertyWare.airFilterFee = "Error";
-	    	e.printStackTrace();
-	    }
-	    }
-	    System.out.println("HVAC Air Filter Fee = "+FL_PropertyWare.airFilterFee);//.substring(commensementDate.lastIndexOf(":")+1));
 	    try
 	    {
 	    	FL_PropertyWare.occupants = text.substring(text.indexOf(PDFAppConfig_Format2.occupants_Prior)+PDFAppConfig_Format2.occupants_Prior.length(),text.indexOf(PDFAppConfig_Format2.occupants_After)).trim();

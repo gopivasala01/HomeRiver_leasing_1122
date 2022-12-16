@@ -140,28 +140,52 @@ public class GA_ExtractDataFromPDF {
 		    e.printStackTrace();
 	    }
 	    System.out.println("Admin Fee = "+GA_PropertyWare.adminFee.trim());
-	    if(text.contains(PDFAppConfig_Format2.HVACFilterAddendumTextAvailabilityCheck)==true)
+	    
+	  //Resident Benefits Package 
+	    if(text.contains(PDFAppConfig.residentBenefitsPackageAddendumCheck))
 	    {
-	    	GA_PropertyWare.HVACFilterFlag =true;
+	    	GA_PropertyWare.residentBenefitsPackageAvailabilityCheck = true;
+	    	 try
+	 	    {
+	 		    GA_PropertyWare.residentBenefitsPackage = text.substring(text.indexOf(PDFAppConfig.AB1_residentBenefitsPackage_Prior)+PDFAppConfig.AB1_residentBenefitsPackage_Prior.length()).split(" ")[0];
+	 		    if(GA_PropertyWare.residentBenefitsPackage.matches(".*[a-zA-Z]+.*"))
+	 		    {
+	 		    	GA_PropertyWare.residentBenefitsPackage = "Error";
+	 		    }
+	 	    }
+	 	    catch(Exception e)
+	 	    {
+	 		    GA_PropertyWare.residentBenefitsPackage = "Error";
+	 		    e.printStackTrace();
+	 	    }
+	    	 System.out.println("Resident Benefits Package  = "+GA_PropertyWare.residentBenefitsPackage.trim());
+	    	//PDFAppConfig.AB1_residentBenefitsPackage_Prior
 	    }
 	    else
 	    {
-	    try
-	    {
-		   String[] airFilterFeeArray = text.substring(text.indexOf(PDFAppConfig.AB_airFilterFee_Prior)+PDFAppConfig.AB_airFilterFee_Prior.length()).split(" ");
-		   GA_PropertyWare.airFilterFee = airFilterFeeArray[0];
-		   if(GA_PropertyWare.airFilterFee.matches(".*[a-zA-Z]+.*"))
+		    if(text.contains(PDFAppConfig_Format2.HVACFilterAddendumTextAvailabilityCheck)==true)
 		    {
-		    	GA_PropertyWare.airFilterFee = "Error";
+		    	GA_PropertyWare.HVACFilterFlag =true;
 		    }
+		    else
+		    {
+		    try
+		    {
+			   String[] airFilterFeeArray = text.substring(text.indexOf(PDFAppConfig.AB_airFilterFee_Prior)+PDFAppConfig.AB_airFilterFee_Prior.length()).split(" ");
+			   GA_PropertyWare.airFilterFee = airFilterFeeArray[0];
+			   if(GA_PropertyWare.airFilterFee.matches(".*[a-zA-Z]+.*"))
+			    {
+			    	GA_PropertyWare.airFilterFee = "Error";
+			    }
+		    }
+		    catch(Exception e)
+		    {
+		    GA_PropertyWare.airFilterFee = "Error";
+		    e.printStackTrace();
+		    }
+		    }
+		    System.out.println("Air Filter Fee = "+GA_PropertyWare.airFilterFee.trim());
 	    }
-	    catch(Exception e)
-	    {
-	    GA_PropertyWare.airFilterFee = "Error";
-	    e.printStackTrace();
-	    }
-	    }
-	    System.out.println("Air Filter Fee = "+GA_PropertyWare.airFilterFee.trim());
 	    try
 	    {
 	    	String[] earlyTerminationRaw = text.substring(text.indexOf(PDFAppConfig.AB_earlyTerminationFee_Prior)+PDFAppConfig.AB_earlyTerminationFee_Prior.length()).split(" ");

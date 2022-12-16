@@ -150,6 +150,9 @@ static String AB_commencementDate_Prior = "Commencement Date:";
 	static String AB1_serviceAnimal_typeWord_Prior = "Tenant has the following Service/Support Animal(s) on the Property until the above-referenced lease ends.";
 	static String AB1_serviceAnimal_typeWord_After = "B. SERVICE/SUPPORT ANIMAL RULES";
 	
+	static String residentBenefitsPackageAddendumCheck ="Resident Benefits Package (RBP) Lease Addendum";
+	static String AB1_residentBenefitsPackage_Prior = "home second nature at a cost of $";
+	
 
 
 }

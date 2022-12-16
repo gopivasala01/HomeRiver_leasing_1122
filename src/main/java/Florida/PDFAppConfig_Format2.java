@@ -59,6 +59,8 @@ public class PDFAppConfig_Format2
 	
 	static String HVACFilterAddendumTextAvailabilityCheck = "HVAC FILTER MAINTENANCE PROGRAM OPT-OUT ADDENDUM";
 	
+	static String residentBenefitsPackageAddendumCheck ="Resident Benefits Package (RBP) Lease Addendum";
+	static String AB1_residentBenefitsPackage_Prior = "home second nature at a cost of $";
 	
 	
 }

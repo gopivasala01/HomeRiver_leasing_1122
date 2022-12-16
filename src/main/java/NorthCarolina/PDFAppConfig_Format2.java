@@ -63,6 +63,8 @@ public class PDFAppConfig_Format2
 	static String monthlyRentAvailabilityCheck ="*Per the Landlord, Monthly Rent";
 	static String HVACFilterAddendumTextAvailabilityCheck = "HVAC FILTER MAINTENANCE PROGRAM OPT-OUT ADDENDUM";
 	
+	static String AB1_residentBenefitsPackage_Prior = "home second nature at a cost of $";
+	
 	
 }
 

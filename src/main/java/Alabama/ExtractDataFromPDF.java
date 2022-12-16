@@ -8,7 +8,6 @@ import org.apache.commons.codec.binary.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
-
 import mainPackage.InsertDataIntoDatabase;
 import mainPackage.RunnerClass;
 
@@ -143,6 +142,29 @@ public class ExtractDataFromPDF
 		    e.printStackTrace();
 	    }
 	    System.out.println("Admin Fee = "+AL_PropertyWare.adminFee.trim());
+	    
+	  //Resident Benefits Package 
+	    if(text.contains(PDFAppConfig.residentBenefitsPackageAddendumCheck))
+	    {
+	    	AL_PropertyWare.residentBenefitsPackageAvailabilityCheck = true;
+	    	 try
+	 	    {
+	 		    AL_PropertyWare.residentBenefitsPackage = text.substring(text.indexOf(PDFAppConfig.AB1_residentBenefitsPackage_Prior)+PDFAppConfig.AB1_residentBenefitsPackage_Prior.length()).split(" ")[0];
+	 		    if(AL_PropertyWare.residentBenefitsPackage.matches(".*[a-zA-Z]+.*"))
+	 		    {
+	 		    	AL_PropertyWare.residentBenefitsPackage = "Error";
+	 		    }
+	 	    }
+	 	    catch(Exception e)
+	 	    {
+	 		    AL_PropertyWare.residentBenefitsPackage = "Error";
+	 		    e.printStackTrace();
+	 	    }
+	    	 System.out.println("Resident Benefits Package  = "+AL_PropertyWare.residentBenefitsPackage.trim());
+	    	//PDFAppConfig.AB1_residentBenefitsPackage_Prior
+	    }
+	    else
+	    {
 	    if(text.contains(PDFAppConfig_Format2.HVACFilterAddendumTextAvailabilityCheck)==true)
 	    {
 	    	AL_PropertyWare.HVACFilterFlag =true;
@@ -165,6 +187,7 @@ public class ExtractDataFromPDF
 	    }
 	    }
 	    System.out.println("Air Filter Fee = "+AL_PropertyWare.airFilterFee.trim());
+	    }
 	    try
 	    {
 	    	String[] earlyTerminationRaw = text.substring(text.indexOf(PDFAppConfig.AB_earlyTerminationFee_Prior)+PDFAppConfig.AB_earlyTerminationFee_Prior.length()).split(" ");

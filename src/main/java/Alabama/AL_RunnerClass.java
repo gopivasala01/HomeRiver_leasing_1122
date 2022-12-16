@@ -24,6 +24,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import mainPackage.RunnerClass;
 //import mainPackage.AppConfig;
 import Alabama.AppConfig;
+import NorthCarolina.NC_PropertyWare;
 import mainPackage.InsertDataIntoDatabase;
 
 public class AL_RunnerClass 
@@ -249,6 +250,8 @@ public static void emptyAllValues()
 	AL_PropertyWare.increasedRent_newEndDate ="";
 	AL_PropertyWare.serviceAnimalFlag = false;
 	AL_PropertyWare.HVACFilterFlag = false;
+	NC_PropertyWare.HVACFilterFlag = false;
+	NC_PropertyWare.residentBenefitsPackageAvailabilityCheck = false;
 }
 
 

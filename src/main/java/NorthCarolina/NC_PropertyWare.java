@@ -91,6 +91,8 @@ public class NC_PropertyWare
     public static String flatFeeAmount ="";
     public static String lateFeePercentage="";
     public static boolean HVACFilterFlag = false;
+    public static boolean residentBenefitsPackageAvailabilityCheck = false;
+    public static String residentBenefitsPackage = "";
    
     public void login() throws Exception
 	{

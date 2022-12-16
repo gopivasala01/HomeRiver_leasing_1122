@@ -87,6 +87,8 @@ public class FL_PropertyWare
     public static ArrayList<String> serviceAnimalPetBreed;
     public static ArrayList<String> serviceAnimalPetWeight;
     public static boolean HVACFilterFlag = false;
+    public static boolean residentBenefitsPackageAvailabilityCheck = false;
+    public static String residentBenefitsPackage = "";
     public void login() throws Exception
 	{
 		FL_RunnerClass.FL_driver.get(AppConfig.propertyWareURL);

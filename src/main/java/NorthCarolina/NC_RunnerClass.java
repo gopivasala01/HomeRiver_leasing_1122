@@ -259,6 +259,7 @@ public static PDDocument document;
 		NC_PropertyWare.flatFeeAmount ="";
 		NC_PropertyWare.lateFeePercentage="";
 		NC_PropertyWare.HVACFilterFlag = false;
+		NC_PropertyWare.residentBenefitsPackageAvailabilityCheck = false;
 	}
 	
 	

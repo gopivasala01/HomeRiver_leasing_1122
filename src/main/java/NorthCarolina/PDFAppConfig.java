@@ -163,4 +163,7 @@ static String AB_commencementDate_Prior = "Commencement Date:";
 	static String lateFeeRule_whicheverIsGreater_lateFeePercentage = "Tenant will pay Landlord for each late payment a late fee of";
 	static String lateFeeRule_whicheverIsGreater_lateFeeAmount = "rent or $";
 	
+	static String residentBenefitsPackageAddendumCheck ="Resident Benefits Package (RBP) Lease Addendum";
+	static String AB1_residentBenefitsPackage_Prior = "home second nature at a cost of $";
+	
 }
