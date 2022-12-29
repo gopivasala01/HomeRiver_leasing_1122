@@ -39,6 +39,9 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 		prepaymentChargeOrMonthlyRent = "2";
 		else 
 		prepaymentChargeOrMonthlyRent = "9";
+		//If Prorated Rent date is move in Month and Portfolio type is MCH
+				if(AL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&AL_PropertyWare.portfolioType=="MCH")
+					prepaymentChargeOrMonthlyRent = "9";
 		// Assign Charge codes based on conditions (Portfolio, Company etc)
 		int temp=0;
 		//If Consession addendum is available, skip Rents and Prorated Rents
