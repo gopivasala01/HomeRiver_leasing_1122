@@ -338,7 +338,8 @@ public class ExtractDataFromPDF_Format2
 	    	String typeSubString = "";
 	    	try
 	    	{
-	    	typeSubString = text.substring(text.indexOf(PDFAppConfig_Format2.typeWord_Prior)+PDFAppConfig_Format2.typeWord_Prior.length(),text.indexOf(PDFAppConfig_Format2.typeWord_After));
+	    	//typeSubString = text.substring(text.indexOf(PDFAppConfig_Format2.typeWord_Prior)+PDFAppConfig_Format2.typeWord_Prior.length(),text.indexOf(PDFAppConfig_Format2.typeWord_After));
+	    		typeSubString = text.substring(text.indexOf(PDFAppConfig_Format2.petAgreementAvailabilityCheck));
 	    	}
 	    	catch(Exception e)
 	    	{
