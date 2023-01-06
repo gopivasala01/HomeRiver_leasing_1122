@@ -59,13 +59,29 @@ public boolean runAutomation(String portfolio, String leaseName, String leaseOwn
 		return false;
 	//Extract data from PDF
 	
+	//Decide Portfolio Type
+	int portfolioFlag =0;
+	for(int i=0;i<mainPackage.AppConfig.IAGClientList.length;i++)
+	{
+		if(RunnerClass.portfolio.contains(mainPackage.AppConfig.IAGClientList[i]))
+		{
+			portfolioFlag =1;
+			break;
+			//AL_PropertyWare.portfolioType = "MCH";
+		}
+	}
+	
+	if(portfolioFlag==1)
+		AL_PropertyWare.portfolioType = "MCH";
+	else AL_PropertyWare.portfolioType = "Others";
+	/*
 	if(RunnerClass.portfolio.contains("MAN")||RunnerClass.portfolio.contains("HS")||RunnerClass.portfolio.contains("MCH"))
 	{
 	AL_PropertyWare.portfolioType = "MCH";
 	}
 	else
 	AL_PropertyWare.portfolioType = "Others";
-	
+	*/
 	// Decide the PDF Format
     pdfFormatType = AL_RunnerClass.decidePDFFormat();
     if(pdfFormatType.equalsIgnoreCase("Format1"))
