@@ -26,6 +26,7 @@ import Arizona.AZ_RunnerClass;
 import Florida.FL_RunnerClass;
 import Georgia.GA_RunnerClass;
 import NorthCarolina.NC_RunnerClass;
+import SouthCarolina.SC_RunnerClass;
 //import Arizona.AZ_PropertyWare;
 //import Arizona.AZ_RunnerClass;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -110,6 +111,14 @@ public class RunnerClass
 					georgia.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
 					GA_RunnerClass.FL_driver.close();
+					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
+					break;
+			case "South Carolina":
+				//case "Arkansas":
+					SC_RunnerClass southCarolina = new SC_RunnerClass();
+					southCarolina.runAutomation(portfolio,leaseName,leaseOwnerName);
+					RunnerClass.updateLeaseStatus();
+					SC_RunnerClass.FL_driver.close();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			
