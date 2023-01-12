@@ -25,6 +25,7 @@ import Alabama.AL_RunnerClass;
 import Arizona.AZ_RunnerClass;
 import Florida.FL_RunnerClass;
 import Georgia.GA_RunnerClass;
+import Indiana.IN_RunnerClass;
 import NorthCarolina.NC_RunnerClass;
 import SouthCarolina.SC_RunnerClass;
 //import Arizona.AZ_PropertyWare;
@@ -119,6 +120,14 @@ public class RunnerClass
 					southCarolina.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
 					SC_RunnerClass.FL_driver.close();
+					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
+					break;
+			case "Indiana":
+				//case "Arkansas":
+					IN_RunnerClass Indiana = new IN_RunnerClass();
+					Indiana.runAutomation(portfolio,leaseName,leaseOwnerName);
+					RunnerClass.updateLeaseStatus();
+					IN_RunnerClass.FL_driver.close();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			
