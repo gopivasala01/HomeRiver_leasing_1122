@@ -199,6 +199,11 @@ public class InsertDataIntoPropertyWare
 				FL_RunnerClass.FL_driver.navigate().refresh();
 				FL_RunnerClass.FL_driver.findElement(Locators.summaryTab).click();
 			}
+			
+			//Check if Move in Charges were entered
+			
+			
+			
 			Thread.sleep(5000);
 			FL_RunnerClass.FL_driver.findElement(Locators.summaryEditButton).click();
 			FL_RunnerClass.FL_actions.moveToElement(FL_RunnerClass.FL_driver.findElement(Locators.newAutoCharge)).build().perform();
@@ -263,7 +268,6 @@ public class InsertDataIntoPropertyWare
 				catch(Exception e)
 				{
 					FL_RunnerClass.FL_driver.findElement(Locators.autoCharge_CancelButton).click();
-					
 				}
 				Thread.sleep(2000);
 				
@@ -317,6 +321,9 @@ public class InsertDataIntoPropertyWare
 				catch(Exception e)
 				{}
 			}
+			
+			
+			
 			
 			//Other Fields
             Thread.sleep(4000);

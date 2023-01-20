@@ -267,6 +267,7 @@ public class GA_PropertyWare {
 					break;
 				}
 			}
+			Thread.sleep(1000);
 			if(checkLeaseAgreementAvailable==false)
 			{
 			for(int i =0;i<documents.size();i++)
@@ -279,6 +280,7 @@ public class GA_PropertyWare {
 				}
 			}
 			}
+			Thread.sleep(1000);
 			if(checkLeaseAgreementAvailable==false)
 			{
 			for(int i =0;i<documents.size();i++)

@@ -340,7 +340,7 @@ public class InsertDataIntoPropertyWare
 			
 			//Other Fields
             Thread.sleep(4000);
-		/*	
+		
 			// RC Field
 			try
 			{
@@ -361,7 +361,7 @@ public class InsertDataIntoPropertyWare
 			{
 				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "RC Details"+'\n');
 				temp=1;
-			}*/
+			}
 			//Early Termination
 			Thread.sleep(2000);
 			
@@ -1306,7 +1306,7 @@ public class InsertDataIntoPropertyWare
 				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Fee Rule"+'\n');
 				return false;
 			}
-			Thread.sleep(2000);
+			//Thread.sleep(2000);
 			//Late Charges
 			Thread.sleep(2000);
 			try

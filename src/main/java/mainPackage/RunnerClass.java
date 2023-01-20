@@ -73,6 +73,9 @@ public class RunnerClass
 			// Change status of In progress to  a temporary
 			InsertDataIntoDatabase.insertData(leaseName, "Started", 6);
 			// Split the Lease Name with "-" and search with first name
+			if(leaseName.split("-")[0].trim().contains(" "))
+		     leaseName = leaseName;
+			else 
 			leaseName = leaseName.split("-")[0].trim();
 			String leaseOwnerName = leasesList[i][3];
 			try
@@ -198,7 +201,7 @@ public class RunnerClass
 	    }
 	    return ind;
 	}
-	
+	/*
 	public static String convertDate(String date)
 	{
 		String month="";
@@ -232,6 +235,22 @@ public class RunnerClass
 			{
 			//	e2.printStackTrace();
 				return null;}
+		}
+	}
+	*/
+	public static String convertDate(String dateRaw) throws Exception
+	{
+		try
+		{
+		SimpleDateFormat format1 = new SimpleDateFormat("MMMM dd, yyyy");
+	    SimpleDateFormat format2 = new SimpleDateFormat("MM/dd/yyyy");
+	    Date date = format1.parse(dateRaw.trim().replaceAll(" +", " "));
+	    System.out.println(format2.format(date));
+		return format2.format(date).toString();
+		}
+		catch(Exception e)
+		{
+		return "Error";
 		}
 	}
 	
@@ -410,7 +429,7 @@ public static int nthOccurrence(String str1, String str2, int n)
         return --finalIndex;
     }
 
-public static String PDFDateToMonthAndYear(String date)
+public static String PDFDateToMonthAndYear(String date) throws Exception
 {
 	String nextMonthInText;
 	String year;

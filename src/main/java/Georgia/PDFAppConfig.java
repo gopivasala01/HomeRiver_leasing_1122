@@ -26,7 +26,7 @@ static String AB_commencementDate_Prior = "Commencement Date:";
 	static String AB_adminFee_Prior = "An annual lease preparation fee in the amount of $";
 	static String AB_adminFee_After = "prior to the Commencement Date of this lease";
 	
-	static String AB_earlyTerminationFee_Prior = "Additionally, Tenant must pay an early termination fee to Landlord of ";
+	static String AB_earlyTerminationFee_Prior = "early termination fee to Landlord of ";
 	static String AB_earlyTerminationFee_After = " month�s rent at the time the Notice is provided (�Early \r\n"
 			+ "Termination Fee�).";
 	

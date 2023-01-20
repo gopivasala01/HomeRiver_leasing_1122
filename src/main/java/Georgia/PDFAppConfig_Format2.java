@@ -25,13 +25,15 @@ package Georgia;
 		
 		public static String lateFeeDay_Prior = "11:59 PM of the ";
 		
+		public static String increasedMonthlyRentCheck ="Per the Landlord, Monthly Rent";
+		
 		public static String initialLateChargeFee_Prior = "day of the month equal to $";
 		
 		public static String additionaLateCharge_Prior = "additional late charge of $";
 		
 		public static String lateChargePerDayFee = "of the monthly rent or $";
 		
-		public static String petAgreementAvailabilityCheck = "THIS PET ADDENDUM (this";
+		public static String petAgreementAvailabilityCheck = "THIS PET ADDENDUM (";
 		public static String petAgreementAvailabilityCheck2="PET AUTHORIZATION AND PET DESCRIPTION:";
 
 		public static String securityDeposit_Prior = "Deposit with Landlord, the sum of $";

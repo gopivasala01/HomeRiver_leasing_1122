@@ -330,7 +330,7 @@ public class InsertDataIntoPropertyWare
             Thread.sleep(4000);
 			
 			// RC Field
-		/*	try
+			try
 			{
 				if(SC_PropertyWare.RCDetails.equalsIgnoreCase("Error"))
 				{
@@ -381,7 +381,7 @@ public class InsertDataIntoPropertyWare
 				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Early Termination"+'\n');
 				e.printStackTrace();
 				temp=1;
-			}*/
+			}
 			if(SC_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
 			{
 				if(SC_PropertyWare.residentBenefitsPackage!="Error")

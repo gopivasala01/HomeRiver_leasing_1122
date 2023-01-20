@@ -52,6 +52,8 @@ public class PDFAppConfig_Format2
 	
 	public static String earlyTermination_Prior = "Tenant must pay an early termination fee to Landlord of ";
 	
+	public static String increasedMonthlyRentCheck ="Per the Landlord, Monthly Rent";
+	
 	public static String increasedRent_newStartDate_Prior = "per month. Monthly Rent from";
 	
 	static String serviceAnimal_typeWord_Prior = "Tenant has the following Service/Support Animal(s) on the Property until the above-referenced lease ends.";

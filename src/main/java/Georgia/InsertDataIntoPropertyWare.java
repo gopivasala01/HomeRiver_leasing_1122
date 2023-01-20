@@ -324,6 +324,9 @@ public class InsertDataIntoPropertyWare {
 				catch(Exception e)
 				{}
 			}
+			//Check If Auto Charges were entered
+			
+			
 			
 			//Other Fields
             Thread.sleep(4000);

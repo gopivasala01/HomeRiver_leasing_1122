@@ -137,7 +137,7 @@ public class IN_ExtractDataFromPDF_Format2
 	    	IN_PropertyWare.residentBenefitsPackageAvailabilityCheck = true;
 	    	 try
 	 	    {
-	 		    IN_PropertyWare.residentBenefitsPackage = text.substring(text.indexOf(PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior)+PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior.length()).split(" ")[0];
+	 		    IN_PropertyWare.residentBenefitsPackage = text.substring(text.indexOf(PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior)+PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior.length()).split(" ")[0].replaceAll("[^0-9a-zA-Z.]", "");
 	 		    if(IN_PropertyWare.residentBenefitsPackage.matches(".*[a-zA-Z]+.*"))
 	 		    {
 	 		    	IN_PropertyWare.residentBenefitsPackage = "Error";

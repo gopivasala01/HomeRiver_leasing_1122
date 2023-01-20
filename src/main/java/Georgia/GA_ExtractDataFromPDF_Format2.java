@@ -136,7 +136,7 @@ public class GA_ExtractDataFromPDF_Format2 {
 	    	GA_PropertyWare.residentBenefitsPackageAvailabilityCheck = true;
 	    	 try
 	 	    {
-	 		    GA_PropertyWare.residentBenefitsPackage = text.substring(text.indexOf(PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior)+PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior.length()).split(" ")[0];
+	 		    GA_PropertyWare.residentBenefitsPackage = text.substring(text.indexOf(PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior)+PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior.length()).split(" ")[0].replaceAll("[^0-9a-zA-Z.]", "");
 	 		    if(GA_PropertyWare.residentBenefitsPackage.matches(".*[a-zA-Z]+.*"))
 	 		    {
 	 		    	GA_PropertyWare.residentBenefitsPackage = "Error";

@@ -3,10 +3,10 @@ package Arizona;
 public class PDFAppConfig 
 {
 	static String AZ_commencementDate_Prior = "commences on";
-	static 	String AZ_commencementDate_After = " (“Commencement Date”)";
+	static 	String AZ_commencementDate_After = " (ï¿½Commencement Dateï¿½)";
 	
 	static String AZ_expirationDate_Prior = "and expires on";
-	static String AZ_expirationDate_After = "(“Expiration Date”)";
+	static String AZ_expirationDate_After = "(ï¿½Expiration Dateï¿½)";
 	
 	static String AZ_proratedRentDate_Prior = "Prorated Rent: On or before";
 	static String AZ_proratedRentDate_After = " Tenant will pay Landlord $";
@@ -17,7 +17,7 @@ public class PDFAppConfig
 	static String AZ_fullRent_Prior = "Tenant will pay Landlord monthly rent in the amount of";
 	static String AZ_fullRent_After = "per month, plus applicable";
 	
-	static String AZ_fullRentDate_Prior = "*The first full month’s rent is due and payable not later \r\n"
+	static String AZ_fullRentDate_Prior = "*The first full monthï¿½s rent is due and payable not later \r\n"
 			+ "than ";
 	static String AZ_fullRentDate_After = ". \r\n"
 			+ " \r\n"
@@ -26,11 +26,11 @@ public class PDFAppConfig
 	static String AZ_adminFee_Prior = "An annual lease preparation fee in the amount of $";
 	static String AZ_adminFee_After = "prior to the Commencement Date of this lease";
 	
-	static String AZ_earlyTerminationFee_Prior = "Tenant must pay an early termination fee to Landlord of";
-	static String AZ_earlyTerminationFee_After = "month’s rent at \r\n"
-			+ "the time the Notice is provided (“Early Termination Fee”)";
+	static String AZ_earlyTerminationFee_Prior = "early termination fee to Landlord of ";
+	static String AZ_earlyTerminationFee_After = "monthï¿½s rent at \r\n"
+			+ "the time the Notice is provided (ï¿½Early Termination Feeï¿½)";
 	
-	static String AZ_occupants_Prior = "writing by Landlord/Landlord’s Broker:";
+	static String AZ_occupants_Prior = "writing by Landlord/Landlordï¿½s Broker:";
 	static String AZ_occupants_After = "11. MAINTENANCE";
 	
 	static String AZ_lateChargeDay_Prior = "will be assessed an initial late charge on the";
@@ -43,7 +43,7 @@ public class PDFAppConfig
 	
 	static String AZ_airFilterFee_Prior = "HVAC Filter Maintenance Program Fee \r\n"
 			+ "of $";
-	static String AZ_airFilterFee_After = "per month (“HVAC Program Fee”)";
+	static String AZ_airFilterFee_After = "per month (ï¿½HVAC Program Feeï¿½)";
 	
 	static String AZ_petAgreementAvailabilityCheck = "PET AUTHORIZATION AND PET DESCRIPTION:";
 	

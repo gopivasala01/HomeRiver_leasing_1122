@@ -93,7 +93,8 @@ public class ExtractDataFromPDF_Format2
 		    {
 		    	FL_PropertyWare.monthlyRent = "Error";
 		    }
-	    	if(FL_PropertyWare.monthlyRent.contains("*"))
+	    	//if(FL_PropertyWare.monthlyRent.contains("*"))
+	    	if(text.contains(PDFAppConfig_Format2.increasedMonthlyRentCheck))
 	    	{
 	    		FL_PropertyWare.incrementRentFlag = true;
 	    		FL_PropertyWare.monthlyRent = FL_PropertyWare.monthlyRent.replace("*", "");
@@ -142,7 +143,7 @@ public class ExtractDataFromPDF_Format2
 	    	FL_PropertyWare.residentBenefitsPackageAvailabilityCheck = true;
 	    	 try
 	 	    {
-	 		    FL_PropertyWare.residentBenefitsPackage = text.substring(text.indexOf(PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior)+PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior.length()).split(" ")[0];
+	 		    FL_PropertyWare.residentBenefitsPackage = text.substring(text.indexOf(PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior)+PDFAppConfig_Format2.AB1_residentBenefitsPackage_Prior.length()).split(" ")[0].replaceAll("[^0-9a-zA-Z.]", "");
 	 		    if(FL_PropertyWare.residentBenefitsPackage.matches(".*[a-zA-Z]+.*"))
 	 		    {
 	 		    	FL_PropertyWare.residentBenefitsPackage = "Error";

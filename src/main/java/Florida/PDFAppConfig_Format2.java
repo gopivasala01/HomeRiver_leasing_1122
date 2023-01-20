@@ -31,7 +31,7 @@ public class PDFAppConfig_Format2
 	
 	public static String lateChargePerDayFee = "and additional late charge of $";
 	
-	public static String petAgreementAvailabilityCheck = "PET AUTHORIZATION AND PET DESCRIPTION:";
+	public static String petAgreementAvailabilityCheck = "THIS PET ADDENDUM (";
 
 	public static String securityDeposit_Prior = "Deposit with Landlord, the sum of $";
 	public static String securityDeposit_After = " (the �Security Deposit�)";
@@ -51,6 +51,8 @@ public class PDFAppConfig_Format2
 	public static String petOneTimeNonRefundable_Prior2 = "Tenant shall pay a pet deposit in the amount of $";
 	
 	public static String earlyTermination_Prior = "Tenant must pay an early termination fee to Landlord of ";
+	
+	public static String increasedMonthlyRentCheck ="Per the Landlord, Monthly Rent";
 	
 	public static String increasedRent_newStartDate_Prior = "per month. Monthly Rent from";
 	
