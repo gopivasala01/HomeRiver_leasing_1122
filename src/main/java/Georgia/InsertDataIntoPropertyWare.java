@@ -34,12 +34,18 @@ public class InsertDataIntoPropertyWare {
 		GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag =  GA_PropertyWare.checkProratedRentDateIsInMoveInMonth(); 
 		System.out.println("Prorated Rent is in move in month = "+GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag);
 		if(GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true)
-		prepaymentChargeOrMonthlyRent = "2";
+		{
+			if(GA_PropertyWare.proratedRentDate.equalsIgnoreCase("n/a")||GA_PropertyWare.proratedRentDate.equalsIgnoreCase("na")||GA_PropertyWare.proratedRentDate.equalsIgnoreCase("N/A")||GA_PropertyWare.proratedRentDate.equalsIgnoreCase("NA"))
+				prepaymentChargeOrMonthlyRent = "2";
+			else
+			prepaymentChargeOrMonthlyRent = "12";
+			
+		}
 		else 
 		prepaymentChargeOrMonthlyRent = "9";
 		//If Prorated Rent date is move in Month and Portfolio type is MCH
-		if(GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&GA_PropertyWare.portfolioType=="MCH")
-			prepaymentChargeOrMonthlyRent = "9";
+		//if(GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&GA_PropertyWare.portfolioType=="MCH")
+			//prepaymentChargeOrMonthlyRent = "9";
 			//else 
 			//prepaymentChargeOrMonthlyRent = "9";
 		// Assign Charge codes based on conditions (Portfolio, Company etc)
@@ -135,7 +141,7 @@ public class InsertDataIntoPropertyWare {
 			//Check if there is any amount has error
 			try
 			{
-				if(moveInCharges[i][4]==null||moveInCharges[i][4].equalsIgnoreCase("n/a")||moveInCharges[i][4]=="Error"||RunnerClass.onlyDigits(moveInCharges[i][4].replace(",", "").replace(".", ""))==false)
+				if(moveInCharges[i][4].trim()=="0.00"||moveInCharges[i][4]==null||moveInCharges[i][4].equalsIgnoreCase("n/a")||moveInCharges[i][4]=="Error"||RunnerClass.onlyDigits(moveInCharges[i][4].replace(",", "").replace(".", ""))==false)
 				{
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Move In Charge - "+moveInCharges[i][0]+'\n');
 					temp=1;
@@ -789,6 +795,7 @@ public class InsertDataIntoPropertyWare {
 		}
 		catch(Exception e) {}
 		}
+		
 		try
 		{
 		if(GA_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&(GA_PropertyWare.proratedPetRent!=""||GA_PropertyWare.proratedPetRent!=null||!GA_PropertyWare.proratedPetRent.equalsIgnoreCase("na")||!GA_PropertyWare.proratedPetRent.equalsIgnoreCase("n/a"))&&(DayInCommensementDate.equalsIgnoreCase("01")||DayInCommensementDate.equalsIgnoreCase("1"))) //Double.parseDouble(GA_PropertyWare.proratedRent.trim())<=200.00||
@@ -851,6 +858,10 @@ public class InsertDataIntoPropertyWare {
 				continue;
 			case "Resident Benefits Package":
 				query = query+"\nUpdate "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.residentBenefitsPackage+"',startDate ='"+RunnerClass.convertDate(GA_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where charge ='Resident Benefits Package'";
+				//InsertDataIntoDatabase.updateTable(query9);
+				continue;
+			case "Monthly Rent - New MCH":
+				query = query+"\nUpdate "+GA_RunnerClass.chargeCodesTable+" Set Amount ='"+GA_PropertyWare.monthlyRent+"',startDate ='"+RunnerClass.convertDate(GA_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where ID = 12";
 				//InsertDataIntoDatabase.updateTable(query9);
 				continue;
 			}

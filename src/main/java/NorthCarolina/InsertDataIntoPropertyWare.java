@@ -35,7 +35,13 @@ public class InsertDataIntoPropertyWare
 		NC_PropertyWare.proratedRentDateIsInMoveInMonthFlag =  NC_PropertyWare.checkProratedRentDateIsInMoveInMonth(); 
 		System.out.println("Prorated Rent is in move in month = "+NC_PropertyWare.proratedRentDateIsInMoveInMonthFlag);
 		if(NC_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true)
-		prepaymentChargeOrMonthlyRent = "2";
+		{
+			if(NC_PropertyWare.proratedRentDate.equalsIgnoreCase("n/a")||NC_PropertyWare.proratedRentDate.equalsIgnoreCase("na")||NC_PropertyWare.proratedRentDate.equalsIgnoreCase("N/A")||NC_PropertyWare.proratedRentDate.equalsIgnoreCase("NA"))
+				prepaymentChargeOrMonthlyRent = "2";
+			else
+			prepaymentChargeOrMonthlyRent = "12";
+			
+		}
 		else 
 		prepaymentChargeOrMonthlyRent = "9";
 		//If Prorated Rent date is move in Month and Portfolio type is MCH
@@ -134,7 +140,7 @@ public class InsertDataIntoPropertyWare
 			//Check if there is any amount has error
 			try
 			{
-				if(moveInCharges[i][4]==null||moveInCharges[i][4].equalsIgnoreCase("n/a")||moveInCharges[i][4]=="Error"||RunnerClass.onlyDigits(moveInCharges[i][4].replace(",", "").replace(".", ""))==false)
+				if(moveInCharges[i][4].trim()=="0.00"||moveInCharges[i][4]==null||moveInCharges[i][4].equalsIgnoreCase("n/a")||moveInCharges[i][4]=="Error"||RunnerClass.onlyDigits(moveInCharges[i][4].replace(",", "").replace(".", ""))==false)
 				{
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Move In Charge - "+moveInCharges[i][0]+'\n');
 					temp=1;
@@ -848,6 +854,10 @@ public class InsertDataIntoPropertyWare
 				continue;
 			case "Resident Benefits Package":
 				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+NC_PropertyWare.residentBenefitsPackage+"',startDate ='"+RunnerClass.convertDate(NC_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where charge ='Resident Benefits Package'";
+				//InsertDataIntoDatabase.updateTable(query9);
+				continue;
+			case "Monthly Rent - New MCH":
+				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+NC_PropertyWare.monthlyRent+"',startDate ='"+RunnerClass.convertDate(NC_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where ID = 12";
 				//InsertDataIntoDatabase.updateTable(query9);
 				continue;
 			}

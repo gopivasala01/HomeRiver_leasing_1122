@@ -36,12 +36,18 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 		AL_PropertyWare.proratedRentDateIsInMoveInMonthFlag =  AL_PropertyWare.checkProratedRentDateIsInMoveInMonth(); 
 		System.out.println("Prorated Rent is in move in month = "+AL_PropertyWare.proratedRentDateIsInMoveInMonthFlag);
 		if(AL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true)
-		prepaymentChargeOrMonthlyRent = "2";
+		{
+			if(AL_PropertyWare.proratedRentDate.equalsIgnoreCase("n/a")||AL_PropertyWare.proratedRentDate.equalsIgnoreCase("na")||AL_PropertyWare.proratedRentDate.equalsIgnoreCase("N/A")||AL_PropertyWare.proratedRentDate.equalsIgnoreCase("NA"))
+				prepaymentChargeOrMonthlyRent = "2";
+			else
+			prepaymentChargeOrMonthlyRent = "12";
+			
+		}
 		else 
 		prepaymentChargeOrMonthlyRent = "9";
 		//If Prorated Rent date is move in Month and Portfolio type is MCH
-				if(AL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&AL_PropertyWare.portfolioType=="MCH")
-					prepaymentChargeOrMonthlyRent = "9";
+				//if(AL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&AL_PropertyWare.portfolioType=="MCH")
+					//prepaymentChargeOrMonthlyRent = "9";
 		// Assign Charge codes based on conditions (Portfolio, Company etc)
 		int temp=0;
 		//If Consession addendum is available, skip Rents and Prorated Rents
@@ -133,7 +139,7 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 			//Check if there is any amount has error
 			try
 			{
-				if(moveInCharges[i][4]==null||moveInCharges[i][4].equalsIgnoreCase("n/a")||moveInCharges[i][4]=="Error"||RunnerClass.onlyDigits(moveInCharges[i][4].replace(",", "").replace(".", ""))==false)
+				if(moveInCharges[i][4].trim()=="0.00"||moveInCharges[i][4]==null||moveInCharges[i][4].equalsIgnoreCase("n/a")||moveInCharges[i][4]=="Error"||RunnerClass.onlyDigits(moveInCharges[i][4].replace(",", "").replace(".", ""))==false)
 				{
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Move In Charge - "+moveInCharges[i][0]+'\n');
 					temp=1;
@@ -984,6 +990,10 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 				continue;
 			case "Resident Benefits Package":
 				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+AL_PropertyWare.residentBenefitsPackage+"',startDate ='"+RunnerClass.convertDate(AL_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where charge ='Resident Benefits Package'";
+				//InsertDataIntoDatabase.updateTable(query9);
+				continue;
+			case "Monthly Rent - New MCH":
+				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+AL_PropertyWare.monthlyRent+"',startDate ='"+RunnerClass.convertDate(AL_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where ID = 12";
 				//InsertDataIntoDatabase.updateTable(query9);
 				continue;
 			}

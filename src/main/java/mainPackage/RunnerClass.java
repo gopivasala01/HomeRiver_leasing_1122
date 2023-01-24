@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,6 +54,7 @@ public class RunnerClass
 	
 	public static void main(String[] args) throws Exception
 	{
+		RunnerClass.DateModified("02/05/2023");
 		GetDataFromDataBase getData = new GetDataFromDataBase();
 		getData.getInProgressLeasesFromDatabase();
 		//distribute inprogress leases to each company
@@ -265,8 +268,14 @@ public class RunnerClass
 		
 	}
 	
-	public static String DateModified(String date)
+	public static String DateModified(String date) throws Exception
 	{
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(dateFormat.parse(date));
+	    String d  =  String.valueOf(calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+	    System.out.println("Last Day of the Month "+d);
+	    /*
 		String newDay;
 		int dayInDate =Integer.parseInt(date.split("/")[1]);
 		if(dayInDate<=25)
@@ -274,8 +283,9 @@ public class RunnerClass
 			newDay = "25";
 		}
 		else newDay = String.valueOf(dayInDate);
+	     */
 		String dateArray[] = date.split("/"); //.replaceFirst(date.split("/")[1], newDay);
-		date = dateArray[0]+"/"+newDay+"/"+dateArray[2];
+		date = dateArray[0]+"/"+d+"/"+dateArray[2];
 		return date;
 	}
 	public static String extractNumber(String str) 

@@ -12,7 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import mainPackage.InsertDataIntoDatabase;
 import Alabama.Locators;
-import NorthCarolina.NC_PropertyWare;
 import mainPackage.RunnerClass;
 
 public class InsertDataIntoPropertyWare 
@@ -36,13 +35,20 @@ public class InsertDataIntoPropertyWare
 		//Check if Prorated Rent Date is in Move in Date month
 		FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag =  FL_PropertyWare.checkProratedRentDateIsInMoveInMonth(); 
 		System.out.println("Prorated Rent is in move in month = "+FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag);
+		
 		if(FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true)
-		prepaymentChargeOrMonthlyRent = "2";
+		{
+			if(FL_PropertyWare.proratedRentDate.equalsIgnoreCase("n/a")||FL_PropertyWare.proratedRentDate.equalsIgnoreCase("na")||FL_PropertyWare.proratedRentDate.equalsIgnoreCase("N/A")||FL_PropertyWare.proratedRentDate.equalsIgnoreCase("NA"))
+				prepaymentChargeOrMonthlyRent = "2";
+			else
+			prepaymentChargeOrMonthlyRent = "12";
+			
+		}
 		else 
 		prepaymentChargeOrMonthlyRent = "9";
 		//If Prorated Rent date is move in Month and Portfolio type is MCH
-				if(FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&FL_PropertyWare.portfolioType=="MCH")
-					prepaymentChargeOrMonthlyRent = "9";
+				//if(FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&FL_PropertyWare.portfolioType=="MCH")
+					//prepaymentChargeOrMonthlyRent = "9";
 		// Assign Charge codes based on conditions (Portfolio, Company etc)
 		int temp=0;
 		//If Consession addendum is available, skip Rents and Prorated Rents
@@ -134,7 +140,7 @@ public class InsertDataIntoPropertyWare
 			//Check if there is any amount has error
 			try
 			{
-				if(moveInCharges[i][4]==null||moveInCharges[i][4].equalsIgnoreCase("n/a")||moveInCharges[i][4]=="Error"||RunnerClass.onlyDigits(moveInCharges[i][4].replace(",", "").replace(".", ""))==false)
+				if(moveInCharges[i][4].trim()=="0.00"||moveInCharges[i][4]==null||moveInCharges[i][4].equalsIgnoreCase("n/a")||moveInCharges[i][4]=="Error"||RunnerClass.onlyDigits(moveInCharges[i][4].replace(",", "").replace(".", ""))==false)
 				{
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Move In Charge - "+moveInCharges[i][0]+'\n');
 					temp=1;
@@ -384,7 +390,7 @@ public class InsertDataIntoPropertyWare
 			
 			if(FL_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
 			{
-				if(NC_PropertyWare.residentBenefitsPackage!="Error")
+				if(FL_PropertyWare.residentBenefitsPackage!="Error")
 				{
 				Thread.sleep(2000);
 				try
@@ -997,6 +1003,10 @@ public class InsertDataIntoPropertyWare
 				continue;
 			case "Resident Benefits Package":
 				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.residentBenefitsPackage+"',startDate ='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where charge ='Resident Benefits Package'";
+				//InsertDataIntoDatabase.updateTable(query9);
+				continue;
+			case "Monthly Rent - New MCH":
+				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.monthlyRent+"',startDate ='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where ID = 12";
 				//InsertDataIntoDatabase.updateTable(query9);
 				continue;
 				
