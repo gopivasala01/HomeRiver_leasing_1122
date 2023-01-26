@@ -31,7 +31,7 @@ public class PDFAppConfig_Format2
 	
 	public static String lateChargePerDayFee = "and additional late charge of $";
 	
-	public static String petAgreementAvailabilityCheck = "THIS PET ADDENDUM (";
+	public static String petAgreementAvailabilityCheck = "PET AUTHORIZATION AND PET DESCRIPTION";
 
 	public static String securityDeposit_Prior = "Deposit with Landlord, the sum of $";
 	public static String securityDeposit_After = " (the �Security Deposit�)";

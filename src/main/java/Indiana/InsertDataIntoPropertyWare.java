@@ -54,6 +54,7 @@ public class InsertDataIntoPropertyWare
 		//If Consession addendum is available, skip Rents and Prorated Rents
 		if(IN_PropertyWare.portfolioType=="Others")
 		{
+			/*
 			if(IN_PropertyWare.concessionAddendumFlag==true)
 			{
 				InsertDataIntoPropertyWare.OtherPortfolios_chargesWhenConsessionAddendumIsAvailable();
@@ -62,10 +63,13 @@ public class InsertDataIntoPropertyWare
 			{
 				InsertDataIntoPropertyWare.OtherPortfolios_chargesWhenConsessionAddendumIsNotAvailable();
 			}
+			*/
+			InsertDataIntoPropertyWare.OtherPortfolios_chargesWhenConsessionAddendumIsNotAvailable();
 		}
 		//MCH type
 		if(IN_PropertyWare.portfolioType=="MCH")
 		{
+			/*
 			if(IN_PropertyWare.concessionAddendumFlag==true)
 			{
 				InsertDataIntoPropertyWare.MCHPortfolios_chargesWhenConsessionAddendumIsAvailable();
@@ -74,6 +78,9 @@ public class InsertDataIntoPropertyWare
 			{
 				InsertDataIntoPropertyWare.MCHPortfolios_chargesWhenConsessionAddendumIsNotAvailable();
 			}
+			*/
+			InsertDataIntoPropertyWare.MCHPortfolios_chargesWhenConsessionAddendumIsNotAvailable();
+			
 		}
 		//Update other fields for charges
 		InsertDataIntoPropertyWare.updateOtherFieldsInConfigurationTable();
@@ -142,7 +149,7 @@ public class InsertDataIntoPropertyWare
 			//Check if there is any amount has error
 			try
 			{
-				if(moveInCharges[i][4].trim()=="0.00"||moveInCharges[i][4]==null||moveInCharges[i][4].equalsIgnoreCase("n/a")||moveInCharges[i][4]=="Error"||RunnerClass.onlyDigits(moveInCharges[i][4].replace(",", "").replace(".", ""))==false)
+				if(moveInCharges[i][4].trim().equalsIgnoreCase("0.00")||moveInCharges[i][4]==null||moveInCharges[i][4].equalsIgnoreCase("n/a")||moveInCharges[i][4]=="Error"||RunnerClass.onlyDigits(moveInCharges[i][4].replace(",", "").replace(".", ""))==false)
 				{
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Move In Charge - "+moveInCharges[i][0]+'\n');
 					temp=1;
@@ -797,7 +804,7 @@ public class InsertDataIntoPropertyWare
 		//If Prorate Rent is under 200$, Monthly Rent Start date should be next month of First Full Month
 		try
 		{
-		if(IN_PropertyWare.portfolioType=="Others"||IN_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true) //Double.parseDouble(IN_PropertyWare.proratedRent.trim())<=200.00||
+		if(IN_PropertyWare.portfolioType=="Others") //Double.parseDouble(IN_PropertyWare.proratedRent.trim())<=200.00||  //||IN_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true
 		{
 			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update "+IN_RunnerClass.chargeCodesTable+" Set autoCharge_StartDate='"+secondFullMonth+"' where ID=2";
 			InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers);
@@ -866,7 +873,10 @@ public class InsertDataIntoPropertyWare
 				catch(Exception e) {}
 				continue;
 			case "Resident Benefits Package":
-				query = query+"\nUpdate "+IN_RunnerClass.chargeCodesTable+" Set Amount ='"+IN_PropertyWare.residentBenefitsPackage+"',startDate ='"+RunnerClass.convertDate(IN_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where charge ='Resident Benefits Package'";
+				if(IN_PropertyWare.proratedRentDate.equalsIgnoreCase("n/a")||IN_PropertyWare.proratedRentDate.equalsIgnoreCase("na")||IN_PropertyWare.proratedRentDate.equalsIgnoreCase("N/A")||IN_PropertyWare.proratedRentDate.equalsIgnoreCase("NA"))
+				query = query+"\nUpdate "+IN_RunnerClass.chargeCodesTable+" Set Amount ='"+IN_PropertyWare.residentBenefitsPackage+"',startDate ='"+RunnerClass.convertDate(IN_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+secondFullMonth+"'  where charge ='Resident Benefits Package'";
+				else 
+					query = query+"\nUpdate "+IN_RunnerClass.chargeCodesTable+" Set Amount ='"+IN_PropertyWare.residentBenefitsPackage+"',startDate ='"+RunnerClass.convertDate(IN_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where charge ='Resident Benefits Package'";
 				//InsertDataIntoDatabase.updateTable(query9);
 				continue;
 			case "Monthly Rent - New MCH":

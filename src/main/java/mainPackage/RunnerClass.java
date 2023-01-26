@@ -93,14 +93,14 @@ public class RunnerClass
 					AL_RunnerClass alabama = new AL_RunnerClass();
 					alabama.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
-					AL_RunnerClass.AZ_driver.close();
+					AL_RunnerClass.AZ_driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			case "Florida":
 					FL_RunnerClass florida = new FL_RunnerClass();
 					florida.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
-					FL_RunnerClass.FL_driver.close();
+					FL_RunnerClass.FL_driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 				
@@ -109,7 +109,7 @@ public class RunnerClass
 					NC_RunnerClass northCarolina = new NC_RunnerClass();
 					northCarolina.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
-					NC_RunnerClass.FL_driver.close();
+					NC_RunnerClass.FL_driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			case "Georgia":
@@ -117,7 +117,7 @@ public class RunnerClass
 					GA_RunnerClass georgia = new GA_RunnerClass();
 					georgia.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
-					GA_RunnerClass.FL_driver.close();
+					GA_RunnerClass.FL_driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			case "South Carolina":
@@ -125,7 +125,7 @@ public class RunnerClass
 					SC_RunnerClass southCarolina = new SC_RunnerClass();
 					southCarolina.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
-					SC_RunnerClass.FL_driver.close();
+					SC_RunnerClass.FL_driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			case "Indiana":
@@ -133,7 +133,7 @@ public class RunnerClass
 					IN_RunnerClass Indiana = new IN_RunnerClass();
 					Indiana.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
-					IN_RunnerClass.FL_driver.close();
+					IN_RunnerClass.FL_driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			
