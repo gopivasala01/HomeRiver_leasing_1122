@@ -915,16 +915,21 @@ public class InsertDataIntoPropertyWare
 		{
 			firstFullMonth = RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim();
 			secondFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
+			String updateStartDateAndEndDate = "Update [Automation].[ChargeCodesConfiguration] Set StartDate='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
+					+ "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+secondFullMonth+"' where AutoCharge =1 \n"
+							+ "Update [Automation].[ChargeCodesConfiguration] Set endDate='"+RunnerClass.DateModified(firstFullMonth)+"' where Charge ='Pro Rate Rent' ";
+			InsertDataIntoDatabase.updateTable(updateStartDateAndEndDate);
 		}
 		else 
 		{
 		firstFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
 		secondFullMonth = RunnerClass.NextMonthOffirstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
-		}
 		String updateStartDateAndEndDate = "Update [Automation].[ChargeCodesConfiguration] Set StartDate='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
 				+ "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+firstFullMonth+"' where AutoCharge =1 \n"
 						+ "Update [Automation].[ChargeCodesConfiguration] Set endDate='"+RunnerClass.DateModified(firstFullMonth)+"' where Charge ='Pro Rate Rent' ";
 		InsertDataIntoDatabase.updateTable(updateStartDateAndEndDate);
+		}
+		
 		//If there is an increased rent, add date to previous monthly rent in auto charges
 		
 		if(RunnerClass.onlyDigits(FL_PropertyWare.increasedRent_amount.trim().replace(",", "").replace(".", ""))==true)

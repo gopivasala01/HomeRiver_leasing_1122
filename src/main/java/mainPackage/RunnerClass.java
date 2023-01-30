@@ -30,6 +30,7 @@ import Georgia.GA_RunnerClass;
 import Indiana.IN_RunnerClass;
 import NorthCarolina.NC_RunnerClass;
 import SouthCarolina.SC_RunnerClass;
+import Tennessee.TN_RunnerClass;
 //import Arizona.AZ_PropertyWare;
 //import Arizona.AZ_RunnerClass;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -134,6 +135,14 @@ public class RunnerClass
 					Indiana.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
 					IN_RunnerClass.FL_driver.quit();
+					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
+					break;
+			case "Tennessee":
+				//case "Arkansas":
+					TN_RunnerClass Tennessee = new TN_RunnerClass();
+					Tennessee.runAutomation(portfolio,leaseName,leaseOwnerName);
+					RunnerClass.updateLeaseStatus();
+					TN_RunnerClass.FL_driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			
