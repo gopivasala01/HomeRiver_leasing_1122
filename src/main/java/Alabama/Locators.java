@@ -16,6 +16,7 @@ public class Locators
 	public static By getLeaseCDEType = By.xpath("//*[@id='summary']/table[1]/tbody/tr[3]/td");
     public static By leasesTab = By.xpath("//*[@class='tabbedSection']/a[4]");	
     public static By RCDetails = By.xpath("//*[@id='customFieldGroupTBody1.ManagementTeam']/tr[2]/td[2]/div");
+    public static By APMField = By.xpath("//*[text()='APM']/following::input[1]");
     public static By leaseStartDate_PW = By.xpath("//*[@id='infoTable']/tbody/tr[3]/td[1]");
     public static By leaseEndDate_PW = By.xpath("//*[@id='infoTable']/tbody/tr[3]/td[2]");
     public static By popUpAfterClickingLeaseName = By.id("viewStickyNoteForm");

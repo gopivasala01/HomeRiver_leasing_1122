@@ -1,6 +1,6 @@
-package Tennessee;
+package Arkansas;
 
-public class TN_PDFAppConfig 
+public class AR_PDFAppConfig 
 {
 
 static String AB_commencementDate_Prior = "Commencement Date:";
@@ -169,5 +169,6 @@ static String AB_commencementDate_Prior = "Commencement Date:";
 	
 	static String residentBenefitsPackageAddendumCheck ="Resident Benefits Package (RBP) Lease Addendum";
 	static String AB1_residentBenefitsPackage_Prior = "home second nature at a cost of $";
+
 
 }

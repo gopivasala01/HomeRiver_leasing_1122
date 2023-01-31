@@ -119,6 +119,10 @@ public class TN_ExtractDataFromPDF
 		    {
 		    	TN_PropertyWare.monthlyRent = "Error";
 		    }
+		    if(TN_PropertyWare.monthlyRent.endsWith(","))
+		    {
+		    	TN_PropertyWare.monthlyRent = TN_PropertyWare.monthlyRent.substring(0,TN_PropertyWare.monthlyRent.length()-1);
+		    }
 	    }
 	    catch(Exception e)
 	    {
@@ -225,7 +229,7 @@ public class TN_ExtractDataFromPDF
   			{
 	  		try
 	  		{
-	  		TN_PropertyWare.prepaymentCharge =String.valueOf(Double.parseDouble(TN_PropertyWare.monthlyRent.replace(",", "")) - Double.parseDouble(TN_PropertyWare.proratedRent.replace(",", ""))); 
+	  		TN_PropertyWare.prepaymentCharge =String.valueOf(Double.parseDouble(TN_PropertyWare.monthlyRent.trim().replace(",", "")) - Double.parseDouble(TN_PropertyWare.proratedRent.trim().replace(",", ""))); 
 	  		}
 	  		catch(Exception e)
 	  		{

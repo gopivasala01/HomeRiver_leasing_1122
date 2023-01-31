@@ -274,6 +274,8 @@ public class ExtractDataFromPDF_Format2
 	    // Checking Pet Addendum is available or not
 	    
 	    petFlag = text.contains(PDFAppConfig_Format2.petAgreementAvailabilityCheck);
+	    if(petFlag==false)
+	    	petFlag = text.contains(PDFAppConfig_Format2.petAgreementAvailabilityCheck2);
 	    System.out.println("Pet Addendum Available = "+petFlag);
 	    if(petFlag ==true)
 	    {

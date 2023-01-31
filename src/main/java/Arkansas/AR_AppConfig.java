@@ -1,8 +1,7 @@
 package Arkansas;
 
-public class AppConfig 
+public class AR_AppConfig 
 {
-
 	/*
 	public static String PDFFilePath = "C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS";
 	public static String propertyWareURL = "https://app.propertyware.com/pw/login.jsp";
@@ -35,7 +34,7 @@ public class AppConfig
 	public static String proratedPetRent_AccountRef = "Pro Rated Pet Rent";
 	
 	public static String petRent_AccountCode = "4005 - Pet Fee";
-	public static String petRent_AccountRef = "Pet Fee";
+	public static String petRent_AccountRef = "Pet Rent";
 	
 	public static String petSecurityDeposit_AccountCode = "2050 - Security Deposit"; // Only if first check box is checked in Pet Addendum
 	public static String petSecurityDeposit_AccountRef = "Pet Security Deposit";
@@ -53,6 +52,7 @@ public class AppConfig
 	
 	// **************PDF Format ************************
 	
-	public static  String PDFFormatConfirmationText = "This is a legally binding Contract; if not understood seek advice from an attorney.";
+	public static  String PDFFormatConfirmationText = "SINGLE FAMILY RESIDENCE OR CONDOMINIUM LEASE";
 	public static  String PDFFormat2ConfirmationText = "RESIDENTIAL LEASE AGREEMENT";
+	public static String serviceAnimalText = "SERVICE/SUPPORT ANIMAL AGREEMENT";
 }

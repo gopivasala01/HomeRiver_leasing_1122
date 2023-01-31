@@ -344,7 +344,7 @@ public class TN_InsertDataIntoPropertyWare
 			
 			//Other Fields
             Thread.sleep(4000);
-		/*	
+		
 			// RC Field
 			try
 			{
@@ -355,7 +355,7 @@ public class TN_InsertDataIntoPropertyWare
 				}
 				else
 				{
-				TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.rcField)).build().perform();
+				TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.RCDetails)).build().perform();
 				TN_RunnerClass.FL_driver.findElement(Locators.rcField).clear();
 				Thread.sleep(1000);
 				TN_RunnerClass.FL_driver.findElement(Locators.rcField).sendKeys(TN_PropertyWare.RCDetails);
@@ -363,9 +363,19 @@ public class TN_InsertDataIntoPropertyWare
 			}
 			catch(Exception e)
 			{
+				try
+				{
+					TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.APMField)).build().perform();
+					TN_RunnerClass.FL_driver.findElement(Locators.APMField).clear();
+					Thread.sleep(1000);
+					TN_RunnerClass.FL_driver.findElement(Locators.APMField).sendKeys(TN_PropertyWare.RCDetails);
+				}
+				catch(Exception e2)
+				{
 				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "RC Details"+'\n');
 				temp=1;
-			}*/
+				}
+			}
 			/*
             //Early Termination
             
