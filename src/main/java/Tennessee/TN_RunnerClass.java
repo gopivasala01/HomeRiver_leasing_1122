@@ -60,7 +60,8 @@ public static String chargeCodesTable ="automation.chargeCodesConfiguration_TN";
 		int portfolioFlag =0;
 		for(int i=0;i<mainPackage.AppConfig.IAGClientList.length;i++)
 		{
-			if(RunnerClass.portfolio.contains(mainPackage.AppConfig.IAGClientList[i]))
+			String portfolioStarting = mainPackage.AppConfig.IAGClientList[i].toLowerCase();
+			if(RunnerClass.portfolio.toLowerCase().startsWith(portfolioStarting))
 			{
 				portfolioFlag =1;
 				break;

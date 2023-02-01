@@ -25,6 +25,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import Alabama.AL_PropertyWare;
 import Alabama.AL_RunnerClass;
 import Arizona.AZ_RunnerClass;
+import Arkansas.AR_RunnerClass;
 import Florida.FL_RunnerClass;
 import Georgia.GA_RunnerClass;
 import Indiana.IN_RunnerClass;
@@ -67,7 +68,7 @@ public class RunnerClass
 	public void splitLeasesByCompany(String[][] leasesList) throws Exception
 	{
 		// split leases by market
-		saveButtonOnAndOff = true;
+		saveButtonOnAndOff = false;
 		for(int i=0;i<leasesList.length;i++)
 		{
 			market = leasesList[i][0];
@@ -143,6 +144,14 @@ public class RunnerClass
 					Tennessee.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
 					TN_RunnerClass.FL_driver.quit();
+					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
+					break;
+			case "Arkansas":
+				//case "Arkansas":
+					AR_RunnerClass Arkansas = new AR_RunnerClass();
+					Arkansas.runAutomation(portfolio,leaseName,leaseOwnerName);
+					RunnerClass.updateLeaseStatus();
+					AR_RunnerClass.FL_driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			

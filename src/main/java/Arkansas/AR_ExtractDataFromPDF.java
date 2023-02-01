@@ -553,6 +553,18 @@ public class AR_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("additional Late Charges Limit = "+AR_PropertyWare.additionalLateChargesLimit.trim());
+	 	 //Late Charge Day
+			try
+	 	    {
+			AR_PropertyWare.lateChargeDay = lateFeeRuleText.substring(lateFeeRuleText.indexOf("p.m. on the ")+"p.m. on the ".length()).trim().split(" ")[0];
+			AR_PropertyWare.lateChargeDay = AR_PropertyWare.lateChargeDay.replaceAll("[^0-9]", "");
+	 	    }
+			catch(Exception e)
+	 	    {
+	 	    	AR_PropertyWare.lateChargeDay =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Late Charge Due Day = "+AR_PropertyWare.lateChargeDay.trim());
 	 	   return true;
 		}
 		else if(lateFeeRuleText.contains(AR_PDFAppConfig.lateFeeRule_mayNotExceedAmount))

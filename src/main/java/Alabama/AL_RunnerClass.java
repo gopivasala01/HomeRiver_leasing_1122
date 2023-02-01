@@ -63,7 +63,7 @@ public boolean runAutomation(String portfolio, String leaseName, String leaseOwn
 	int portfolioFlag =0;
 	for(int i=0;i<mainPackage.AppConfig.IAGClientList.length;i++)
 	{
-		if(RunnerClass.portfolio.contains(mainPackage.AppConfig.IAGClientList[i]))
+		if(RunnerClass.portfolio.toLowerCase().startsWith(mainPackage.AppConfig.IAGClientList[i].toLowerCase()))
 		{
 			portfolioFlag =1;
 			break;

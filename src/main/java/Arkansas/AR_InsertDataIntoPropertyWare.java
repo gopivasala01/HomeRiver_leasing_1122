@@ -355,7 +355,7 @@ public class AR_InsertDataIntoPropertyWare
 				}
 				else
 				{
-				AR_RunnerClass.FL_actions.moveToElement(AR_RunnerClass.FL_driver.findElement(Locators.RCDetails)).build().perform();
+				AR_RunnerClass.FL_actions.moveToElement(AR_RunnerClass.FL_driver.findElement(Locators.rcField)).build().perform();
 				AR_RunnerClass.FL_driver.findElement(Locators.rcField).clear();
 				Thread.sleep(1000);
 				AR_RunnerClass.FL_driver.findElement(Locators.rcField).sendKeys(AR_PropertyWare.RCDetails);
@@ -372,8 +372,18 @@ public class AR_InsertDataIntoPropertyWare
 				}
 				catch(Exception e2)
 				{
+					try
+					{
+						AR_RunnerClass.FL_actions.moveToElement(AR_RunnerClass.FL_driver.findElement(Locators.rcField)).build().perform();
+						AR_RunnerClass.FL_driver.findElement(Locators.rcField).clear();
+						Thread.sleep(1000);
+						AR_RunnerClass.FL_driver.findElement(Locators.rcField).sendKeys(AR_PropertyWare.RCDetails);
+					}
+					catch(Exception e3)
+					{
 				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "RC Details"+'\n');
 				temp=1;
+					}
 				}
 			}
 			/*
@@ -463,7 +473,7 @@ public class AR_InsertDataIntoPropertyWare
 			AR_RunnerClass.FL_actions.moveToElement(AR_RunnerClass.FL_driver.findElement(Locators.needsNewLease)).build().perform();
 			AR_RunnerClass.FL_driver.findElement(Locators.needsNewLease).click();
 			Select needsNewLease_List = new Select(AR_RunnerClass.FL_driver.findElement(Locators.needsNewLease_List));
-			needsNewLease_List.selectByVisibleText("No");
+			needsNewLease_List.selectByVisibleText("NO");
 			}
 			catch(Exception e)
 			{
