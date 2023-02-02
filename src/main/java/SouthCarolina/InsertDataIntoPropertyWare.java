@@ -1335,7 +1335,7 @@ public class InsertDataIntoPropertyWare
 			SC_RunnerClass.FL_driver.findElement(Locators.flatFee).click();
 			//SC_RunnerClass.FL_driver.findElement(Locators.flatFee).clear();
 			//RunnerClass.keyBoardActions();
-			SC_RunnerClass.FL_driver.findElement(Locators.petAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+			SC_RunnerClass.FL_driver.findElement(Locators.flatFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 			SC_RunnerClass.FL_driver.findElement(Locators.flatFee).sendKeys(SC_PropertyWare.flatFeeAmount);
 			}
 			catch(Exception e)
@@ -1348,7 +1348,7 @@ public class InsertDataIntoPropertyWare
 			SC_RunnerClass.FL_actions.moveToElement(SC_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage)).build().perform();
 			SC_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage).click();
 			//RunnerClass.keyBoardActions();
-			SC_RunnerClass.FL_driver.findElement(Locators.petAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+			SC_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 			SC_RunnerClass.FL_actions.sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).build().perform();
 			//SC_RunnerClass.FL_actions.sendKeys(Keys.END).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
 			SC_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage).sendKeys(SC_PropertyWare.lateFeePercentage);

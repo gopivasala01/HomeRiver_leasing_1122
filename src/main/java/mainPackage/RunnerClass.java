@@ -68,7 +68,7 @@ public class RunnerClass
 	public void splitLeasesByCompany(String[][] leasesList) throws Exception
 	{
 		// split leases by market
-		saveButtonOnAndOff = false;
+		saveButtonOnAndOff = true;
 		for(int i=0;i<leasesList.length;i++)
 		{
 			market = leasesList[i][0];
