@@ -37,7 +37,10 @@ public class TN_InsertDataIntoPropertyWare
 		if(TN_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true)
 		{
 			if(TN_PropertyWare.proratedRentDate.equalsIgnoreCase("n/a")||TN_PropertyWare.proratedRentDate.equalsIgnoreCase("na")||TN_PropertyWare.proratedRentDate.equalsIgnoreCase("N/A")||TN_PropertyWare.proratedRentDate.equalsIgnoreCase("NA"))
+			{
 				prepaymentChargeOrMonthlyRent = "2";
+				TN_PropertyWare.proratedPetRent = TN_PropertyWare.petRent;
+			}
 			else
 			prepaymentChargeOrMonthlyRent = "12";
 			

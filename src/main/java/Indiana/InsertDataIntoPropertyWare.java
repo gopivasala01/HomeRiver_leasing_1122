@@ -37,7 +37,10 @@ public class InsertDataIntoPropertyWare
 		if(IN_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true)
 		{
 			if(IN_PropertyWare.proratedRentDate.equalsIgnoreCase("n/a")||IN_PropertyWare.proratedRentDate.equalsIgnoreCase("na")||IN_PropertyWare.proratedRentDate.equalsIgnoreCase("N/A")||IN_PropertyWare.proratedRentDate.equalsIgnoreCase("NA"))
+			{
 				prepaymentChargeOrMonthlyRent = "2";
+				IN_PropertyWare.proratedPetRent = IN_PropertyWare.petRent;
+			}
 			else
 			prepaymentChargeOrMonthlyRent = "12";
 			

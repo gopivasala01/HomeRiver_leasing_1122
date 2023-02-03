@@ -37,7 +37,10 @@ public class AR_InsertDataIntoPropertyWare
 		if(AR_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true)
 		{
 			if(AR_PropertyWare.proratedRentDate.equalsIgnoreCase("n/a")||AR_PropertyWare.proratedRentDate.equalsIgnoreCase("na")||AR_PropertyWare.proratedRentDate.equalsIgnoreCase("N/A")||AR_PropertyWare.proratedRentDate.equalsIgnoreCase("NA"))
+			{
 				prepaymentChargeOrMonthlyRent = "2";
+				AR_PropertyWare.proratedPetRent = AR_PropertyWare.petRent;
+			}
 			else
 			prepaymentChargeOrMonthlyRent = "12";
 			

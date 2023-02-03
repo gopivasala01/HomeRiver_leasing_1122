@@ -29,6 +29,7 @@ import Arkansas.AR_RunnerClass;
 import Florida.FL_RunnerClass;
 import Georgia.GA_RunnerClass;
 import Indiana.IN_RunnerClass;
+import LittleRock.LR_RunnerClass;
 import NorthCarolina.NC_RunnerClass;
 import SouthCarolina.SC_RunnerClass;
 import Tennessee.TN_RunnerClass;
@@ -152,6 +153,14 @@ public class RunnerClass
 					Arkansas.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
 					AR_RunnerClass.FL_driver.quit();
+					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
+					break;
+			case "Little Rock":
+				//case "Arkansas":
+					LR_RunnerClass LittleRock = new LR_RunnerClass();
+					LittleRock.runAutomation(portfolio,leaseName,leaseOwnerName);
+					RunnerClass.updateLeaseStatus();
+					LR_RunnerClass.FL_driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			
