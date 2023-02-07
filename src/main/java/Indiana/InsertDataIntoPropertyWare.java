@@ -1429,7 +1429,7 @@ public class InsertDataIntoPropertyWare
 				IN_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 				//IN_PropertyWare.clearTextField();
 				//IN_RunnerClass.FL_actions.click(IN_RunnerClass.FL_driver.findElement(Locators.perDayFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-				IN_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(IN_PropertyWare.additionalLateCharges);
+				IN_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(IN_PropertyWare.lateFeeChargePerDay);
 				}
 			}
 			catch(Exception e)

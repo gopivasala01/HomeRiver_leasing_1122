@@ -94,7 +94,7 @@ public class GA_ExtractDataFromPDF_Format2 {
 	    		System.out.println("Monthly Rent has Asterick *");
 	    		String increasedRent_ProviousRentEndDate = "Per the Landlord, Monthly Rent from "+GA_PropertyWare.commensementDate.trim()+" through ";
 	    		 String endDateArray[] = text.substring(text.indexOf(increasedRent_ProviousRentEndDate)+increasedRent_ProviousRentEndDate.length()).split(" ");
-	    		 if(endDateArray[2].trim().length()==4&&RunnerClass.onlyDigits(endDateArray[2]))
+	    		 if(endDateArray[2].trim().length()==4)//&&RunnerClass.onlyDigits(endDateArray[2]))
 	    		 {
 	    		  GA_PropertyWare.increasedRent_previousRentEndDate = endDateArray[0]+" "+endDateArray[1]+" "+endDateArray[2];
 	    		  System.out.println("Increased Rent - Previous rent end date = "+GA_PropertyWare.increasedRent_previousRentEndDate);
@@ -107,6 +107,26 @@ public class GA_ExtractDataFromPDF_Format2 {
 	    		  GA_PropertyWare.increasedRent_amount = increasedRentRaw.substring(increasedRentRaw.indexOf("shall be $")+"shall be $".length()).trim().split(" ")[0];
 	    		  System.out.println("Increased Rent - Amount = "+GA_PropertyWare.increasedRent_amount); 
 	    		 }
+	    		 else 
+	       		 {
+	       			 String adding0toMonth = "0"+GA_PropertyWare.commensementDate.trim().split(" ")[1];
+	       			 String commeseDate = GA_PropertyWare.commensementDate.trim().replace(GA_PropertyWare.commensementDate.trim().split(" ")[1], adding0toMonth);
+	       			 increasedRent_ProviousRentEndDate = "Per the Landlord, Monthly Rent from "+commeseDate+" through ";
+	    	    		 String endDateArray2[] = text.substring(text.indexOf(increasedRent_ProviousRentEndDate)+increasedRent_ProviousRentEndDate.length()).split(" ");
+	    	    		 if(endDateArray2[2].trim().length()==4)//&&RunnerClass.onlyDigits(endDateArray[2]))
+	    	    		 {
+	    	    		  GA_PropertyWare.increasedRent_previousRentEndDate = endDateArray2[0]+" "+endDateArray2[1]+" "+endDateArray2[2];
+	    	    		  System.out.println("Increased Rent - Previous rent end date = "+GA_PropertyWare.increasedRent_previousRentEndDate);
+	    	    		 
+	    	    		  String newRentStartDate[] = text.substring(text.indexOf(PDFAppConfig_Format2.increasedRent_newStartDate_Prior)+PDFAppConfig_Format2.increasedRent_newStartDate_Prior.length()).trim().split(" ");
+	    	    		  GA_PropertyWare.increasedRent_newStartDate = newRentStartDate[0]+" "+newRentStartDate[1]+" "+newRentStartDate[2];
+	    	    		  System.out.println("Increased Rent - New Rent Start date = "+GA_PropertyWare.increasedRent_newStartDate);
+	    	    		  
+	    	    		  String increasedRentRaw = text.substring(text.indexOf(PDFAppConfig_Format2.increasedRent_newStartDate_Prior)+PDFAppConfig_Format2.increasedRent_newStartDate_Prior.length()).trim();
+	    	    		  GA_PropertyWare.increasedRent_amount = increasedRentRaw.substring(increasedRentRaw.indexOf("shall be $")+"shall be $".length()).trim().split(" ")[0];
+	    	    		  System.out.println("Increased Rent - Amount = "+GA_PropertyWare.increasedRent_amount); 
+	    	    		 }
+	       		 }
 	    	}
 	    }
 	    catch(Exception e)

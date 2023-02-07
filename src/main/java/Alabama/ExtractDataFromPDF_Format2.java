@@ -25,7 +25,7 @@ public class ExtractDataFromPDF_Format2
 		//Empty all values first
 		//AL_RunnerClass.emptyAllValues();
 		//TODO Auto-generated method stub
-		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\HOLL117\\Lease_1222_1123_117_Holly_Fern_Dr_AL_Southa.pdf");
+		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\OVER1405\\Lease_323_624_1405_Overlook_Dr_AL_Coomer.pdf");
 		File file = RunnerClass.getLastModified();
 		FileInputStream fis = new FileInputStream(file);
 		PDDocument document = PDDocument.load(fis);
@@ -117,6 +117,26 @@ public class ExtractDataFromPDF_Format2
 	    		  String increasedRentRaw = text.substring(text.indexOf(PDFAppConfig_Format2.increasedRent_newStartDate_Prior)+PDFAppConfig_Format2.increasedRent_newStartDate_Prior.length()).trim();
 	    		  AL_PropertyWare.increasedRent_amount = increasedRentRaw.substring(increasedRentRaw.indexOf("shall be $")+"shall be $".length()).trim().split(" ")[0];
 	    		  System.out.println("Increased Rent - Amount = "+AL_PropertyWare.increasedRent_amount); 
+	    		 }
+	    		 else 
+	    		 {
+	    			 String adding0toMonth = "0"+AL_PropertyWare.commensementDate.trim().split(" ")[1];
+	    			 String commeseDate = AL_PropertyWare.commensementDate.trim().replace(AL_PropertyWare.commensementDate.trim().split(" ")[1], adding0toMonth);
+	    			 increasedRent_ProviousRentEndDate = "Per the Landlord, Monthly Rent from "+commeseDate+" through ";
+		    		 String endDateArray2[] = text.substring(text.indexOf(increasedRent_ProviousRentEndDate)+increasedRent_ProviousRentEndDate.length()).split(" ");
+		    		 if(endDateArray2[2].trim().length()==4)//&&RunnerClass.onlyDigits(endDateArray[2]))
+		    		 {
+		    		  AL_PropertyWare.increasedRent_previousRentEndDate = endDateArray2[0]+" "+endDateArray2[1]+" "+endDateArray2[2];
+		    		  System.out.println("Increased Rent - Previous rent end date = "+AL_PropertyWare.increasedRent_previousRentEndDate);
+		    		 
+		    		  String newRentStartDate[] = text.substring(text.indexOf(PDFAppConfig_Format2.increasedRent_newStartDate_Prior)+PDFAppConfig_Format2.increasedRent_newStartDate_Prior.length()).trim().split(" ");
+		    		  AL_PropertyWare.increasedRent_newStartDate = newRentStartDate[0]+" "+newRentStartDate[1]+" "+newRentStartDate[2];
+		    		  System.out.println("Increased Rent - New Rent Start date = "+AL_PropertyWare.increasedRent_newStartDate);
+		    		  
+		    		  String increasedRentRaw = text.substring(text.indexOf(PDFAppConfig_Format2.increasedRent_newStartDate_Prior)+PDFAppConfig_Format2.increasedRent_newStartDate_Prior.length()).trim();
+		    		  AL_PropertyWare.increasedRent_amount = increasedRentRaw.substring(increasedRentRaw.indexOf("shall be $")+"shall be $".length()).trim().split(" ")[0];
+		    		  System.out.println("Increased Rent - Amount = "+AL_PropertyWare.increasedRent_amount); 
+		    		 }
 	    		 }
 	    	}
 	    }

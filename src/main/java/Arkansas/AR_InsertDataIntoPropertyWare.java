@@ -389,7 +389,7 @@ public class AR_InsertDataIntoPropertyWare
 					}
 				}
 			}
-			/*
+			
             //Early Termination
             
 			Thread.sleep(2000);
@@ -423,7 +423,7 @@ public class AR_InsertDataIntoPropertyWare
 				e.printStackTrace();
 				temp=1;
 			}
-			*/
+			
 			if(AR_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
 			{
 				if(AR_PropertyWare.residentBenefitsPackage!="Error")
