@@ -1342,7 +1342,7 @@ public class AR_InsertDataIntoPropertyWare
 			{
 		    AR_RunnerClass.FL_actions.moveToElement(AR_RunnerClass.FL_driver.findElement(Locators.lateFeeType)).build().perform();
 			Select feeType = new Select(AR_RunnerClass.FL_driver.findElement(Locators.lateFeeType));
-			feeType.selectByVisibleText("Greater of Flat Fee or Percentage");
+			feeType.selectByVisibleText("Initial Fee + Per Day Fee");
 			}
 			catch(Exception e)
 			{
@@ -1351,8 +1351,7 @@ public class AR_InsertDataIntoPropertyWare
 			}
 			Thread.sleep(2000);
 			//Late Charges
-			//Thread.sleep(2000);
-			/*
+//			Thread.sleep(2000);
 			try
 			{
 			if(AR_PropertyWare.additionalLateChargesLimit.contains("375"))
@@ -1362,7 +1361,6 @@ public class AR_InsertDataIntoPropertyWare
 			else AR_PropertyWare.lateChargeDay = String.valueOf(AR_PropertyWare.lateChargeDay.trim().charAt(0));
 			}
 			catch(Exception e) {}
-			*/
 			try
 			{
 				if(AR_PropertyWare.lateChargeDay.equalsIgnoreCase("Error"))
@@ -1382,7 +1380,7 @@ public class AR_InsertDataIntoPropertyWare
 				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Day"+'\n');
 				//temp=1;
 			}
-			// Percentage
+			// Initial Fee
 			Thread.sleep(2000);
 			try
 			{
@@ -1393,13 +1391,13 @@ public class AR_InsertDataIntoPropertyWare
 				}
 				else
 				{
-				AR_RunnerClass.FL_actions.moveToElement(AR_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage)).build().perform();
-				AR_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage).click();
+				AR_RunnerClass.FL_actions.moveToElement(AR_RunnerClass.FL_driver.findElement(Locators.initialFee)).build().perform();
+				AR_RunnerClass.FL_driver.findElement(Locators.initialFee).click();
 				Thread.sleep(1000);
-				AR_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+				AR_RunnerClass.FL_driver.findElement(Locators.initialFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 				//AR_PropertyWare.clearTextField();
 				//AR_RunnerClass.FL_actions.click(AR_RunnerClass.FL_driver.findElement(Locators.initialFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-				AR_RunnerClass.FL_driver.findElement(Locators.lateFeePercentage).sendKeys(AR_PropertyWare.lateChargeFee);
+				AR_RunnerClass.FL_driver.findElement(Locators.initialFee).sendKeys(AR_PropertyWare.lateChargeFee);
 				}
 			}
 			catch(Exception e)
@@ -1409,7 +1407,7 @@ public class AR_InsertDataIntoPropertyWare
 			}
 			Thread.sleep(2000);
 			//Initial Fee Dropdown
-			/*
+			
 			try
 			{
 				if(AR_PropertyWare.lateChargeFee.contains("%"))
@@ -1446,7 +1444,7 @@ public class AR_InsertDataIntoPropertyWare
 				AR_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 				//AR_PropertyWare.clearTextField();
 				//AR_RunnerClass.FL_actions.click(AR_RunnerClass.FL_driver.findElement(Locators.perDayFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-				AR_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(AR_PropertyWare.additionalLateCharges);
+				AR_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(AR_PropertyWare.lateFeeChargePerDay);
 				}
 			}
 			catch(Exception e)
@@ -1467,7 +1465,6 @@ public class AR_InsertDataIntoPropertyWare
 				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Late Charges - Late Charge Fee Per Day Dropdown"+'\n');
 				//temp=1;
 			}
-			*/
 			if(AR_RunnerClass.pdfFormatType.equalsIgnoreCase("Format1"))
 		    {
 			
@@ -1476,7 +1473,7 @@ public class AR_InsertDataIntoPropertyWare
 				try
 				{
 				Select maximumDropdown = new Select(AR_RunnerClass.FL_driver.findElement(Locators.maximumYesNoDropdown)) ;
-				maximumDropdown.selectByVisibleText("No");
+				maximumDropdown.selectByVisibleText("Yes");
 				}
 				catch(Exception e)
 				{
@@ -1530,10 +1527,7 @@ public class AR_InsertDataIntoPropertyWare
 				}
 		    }
 			Thread.sleep(2000);
-		//}
 			return true;
-		
 	}
-	
 
 }

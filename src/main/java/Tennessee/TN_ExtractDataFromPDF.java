@@ -552,6 +552,18 @@ public class TN_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("additional Late Charges Limit = "+TN_PropertyWare.additionalLateChargesLimit.trim());
+	 	 //Late Charge Day
+			try
+	 	    {
+			TN_PropertyWare.lateChargeDay = lateFeeRuleText.substring(lateFeeRuleText.indexOf("p.m. on the ")+"p.m. on the ".length()).trim().split(" ")[0];
+			TN_PropertyWare.lateChargeDay = TN_PropertyWare.lateChargeDay.replaceAll("[^0-9]", "");
+	 	    }
+			catch(Exception e)
+	 	    {
+	 	    	TN_PropertyWare.lateChargeDay =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Late Charge Due Day = "+TN_PropertyWare.lateChargeDay.trim());
 	 	   return true;
 		}
 		else if(lateFeeRuleText.contains(TN_PDFAppConfig.lateFeeRule_mayNotExceedAmount))
