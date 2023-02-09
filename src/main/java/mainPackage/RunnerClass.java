@@ -54,6 +54,7 @@ public class RunnerClass
 	public static String portfolio;
 	public static String downloadFilePath;
 	public static boolean saveButtonOnAndOff =false; 
+	public static Map<String, String> lateFeeRuleValues = new HashMap();
 	
 	public static void main(String[] args) throws Exception
 	{

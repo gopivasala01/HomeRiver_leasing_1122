@@ -474,6 +474,7 @@ public class TN_ExtractDataFromPDF
 		if(lateFeeRuleText.contains(TN_PDFAppConfig.lateFeeRule_whicheverIsGreater))
 		{
 			TN_PropertyWare.lateFeeType ="GreaterOfFlatFeeOrPercentage"; 
+			RunnerClass.lateFeeRuleValues.put("RuleType","Initial Fee + Per Day Fee");
 		//Late charge day
 			try
 			{
@@ -499,7 +500,6 @@ public class TN_ExtractDataFromPDF
 				TN_PropertyWare.lateFeePercentage = "Error";
 			}
          System.out.println("Late Fee Percentage = "+TN_PropertyWare.lateFeePercentage);
-         
          //Late Fee Amount
          try
          {
@@ -511,7 +511,6 @@ public class TN_ExtractDataFromPDF
         	 TN_PropertyWare.flatFeeAmount ="Error";
          }
          System.out.println("Late Fee Amount = "+TN_PropertyWare.flatFeeAmount);
-         
         
          return true;
 		}

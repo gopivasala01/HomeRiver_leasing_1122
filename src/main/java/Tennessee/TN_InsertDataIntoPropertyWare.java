@@ -605,13 +605,13 @@ public class TN_InsertDataIntoPropertyWare
 						}
 						catch(Exception e)
 						{
-							TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee2)).build().perform();
-							TN_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee2).click();
+							TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.petDepositAmount)).build().perform();
+							TN_RunnerClass.FL_driver.findElement(Locators.petDepositAmount).click();
 							Thread.sleep(1000);
-							TN_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee2).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+							TN_RunnerClass.FL_driver.findElement(Locators.petDepositAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 							//TN_PropertyWare.clearTextField();
 							//TN_RunnerClass.FL_actions.click(TN_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-							TN_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee2).sendKeys(TN_PropertyWare.petOneTimeNonRefundableFee);
+							TN_RunnerClass.FL_driver.findElement(Locators.petDepositAmount).sendKeys(TN_PropertyWare.petOneTimeNonRefundableFee);
 						}
 					}
 				}

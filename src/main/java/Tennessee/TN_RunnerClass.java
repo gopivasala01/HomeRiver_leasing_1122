@@ -88,6 +88,9 @@ public static String chargeCodesTable ="automation.chargeCodesConfiguration_TN";
         TN_RunnerClass.document.close();
         }
         catch(Exception e) {}
+        
+        RunnerClass.lateFeeRuleValues.clear();
+        
         if(pdfFormatType.equalsIgnoreCase("Format1"))
         {
         	System.out.println("PDF Type = Format 1");
