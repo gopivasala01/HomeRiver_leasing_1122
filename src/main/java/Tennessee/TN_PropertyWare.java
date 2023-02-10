@@ -95,24 +95,26 @@ public class TN_PropertyWare
    
     public void login() throws Exception
 	{
-		TN_RunnerClass.FL_driver.get(AppConfig.propertyWareURL);
-		TN_RunnerClass.FL_driver.findElement(Locators.userName).sendKeys(AppConfig.userName);
-		TN_RunnerClass.FL_driver.findElement(Locators.password).sendKeys(AppConfig.password);
-		TN_RunnerClass.FL_driver.findElement(Locators.signMeIn).click();
-		TN_RunnerClass.FL_driver.manage().window().maximize();
+		RunnerClass.driver.get(AppConfig.propertyWareURL);
+		RunnerClass.driver.findElement(Locators.userName).sendKeys(AppConfig.userName);
+		RunnerClass.driver.findElement(Locators.password).sendKeys(AppConfig.password);
+		RunnerClass.driver.findElement(Locators.signMeIn).click();
+		RunnerClass.driver.manage().window().maximize();
 		robot = new Robot();
 	}
 	
 	public boolean selectLease(String leaseName) throws Exception
 	{
+		Thread.sleep(2000);
 		try
 		{
-		TN_RunnerClass.FL_driver.findElement(Locators.dashboardsTab).click();
-			TN_RunnerClass.FL_driver.findElement(Locators.searchbox).clear();
-		TN_RunnerClass.FL_driver.findElement(Locators.searchbox).sendKeys(leaseName);//leaseName EARL5002 - (5002 W EARLL DR)_7517
+		RunnerClass.driver.findElement(Locators.dashboardsTab).click();
+		Thread.sleep(1000);
+			RunnerClass.driver.findElement(Locators.searchbox).clear();
+		RunnerClass.driver.findElement(Locators.searchbox).sendKeys(leaseName);//leaseName EARL5002 - (5002 W EARLL DR)_7517
 		try
 		{
-		TN_RunnerClass.FL_wait.until(ExpectedConditions.invisibilityOf(TN_RunnerClass.FL_driver.findElement(Locators.searchingLoader)));
+		TN_RunnerClass.FL_wait.until(ExpectedConditions.invisibilityOf(RunnerClass.driver.findElement(Locators.searchingLoader)));
 		}
 		catch(Exception e)
 		{}
@@ -120,7 +122,7 @@ public class TN_PropertyWare
 		System.out.println(RunnerClass.leaseName);
 		
 		// Select Lease from multiple leases
-				List<WebElement> displayedCompanies = TN_RunnerClass.FL_driver.findElements(Locators.searchedLeaseCompanyHeadings);
+				List<WebElement> displayedCompanies = RunnerClass.driver.findElements(Locators.searchedLeaseCompanyHeadings);
 				boolean leaseSelected = false;
 				for(int i =0;i<displayedCompanies.size();i++)
 				{
@@ -131,14 +133,14 @@ public class TN_PropertyWare
 						//break;
 						//AL_RunnerClass.GA_driver.findElement(By.partialLinkText(leaseName)).click();
 						
-						List<WebElement> leaseList = TN_RunnerClass.FL_driver.findElements(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li/a"));
+						List<WebElement> leaseList = RunnerClass.driver.findElements(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li/a"));
 						System.out.println(leaseList.size());
 						for(int j=0;j<leaseList.size();j++)
 						{
 							String lease = leaseList.get(j).getText();
 							if(lease.contains(RunnerClass.leaseName))
 							{
-								TN_RunnerClass.FL_driver.findElement(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li["+(j+1)+"]/a")).click();
+								RunnerClass.driver.findElement(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li["+(j+1)+"]/a")).click();
 								leaseSelected = true;
 								break;
 							}
@@ -148,13 +150,13 @@ public class TN_PropertyWare
 					if(leaseSelected==true) break;
 				}
 				
-		//TN_RunnerClass.FL_driver.findElement(Locators.selectSearchedLease).click();
+		//RunnerClass.driver.findElement(Locators.selectSearchedLease).click();
 		Thread.sleep(5000); 
 		
 		// Get Portfolio Type
 		try
 		{
-		RunnerClass.portfolio = TN_RunnerClass.FL_driver.findElement(Locators.checkPortfolioType).getText();
+		RunnerClass.portfolio = RunnerClass.driver.findElement(Locators.checkPortfolioType).getText();
 		System.out.println("Portfolio Type = "+RunnerClass.portfolio);
 		}
 		catch(Exception e)
@@ -168,7 +170,7 @@ public class TN_PropertyWare
 		// Get CDE Type details
 		try
 		{
-		String CDETypeRaw = TN_RunnerClass.FL_driver.findElement(Locators.getLeaseCDEType).getText();
+		String CDETypeRaw = RunnerClass.driver.findElement(Locators.getLeaseCDEType).getText();
 		System.out.println(CDETypeRaw);
 		CDEType = CDETypeRaw.split("\n")[1].trim().split(" ")[0];
 		//System.out.println("Test CDE "+A);
@@ -200,10 +202,10 @@ public class TN_PropertyWare
 		{
 			try
 			{
-			TN_RunnerClass.FL_js.executeScript("window.scrollBy(0,300)");
+			RunnerClass.js.executeScript("window.scrollBy(0,300)");
 			try
 			{
-			TN_PropertyWare.RCDetails = TN_RunnerClass.FL_driver.findElement(Locators.RCDetails).getText();
+			TN_PropertyWare.RCDetails = RunnerClass.driver.findElement(Locators.RCDetails).getText();
 			}
 			catch(Exception e)
 			{
@@ -211,12 +213,12 @@ public class TN_PropertyWare
 			}
 			System.out.println("RC Details = "+TN_PropertyWare.RCDetails);
 			//Click Leases Tab
-			TN_RunnerClass.FL_js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+			RunnerClass.js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 			Thread.sleep(2000);
-			TN_RunnerClass.FL_driver.findElement(Locators.leasesTab).click();
+			RunnerClass.driver.findElement(Locators.leasesTab).click();
 			try
 			{
-			TN_RunnerClass.FL_driver.findElement(By.partialLinkText(leaseOwner.trim())).click();
+			RunnerClass.driver.findElement(By.partialLinkText(leaseOwner.trim())).click();
 			}
 			catch(Exception e)
 			{
@@ -226,38 +228,38 @@ public class TN_PropertyWare
 				RunnerClass.leaseCompletedStatus = 2;
 				return false;
 			}
-			leaseStartDate_PW =TN_RunnerClass.FL_driver.findElement(Locators.leaseStartDate_PW).getText();
+			leaseStartDate_PW =RunnerClass.driver.findElement(Locators.leaseStartDate_PW).getText();
 			System.out.println("Lease Start Date in PW = "+leaseStartDate_PW);
-			leaseEndDate_PW =TN_RunnerClass.FL_driver.findElement(Locators.leaseEndDate_PW).getText();
+			leaseEndDate_PW =RunnerClass.driver.findElement(Locators.leaseEndDate_PW).getText();
 			System.out.println("Lease End Date in PW = "+leaseEndDate_PW);
 			//leaseStartDate_PW = RunnerClass.convertDate(leaseStartDate_PW);
 			//leaseEndDate_PW = RunnerClass.convertDate(leaseEndDate_PW);
 			
-			TN_RunnerClass.FL_js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+			RunnerClass.js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 			
 			// Get PropertyWare URL.
 			
-			String propertyWareURL = TN_RunnerClass.FL_driver.getCurrentUrl();
+			String propertyWareURL = RunnerClass.driver.getCurrentUrl();
 			System.out.println("Current Lease URL = "+propertyWareURL);
 			InsertDataIntoDatabase.insertPropertyWareURL(RunnerClass.leaseName, propertyWareURL);
 			Thread.sleep(2000);
 			try
 			{
-			TN_RunnerClass.FL_driver.findElement(Locators.notesAndDocs).click();
+			RunnerClass.driver.findElement(Locators.notesAndDocs).click();
 			}
 			catch(Exception e)
 			{
-				if(TN_RunnerClass.FL_driver.findElement(Locators.popUpAfterClickingLeaseName).isDisplayed())
+				if(RunnerClass.driver.findElement(Locators.popUpAfterClickingLeaseName).isDisplayed())
 				{
-					TN_RunnerClass.FL_driver.findElement(Locators.popupClose).click();
-					TN_RunnerClass.FL_js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+					RunnerClass.driver.findElement(Locators.popupClose).click();
+					RunnerClass.js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 					Thread.sleep(2000);
-					TN_RunnerClass.FL_driver.findElement(Locators.notesAndDocs).click();
+					RunnerClass.driver.findElement(Locators.notesAndDocs).click();
 				}
 			}
 			//String leaseFirstName = leaseOwner.split(" ")[0];
 			//String leaseNamePartial = RunnerClass.leaseName.split("[(]+")[1].split(" ")[0];;
-			List<WebElement> documents = TN_RunnerClass.FL_driver.findElements(Locators.documentsList);
+			List<WebElement> documents = RunnerClass.driver.findElements(Locators.documentsList);
 			boolean checkLeaseAgreementAvailable = false;
 			for(int i =0;i<documents.size();i++)
 			{
@@ -305,7 +307,7 @@ public class TN_PropertyWare
 			Thread.sleep(30000);
 			File file = RunnerClass.getLastModified();
 			
-			FluentWait<WebDriver> wait = new FluentWait<WebDriver>(TN_RunnerClass.FL_driver).withTimeout(Duration.ofSeconds(25)).pollingEvery(Duration.ofMillis(100));
+			FluentWait<WebDriver> wait = new FluentWait<WebDriver>(RunnerClass.driver).withTimeout(Duration.ofSeconds(25)).pollingEvery(Duration.ofMillis(100));
 			wait.until( x -> file.exists());
 			Thread.sleep(10000);
 	

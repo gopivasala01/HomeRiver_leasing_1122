@@ -89,19 +89,19 @@ public class TN_InsertDataIntoPropertyWare
 		
 		try
 		{
-		TN_RunnerClass.FL_driver.navigate().refresh();
-		TN_RunnerClass.FL_driver.findElement(Locators.ledgerTab).click();
+		RunnerClass.driver.navigate().refresh();
+		RunnerClass.driver.findElement(Locators.ledgerTab).click();
 		}
 		catch(Exception e)
 		{
 			try
 			{
-			if(TN_RunnerClass.FL_driver.findElement(Locators.popUpAfterClickingLeaseName).isDisplayed())
+			if(RunnerClass.driver.findElement(Locators.popUpAfterClickingLeaseName).isDisplayed())
 			{
-				TN_RunnerClass.FL_driver.findElement(Locators.popupClose).click();
-				//TN_RunnerClass.FL_driver.navigate().refresh();
-				TN_RunnerClass.FL_js.executeScript("window.scrollBy(document.body.scrollHeight,0)");
-				TN_RunnerClass.FL_driver.findElement(Locators.ledgerTab).click();
+				RunnerClass.driver.findElement(Locators.popupClose).click();
+				//RunnerClass.driver.navigate().refresh();
+				RunnerClass.js.executeScript("window.scrollBy(document.body.scrollHeight,0)");
+				RunnerClass.driver.findElement(Locators.ledgerTab).click();
 			}
 			}
 			catch(Exception e2) {}
@@ -121,14 +121,14 @@ public class TN_InsertDataIntoPropertyWare
 			{
 			System.out.println(moveInCharges[i][0]+"   "+moveInCharges[i][1]+"   "+moveInCharges[i][2]+"   "+moveInCharges[i][3]+"  "+moveInCharges[i][4]);
 			int flagToCheckIfMoveInChargeAlreadyAvailable =0;
-			TN_RunnerClass.FL_driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
-			TN_RunnerClass.FL_wait = new WebDriverWait(TN_RunnerClass.FL_driver, Duration.ofSeconds(5));
+			RunnerClass.driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
+			TN_RunnerClass.FL_wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(5));
 			//Check if the Move In Charge is already available
 			
 			try
 			{
-			List<WebElement> existingMoveInCharges_ChargeCodes = TN_RunnerClass.FL_driver.findElements(Locators.moveInCharges_List);
-			List<WebElement> existingMoveInCharges_Amount = TN_RunnerClass.FL_driver.findElements(Locators.moveInCharge_List_Amount);
+			List<WebElement> existingMoveInCharges_ChargeCodes = RunnerClass.driver.findElements(Locators.moveInCharges_List);
+			List<WebElement> existingMoveInCharges_Amount = RunnerClass.driver.findElements(Locators.moveInCharge_List_Amount);
 			for(int k=0;k<existingMoveInCharges_ChargeCodes.size();k++)
 			{
 				String moveInChargeChargeCode = existingMoveInCharges_ChargeCodes.get(k).getText();
@@ -163,43 +163,43 @@ public class TN_InsertDataIntoPropertyWare
 				e.printStackTrace();
 			}
 			
-			TN_RunnerClass.FL_driver.findElement(Locators.newCharge).click();
+			RunnerClass.driver.findElement(Locators.newCharge).click();
 			Thread.sleep(2000);
 			//Account code
-			Select AutoChargesDropdown = new Select(TN_RunnerClass.FL_driver.findElement(Locators.accountDropdown));
+			Select AutoChargesDropdown = new Select(RunnerClass.driver.findElement(Locators.accountDropdown));
 			AutoChargesDropdown.selectByVisibleText(moveInCharges[i][1]);
 			//Reference
 			Thread.sleep(2000);
-			TN_RunnerClass.FL_driver.findElement(Locators.referenceName).sendKeys(moveInCharges[i][2]);
+			RunnerClass.driver.findElement(Locators.referenceName).sendKeys(moveInCharges[i][2]);
 			Thread.sleep(2000);
 			//Amount
-			TN_RunnerClass.FL_driver.findElement(Locators.moveInChargeAmount).click();
-			TN_RunnerClass.FL_actions.sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).build().perform();
+			RunnerClass.driver.findElement(Locators.moveInChargeAmount).click();
+			RunnerClass.actions.sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).build().perform();
 			Thread.sleep(2000);
-			TN_RunnerClass.FL_driver.findElement(Locators.moveInChargeAmount).sendKeys(moveInCharges[i][4]); 
+			RunnerClass.driver.findElement(Locators.moveInChargeAmount).sendKeys(moveInCharges[i][4]); 
 			Thread.sleep(2000);
 			//Start Date
-			TN_RunnerClass.FL_driver.findElement(Locators.moveInChargeDate).clear();
+			RunnerClass.driver.findElement(Locators.moveInChargeDate).clear();
 			Thread.sleep(2000);
-			TN_RunnerClass.FL_driver.findElement(Locators.moveInChargeDate).sendKeys(moveInCharges[i][3]);
+			RunnerClass.driver.findElement(Locators.moveInChargeDate).sendKeys(moveInCharges[i][3]);
 			//Save or Cancel button
 			Thread.sleep(2000);
 			if(RunnerClass.saveButtonOnAndOff==false)
-			TN_RunnerClass.FL_driver.findElement(Locators.moveInChargeCancel).click();
+			RunnerClass.driver.findElement(Locators.moveInChargeCancel).click();
 			else 
-			TN_RunnerClass.FL_driver.findElement(Locators.moveInChargeSaveButton).click();
+			RunnerClass.driver.findElement(Locators.moveInChargeSaveButton).click();
 			Thread.sleep(2000);
 			try
 			{
-				if(TN_RunnerClass.FL_driver.findElement(Locators.somethingWrongInSavingCharge).isDisplayed())
+				if(RunnerClass.driver.findElement(Locators.somethingWrongInSavingCharge).isDisplayed())
 				{
-					TN_RunnerClass.FL_driver.findElement(Locators.moveInChargeCancel).click();
+					RunnerClass.driver.findElement(Locators.moveInChargeCancel).click();
 				}
 				
 			}
 			catch(Exception e)
 			{}
-			TN_RunnerClass.FL_driver.navigate().refresh();
+			RunnerClass.driver.navigate().refresh();
 		}
 		catch(Exception e) 
 		{
@@ -216,16 +216,16 @@ public class TN_InsertDataIntoPropertyWare
 			Thread.sleep(3000);
 			try
 			{
-			TN_RunnerClass.FL_driver.findElement(Locators.summaryTab).click();
+			RunnerClass.driver.findElement(Locators.summaryTab).click();
 			}
 			catch(Exception e)
 			{
-				TN_RunnerClass.FL_driver.navigate().refresh();
-				TN_RunnerClass.FL_driver.findElement(Locators.summaryTab).click();
+				RunnerClass.driver.navigate().refresh();
+				RunnerClass.driver.findElement(Locators.summaryTab).click();
 			}
 			Thread.sleep(5000);
-			TN_RunnerClass.FL_driver.findElement(Locators.summaryEditButton).click();
-			TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.newAutoCharge)).build().perform();
+			RunnerClass.driver.findElement(Locators.summaryEditButton).click();
+			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.newAutoCharge)).build().perform();
 			
 			for(int i=0;i<autoCharges.length;i++)
 			{
@@ -239,8 +239,8 @@ public class TN_InsertDataIntoPropertyWare
 				
 				try
 				{
-				List<WebElement> existingAutoCharges = TN_RunnerClass.FL_driver.findElements(Locators.autoCharge_List);
-				List<WebElement> existingAutoChargeAmounts = TN_RunnerClass.FL_driver.findElements(Locators.autoCharge_List_Amounts);
+				List<WebElement> existingAutoCharges = RunnerClass.driver.findElements(Locators.autoCharge_List);
+				List<WebElement> existingAutoChargeAmounts = RunnerClass.driver.findElements(Locators.autoCharge_List_Amounts);
 				
 				for(int k=0;k<existingAutoCharges.size();k++)
 				{
@@ -282,59 +282,59 @@ public class TN_InsertDataIntoPropertyWare
 				Thread.sleep(2000);
 				try
 				{
-				TN_RunnerClass.FL_driver.findElement(Locators.newAutoCharge).click();
+				RunnerClass.driver.findElement(Locators.newAutoCharge).click();
 				}
 				catch(Exception e)
 				{
-					TN_RunnerClass.FL_driver.findElement(Locators.autoCharge_CancelButton).click();
+					RunnerClass.driver.findElement(Locators.autoCharge_CancelButton).click();
 					
 				}
 				Thread.sleep(3000);
 				
 				//Charge Code
-				Select autoChargesDropdown = new Select(TN_RunnerClass.FL_driver.findElement(Locators.accountDropdown));
+				Select autoChargesDropdown = new Select(RunnerClass.driver.findElement(Locators.accountDropdown));
 				autoChargesDropdown.selectByVisibleText(autoCharges[i][1]);
 				
 				//Start Date
-				TN_RunnerClass.FL_driver.findElement(Locators.autoCharge_StartDate).clear();
+				RunnerClass.driver.findElement(Locators.autoCharge_StartDate).clear();
 				Thread.sleep(2000);
-				TN_RunnerClass.FL_driver.findElement(Locators.autoCharge_StartDate).sendKeys(autoCharges[i][3]);
+				RunnerClass.driver.findElement(Locators.autoCharge_StartDate).sendKeys(autoCharges[i][3]);
 				
 				//click this to hide calendar UI
-				TN_RunnerClass.FL_driver.findElement(Locators.autoCharge_refField).click();
+				RunnerClass.driver.findElement(Locators.autoCharge_refField).click();
 				//Amount
-				TN_RunnerClass.FL_driver.findElement(Locators.autoCharge_Amount).click();
-				TN_RunnerClass.FL_actions.sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).build().perform();
-				TN_RunnerClass.FL_driver.findElement(Locators.autoCharge_Amount).sendKeys(autoCharges[i][4]);
+				RunnerClass.driver.findElement(Locators.autoCharge_Amount).click();
+				RunnerClass.actions.sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).build().perform();
+				RunnerClass.driver.findElement(Locators.autoCharge_Amount).sendKeys(autoCharges[i][4]);
 				Thread.sleep(2000);
 				
 				//Description
-				TN_RunnerClass.FL_driver.findElement(Locators.autoCharge_Description).sendKeys(autoCharges[i][2]);
+				RunnerClass.driver.findElement(Locators.autoCharge_Description).sendKeys(autoCharges[i][2]);
 				
 				//End Date
 				if(autoCharges[i][5]!=null&&autoCharges[i][5]!="") //TN_PropertyWare.portfolioType=="Others"&&
 				{
-				TN_RunnerClass.FL_driver.findElement(Locators.autoCharge_EndDate).clear();
+				RunnerClass.driver.findElement(Locators.autoCharge_EndDate).clear();
 				Thread.sleep(2000);
-				TN_RunnerClass.FL_driver.findElement(Locators.autoCharge_EndDate).sendKeys(autoCharges[i][5]);
+				RunnerClass.driver.findElement(Locators.autoCharge_EndDate).sendKeys(autoCharges[i][5]);
 				}
 				try
 				{
-					TN_RunnerClass.FL_driver.findElement(By.xpath("//*[text()='New Auto Charge']")).click();
+					RunnerClass.driver.findElement(By.xpath("//*[text()='New Auto Charge']")).click();
 				}
 				catch(Exception e) {}
 				//Save and Cancel
 				Thread.sleep(2000);
 				if(RunnerClass.saveButtonOnAndOff==false)
-				TN_RunnerClass.FL_driver.findElement(Locators.autoCharge_CancelButton).click();
+				RunnerClass.driver.findElement(Locators.autoCharge_CancelButton).click();
 				else
-				TN_RunnerClass.FL_driver.findElement(Locators.autoCharge_SaveButton).click();
+				RunnerClass.driver.findElement(Locators.autoCharge_SaveButton).click();
 				Thread.sleep(2000);
 				try
 				{
-					if(TN_RunnerClass.FL_driver.findElement(Locators.somethingWrongInSavingCharge).isDisplayed())
+					if(RunnerClass.driver.findElement(Locators.somethingWrongInSavingCharge).isDisplayed())
 					{
-						TN_RunnerClass.FL_driver.findElement(Locators.moveInChargeCancel).click();
+						RunnerClass.driver.findElement(Locators.moveInChargeCancel).click();
 					}
 					
 				}
@@ -358,20 +358,20 @@ public class TN_InsertDataIntoPropertyWare
 				}
 				else
 				{
-				TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.RCDetails)).build().perform();
-				TN_RunnerClass.FL_driver.findElement(Locators.rcField).clear();
+				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.RCDetails)).build().perform();
+				RunnerClass.driver.findElement(Locators.rcField).clear();
 				Thread.sleep(1000);
-				TN_RunnerClass.FL_driver.findElement(Locators.rcField).sendKeys(TN_PropertyWare.RCDetails);
+				RunnerClass.driver.findElement(Locators.rcField).sendKeys(TN_PropertyWare.RCDetails);
 				}
 			}
 			catch(Exception e)
 			{
 				try
 				{
-					TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.APMField)).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.APMField).clear();
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.APMField)).build().perform();
+					RunnerClass.driver.findElement(Locators.APMField).clear();
 					Thread.sleep(1000);
-					TN_RunnerClass.FL_driver.findElement(Locators.APMField).sendKeys(TN_PropertyWare.RCDetails);
+					RunnerClass.driver.findElement(Locators.APMField).sendKeys(TN_PropertyWare.RCDetails);
 				}
 				catch(Exception e2)
 				{
@@ -395,9 +395,9 @@ public class TN_InsertDataIntoPropertyWare
 				{
 				if(TN_PropertyWare.earlyTermination.contains("2"))
 				{
-					TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.earlyTermFee2x)).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.earlyTermFee2x).click();
-					Select earlyTermination_List = new Select(TN_RunnerClass.FL_driver.findElement(Locators.earlyTermination_List));
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.earlyTermFee2x)).build().perform();
+					RunnerClass.driver.findElement(Locators.earlyTermFee2x).click();
+					Select earlyTermination_List = new Select(RunnerClass.driver.findElement(Locators.earlyTermination_List));
 					earlyTermination_List.selectByVisibleText("YES");
 				}
 				else
@@ -421,9 +421,9 @@ public class TN_InsertDataIntoPropertyWare
 				Thread.sleep(2000);
 				try
 				{
-				TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.residentBenefitsPackage)).build().perform();
-				TN_RunnerClass.FL_driver.findElement(Locators.residentBenefitsPackage).click();
-				Select residentBenefitsPackageList = new Select(TN_RunnerClass.FL_driver.findElement(Locators.residentBenefitsPackage));
+				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.residentBenefitsPackage)).build().perform();
+				RunnerClass.driver.findElement(Locators.residentBenefitsPackage).click();
+				Select residentBenefitsPackageList = new Select(RunnerClass.driver.findElement(Locators.residentBenefitsPackage));
 				//if(TN_PropertyWare.HVACFilterFlag==false)
 				residentBenefitsPackageList.selectByVisibleText("YES");
 				//else enrolledInFilterEasyList.selectByVisibleText("NO");
@@ -444,9 +444,9 @@ public class TN_InsertDataIntoPropertyWare
 				Thread.sleep(2000);
 				try
 				{
-				TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy)).build().perform();
-				TN_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy).click();
-				Select enrolledInFilterEasyList = new Select(TN_RunnerClass.FL_driver.findElement(Locators.enrolledInFilterEasy_List));
+				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.enrolledInFilterEasy)).build().perform();
+				RunnerClass.driver.findElement(Locators.enrolledInFilterEasy).click();
+				Select enrolledInFilterEasyList = new Select(RunnerClass.driver.findElement(Locators.enrolledInFilterEasy_List));
 				if(TN_PropertyWare.HVACFilterFlag==false)
 				enrolledInFilterEasyList.selectByVisibleText("YES");
 				else enrolledInFilterEasyList.selectByVisibleText("NO");
@@ -463,9 +463,9 @@ public class TN_InsertDataIntoPropertyWare
 			Thread.sleep(2000);
 			try
 			{
-			TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.needsNewLease)).build().perform();
-			TN_RunnerClass.FL_driver.findElement(Locators.needsNewLease).click();
-			Select needsNewLease_List = new Select(TN_RunnerClass.FL_driver.findElement(Locators.needsNewLease_List));
+			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.needsNewLease)).build().perform();
+			RunnerClass.driver.findElement(Locators.needsNewLease).click();
+			Select needsNewLease_List = new Select(RunnerClass.driver.findElement(Locators.needsNewLease_List));
 			needsNewLease_List.selectByVisibleText("No");
 			}
 			catch(Exception e)
@@ -484,10 +484,10 @@ public class TN_InsertDataIntoPropertyWare
 				}
 				else
 				{
-				TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.leaseOccupants)).build().perform();
-				TN_RunnerClass.FL_driver.findElement(Locators.leaseOccupants).clear();
+				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.leaseOccupants)).build().perform();
+				RunnerClass.driver.findElement(Locators.leaseOccupants).clear();
 				Thread.sleep(1000);
-				TN_RunnerClass.FL_driver.findElement(Locators.leaseOccupants).sendKeys(TN_PropertyWare.occupants);
+				RunnerClass.driver.findElement(Locators.leaseOccupants).sendKeys(TN_PropertyWare.occupants);
 				}
 			}
 			catch(Exception e)
@@ -504,10 +504,10 @@ public class TN_InsertDataIntoPropertyWare
 				String petType = String.join(",", TN_PropertyWare.petType);
 				try
 				{
-					TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.pet1Type)).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.pet1Type).clear();
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.pet1Type)).build().perform();
+					RunnerClass.driver.findElement(Locators.pet1Type).clear();
 					Thread.sleep(1000);
-					TN_RunnerClass.FL_driver.findElement(Locators.pet1Type).sendKeys(petType);
+					RunnerClass.driver.findElement(Locators.pet1Type).sendKeys(petType);
 				}
 				catch(Exception e)
 				{
@@ -519,10 +519,10 @@ public class TN_InsertDataIntoPropertyWare
 				String petBreed = String.join(",", TN_PropertyWare.petBreed);
 				try
 				{
-					TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.pet1Breed)).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.pet1Breed).clear();
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.pet1Breed)).build().perform();
+					RunnerClass.driver.findElement(Locators.pet1Breed).clear();
 					Thread.sleep(1000);
-					TN_RunnerClass.FL_driver.findElement(Locators.pet1Breed).sendKeys(petBreed);
+					RunnerClass.driver.findElement(Locators.pet1Breed).sendKeys(petBreed);
 				}
 				catch(Exception e)
 				{
@@ -534,10 +534,10 @@ public class TN_InsertDataIntoPropertyWare
 				String petWeight = String.join(",", TN_PropertyWare.petWeight);
 				try
 				{
-					TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.pet1Weight)).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.pet1Weight).clear();
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.pet1Weight)).build().perform();
+					RunnerClass.driver.findElement(Locators.pet1Weight).clear();
 					Thread.sleep(1000);
-					TN_RunnerClass.FL_driver.findElement(Locators.pet1Weight).sendKeys(petWeight);
+					RunnerClass.driver.findElement(Locators.pet1Weight).sendKeys(petWeight);
 				}
 				catch(Exception e)
 				{
@@ -557,25 +557,25 @@ public class TN_InsertDataIntoPropertyWare
 					{
 						try
 						{
-					TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.petAmount)).build().perform();
-					//TN_RunnerClass.FL_driver.findElement(Locators.petAmount).clear();
-					TN_RunnerClass.FL_driver.findElement(Locators.petAmount).click();
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.petAmount)).build().perform();
+					//RunnerClass.driver.findElement(Locators.petAmount).clear();
+					RunnerClass.driver.findElement(Locators.petAmount).click();
 					//TN_PropertyWare.clearTextField();
-					TN_RunnerClass.FL_driver.findElement(Locators.petAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					RunnerClass.driver.findElement(Locators.petAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 					Thread.sleep(1000);
-					//TN_RunnerClass.FL_actions.click(TN_RunnerClass.FL_driver.findElement(Locators.petAmount)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.petAmount).sendKeys(TN_PropertyWare.petRent);
+					//RunnerClass.actions.click(RunnerClass.driver.findElement(Locators.petAmount)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+					RunnerClass.driver.findElement(Locators.petAmount).sendKeys(TN_PropertyWare.petRent);
 						}
 						catch(Exception e)
 						{
-							TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.petAmount2)).build().perform();
-							//TN_RunnerClass.FL_driver.findElement(Locators.petAmount).clear();
-							TN_RunnerClass.FL_driver.findElement(Locators.petAmount2).click();
+							RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.petAmount2)).build().perform();
+							//RunnerClass.driver.findElement(Locators.petAmount).clear();
+							RunnerClass.driver.findElement(Locators.petAmount2).click();
 							//TN_PropertyWare.clearTextField();
-							TN_RunnerClass.FL_driver.findElement(Locators.petAmount2).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+							RunnerClass.driver.findElement(Locators.petAmount2).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 							Thread.sleep(1000);
-							//TN_RunnerClass.FL_actions.click(TN_RunnerClass.FL_driver.findElement(Locators.petAmount)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-							TN_RunnerClass.FL_driver.findElement(Locators.petAmount2).sendKeys(TN_PropertyWare.petRent);
+							//RunnerClass.actions.click(RunnerClass.driver.findElement(Locators.petAmount)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+							RunnerClass.driver.findElement(Locators.petAmount2).sendKeys(TN_PropertyWare.petRent);
 						}
 					}
 				}
@@ -595,23 +595,23 @@ public class TN_InsertDataIntoPropertyWare
 					{
 						try
 						{
-					TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee)).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee).click();
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.tenantOneTimePetFee)).build().perform();
+					RunnerClass.driver.findElement(Locators.tenantOneTimePetFee).click();
 					Thread.sleep(1000);
-					TN_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					RunnerClass.driver.findElement(Locators.tenantOneTimePetFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 					//TN_PropertyWare.clearTextField();
-					//TN_RunnerClass.FL_actions.click(TN_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee).sendKeys(TN_PropertyWare.petOneTimeNonRefundableFee);
+					//RunnerClass.actions.click(RunnerClass.driver.findElement(Locators.tenantOneTimePetFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+					RunnerClass.driver.findElement(Locators.tenantOneTimePetFee).sendKeys(TN_PropertyWare.petOneTimeNonRefundableFee);
 						}
 						catch(Exception e)
 						{
-							TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.petDepositAmount)).build().perform();
-							TN_RunnerClass.FL_driver.findElement(Locators.petDepositAmount).click();
+							RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.petDepositAmount)).build().perform();
+							RunnerClass.driver.findElement(Locators.petDepositAmount).click();
 							Thread.sleep(1000);
-							TN_RunnerClass.FL_driver.findElement(Locators.petDepositAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+							RunnerClass.driver.findElement(Locators.petDepositAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 							//TN_PropertyWare.clearTextField();
-							//TN_RunnerClass.FL_actions.click(TN_RunnerClass.FL_driver.findElement(Locators.tenantOneTimePetFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-							TN_RunnerClass.FL_driver.findElement(Locators.petDepositAmount).sendKeys(TN_PropertyWare.petOneTimeNonRefundableFee);
+							//RunnerClass.actions.click(RunnerClass.driver.findElement(Locators.tenantOneTimePetFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+							RunnerClass.driver.findElement(Locators.petDepositAmount).sendKeys(TN_PropertyWare.petOneTimeNonRefundableFee);
 						}
 					}
 				}
@@ -631,10 +631,10 @@ public class TN_InsertDataIntoPropertyWare
 					String ServiceAnimal_petType = String.join(",", TN_PropertyWare.serviceAnimalPetType);
 					try
 					{
-						TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.serviceAnimal_pet2Type)).build().perform();
-						TN_RunnerClass.FL_driver.findElement(Locators.serviceAnimal_pet2Type).clear();
+						RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.serviceAnimal_pet2Type)).build().perform();
+						RunnerClass.driver.findElement(Locators.serviceAnimal_pet2Type).clear();
 						Thread.sleep(1000);
-						TN_RunnerClass.FL_driver.findElement(Locators.serviceAnimal_pet2Type).sendKeys("Service "+ServiceAnimal_petType);
+						RunnerClass.driver.findElement(Locators.serviceAnimal_pet2Type).sendKeys("Service "+ServiceAnimal_petType);
 					}
 					catch(Exception e)
 					{
@@ -646,10 +646,10 @@ public class TN_InsertDataIntoPropertyWare
 					String serviceAnimal_petBreed = String.join(",", TN_PropertyWare.serviceAnimalPetBreed);
 					try
 					{
-						TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.serviceAnimal_pet2Breed)).build().perform();
-						TN_RunnerClass.FL_driver.findElement(Locators.serviceAnimal_pet2Breed).clear();
+						RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.serviceAnimal_pet2Breed)).build().perform();
+						RunnerClass.driver.findElement(Locators.serviceAnimal_pet2Breed).clear();
 						Thread.sleep(1000);
-						TN_RunnerClass.FL_driver.findElement(Locators.serviceAnimal_pet2Breed).sendKeys(serviceAnimal_petBreed);
+						RunnerClass.driver.findElement(Locators.serviceAnimal_pet2Breed).sendKeys(serviceAnimal_petBreed);
 					}
 					catch(Exception e)
 					{
@@ -663,10 +663,10 @@ public class TN_InsertDataIntoPropertyWare
 					String serviceAnimal_petWeight = String.join(",", TN_PropertyWare.serviceAnimalPetWeight);
 					try
 					{
-						TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.serviceAnimal_pet2Weight)).build().perform();
-						TN_RunnerClass.FL_driver.findElement(Locators.serviceAnimal_pet2Weight).clear();
+						RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.serviceAnimal_pet2Weight)).build().perform();
+						RunnerClass.driver.findElement(Locators.serviceAnimal_pet2Weight).clear();
 						Thread.sleep(1000);
-						TN_RunnerClass.FL_driver.findElement(Locators.serviceAnimal_pet2Weight).sendKeys(serviceAnimal_petWeight);
+						RunnerClass.driver.findElement(Locators.serviceAnimal_pet2Weight).sendKeys(serviceAnimal_petWeight);
 					}
 					catch(Exception e)
 					{
@@ -677,10 +677,10 @@ public class TN_InsertDataIntoPropertyWare
 					//Pet Special Provisions
 					try
 					{
-						TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.petSpecialProvisions)).build().perform();
-						TN_RunnerClass.FL_driver.findElement(Locators.petSpecialProvisions).clear();
+						RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.petSpecialProvisions)).build().perform();
+						RunnerClass.driver.findElement(Locators.petSpecialProvisions).clear();
 						Thread.sleep(1000);
-						TN_RunnerClass.FL_driver.findElement(Locators.petSpecialProvisions).sendKeys("Service animals, no deposit required");
+						RunnerClass.driver.findElement(Locators.petSpecialProvisions).sendKeys("Service animals, no deposit required");
 					}
 					catch(Exception e)
 					{
@@ -698,14 +698,14 @@ public class TN_InsertDataIntoPropertyWare
 					//if(!TN_PropertyWare.petSecurityDeposit.equalsIgnoreCase("Error")||!TN_PropertyWare.petSecurityDeposit.trim().equalsIgnoreCase(" ")||!TN_PropertyWare.petSecurityDeposit.trim().equalsIgnoreCase(""))
 					if(RunnerClass.onlyDigits(TN_PropertyWare.petSecurityDeposit.trim())==true)
 					{
-					TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.petDepositAmount)).build().perform();
-					//TN_RunnerClass.FL_driver.findElement(Locators.petAmount).clear();
-					TN_RunnerClass.FL_driver.findElement(Locators.petDepositAmount).click();
-					TN_RunnerClass.FL_driver.findElement(Locators.petDepositAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.petDepositAmount)).build().perform();
+					//RunnerClass.driver.findElement(Locators.petAmount).clear();
+					RunnerClass.driver.findElement(Locators.petDepositAmount).click();
+					RunnerClass.driver.findElement(Locators.petDepositAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 					//TN_PropertyWare.clearTextField();
 					Thread.sleep(1000);
-					//TN_RunnerClass.FL_actions.click(TN_RunnerClass.FL_driver.findElement(Locators.petAmount)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.petDepositAmount).sendKeys(TN_PropertyWare.petSecurityDeposit);
+					//RunnerClass.actions.click(RunnerClass.driver.findElement(Locators.petAmount)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+					RunnerClass.driver.findElement(Locators.petDepositAmount).sendKeys(TN_PropertyWare.petSecurityDeposit);
 					}
 				}
 				catch(Exception e)
@@ -731,10 +731,10 @@ public class TN_InsertDataIntoPropertyWare
 				}
 				else
 				{
-				TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.initialMonthlyRent)).build().perform();
-				//TN_RunnerClass.FL_driver.findElement(Locators.initialMonthlyRent).clear();
-				TN_RunnerClass.FL_driver.findElement(Locators.initialMonthlyRent).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
-				TN_RunnerClass.FL_driver.findElement(Locators.initialMonthlyRent).sendKeys(TN_PropertyWare.monthlyRent);
+				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.initialMonthlyRent)).build().perform();
+				//RunnerClass.driver.findElement(Locators.initialMonthlyRent).clear();
+				RunnerClass.driver.findElement(Locators.initialMonthlyRent).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+				RunnerClass.driver.findElement(Locators.initialMonthlyRent).sendKeys(TN_PropertyWare.monthlyRent);
 				
 				}
 			}
@@ -745,15 +745,16 @@ public class TN_InsertDataIntoPropertyWare
 			}
 			
 			//Late Fee Rule
-			TN_InsertDataIntoPropertyWare.lateFeeRuleMethod(TN_PropertyWare.lateFeeType);
+			//TN_InsertDataIntoPropertyWare.lateFeeRuleMethod(TN_PropertyWare.lateFeeType);
+			mainPackage.LateFeeRule.lateFeeRule(RunnerClass.lateFeeRuleType);
 			
 			Thread.sleep(2000);
-			TN_RunnerClass.FL_js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+			RunnerClass.js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
 			try
 			{
 				Thread.sleep(2000);
 				if(RunnerClass.saveButtonOnAndOff==true)
-				TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(TN_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.saveLease)).click(RunnerClass.driver.findElement(Locators.saveLease)).build().perform();
 			}
 			catch(Exception e)
 			{
@@ -772,7 +773,7 @@ public class TN_InsertDataIntoPropertyWare
 			RunnerClass.leaseCompletedStatus = 2;
 			Thread.sleep(2000);
 			if(RunnerClass.saveButtonOnAndOff==true)
-			TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(TN_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.saveLease)).click(RunnerClass.driver.findElement(Locators.saveLease)).build().perform();
 			return false;
 		}
 			
@@ -1165,8 +1166,8 @@ public class TN_InsertDataIntoPropertyWare
 			}
 			else
 			{
-			TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)).build().perform();
-			Select dueDayList = new Select(TN_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)) ;
+			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.lateFeeDueDay)).build().perform();
+			Select dueDayList = new Select(RunnerClass.driver.findElement(Locators.lateFeeDueDay)) ;
 			dueDayList.selectByVisibleText(TN_PropertyWare.lateChargeDay);
 			}
 		}
@@ -1186,13 +1187,13 @@ public class TN_InsertDataIntoPropertyWare
 			}
 			else
 			{
-			TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.initialFee)).build().perform();
-			TN_RunnerClass.FL_driver.findElement(Locators.initialFee).click();
+			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.initialFee)).build().perform();
+			RunnerClass.driver.findElement(Locators.initialFee).click();
 			Thread.sleep(1000);
-			TN_RunnerClass.FL_driver.findElement(Locators.initialFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+			RunnerClass.driver.findElement(Locators.initialFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 			//TN_PropertyWare.clearTextField();
-			//TN_RunnerClass.FL_actions.click(TN_RunnerClass.FL_driver.findElement(Locators.initialFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-			TN_RunnerClass.FL_driver.findElement(Locators.initialFee).sendKeys(TN_PropertyWare.lateChargeFee);
+			//RunnerClass.actions.click(RunnerClass.driver.findElement(Locators.initialFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+			RunnerClass.driver.findElement(Locators.initialFee).sendKeys(TN_PropertyWare.lateChargeFee);
 			}
 		}
 		catch(Exception e)
@@ -1207,12 +1208,12 @@ public class TN_InsertDataIntoPropertyWare
 		{
 			if(TN_PropertyWare.lateChargeFee.contains("%"))
 			{
-			Select initialDropdown = new Select(TN_RunnerClass.FL_driver.findElement(Locators.initialFeeDropdown)) ;
+			Select initialDropdown = new Select(RunnerClass.driver.findElement(Locators.initialFeeDropdown)) ;
 			initialDropdown.selectByVisibleText("% of Rent Charges");
 			}
 			else 
 			{
-				Select initialDropdown = new Select(TN_RunnerClass.FL_driver.findElement(Locators.initialFeeDropdown)) ;
+				Select initialDropdown = new Select(RunnerClass.driver.findElement(Locators.initialFeeDropdown)) ;
 				initialDropdown.selectByVisibleText("Fixed Amount");
 			}
 		}
@@ -1233,13 +1234,13 @@ public class TN_InsertDataIntoPropertyWare
 			}
 			else
 			{
-			TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.perDayFee)).build().perform();
-			TN_RunnerClass.FL_driver.findElement(Locators.perDayFee).click();
+			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.perDayFee)).build().perform();
+			RunnerClass.driver.findElement(Locators.perDayFee).click();
 			Thread.sleep(1000);
-			TN_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+			RunnerClass.driver.findElement(Locators.perDayFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 			//TN_PropertyWare.clearTextField();
-			//TN_RunnerClass.FL_actions.click(TN_RunnerClass.FL_driver.findElement(Locators.perDayFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-			TN_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(TN_PropertyWare.lateFeeChargePerDay);
+			//RunnerClass.actions.click(RunnerClass.driver.findElement(Locators.perDayFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+			RunnerClass.driver.findElement(Locators.perDayFee).sendKeys(TN_PropertyWare.lateFeeChargePerDay);
 			}
 		}
 		catch(Exception e)
@@ -1252,7 +1253,7 @@ public class TN_InsertDataIntoPropertyWare
 		Thread.sleep(2000);
 		try
 		{
-		Select perDayFeeDropdown = new Select(TN_RunnerClass.FL_driver.findElement(Locators.perDayFeeDropdown)) ;
+		Select perDayFeeDropdown = new Select(RunnerClass.driver.findElement(Locators.perDayFeeDropdown)) ;
 		perDayFeeDropdown.selectByVisibleText("Fixed Amount");
 		}
 		catch(Exception e)
@@ -1267,7 +1268,7 @@ public class TN_InsertDataIntoPropertyWare
 			Thread.sleep(2000);
 			try
 			{
-			Select maximumDropdown = new Select(TN_RunnerClass.FL_driver.findElement(Locators.maximumYesNoDropdown)) ;
+			Select maximumDropdown = new Select(RunnerClass.driver.findElement(Locators.maximumYesNoDropdown)) ;
 			maximumDropdown.selectByVisibleText("Yes");
 			}
 			catch(Exception e)
@@ -1295,13 +1296,13 @@ public class TN_InsertDataIntoPropertyWare
 				}
 				else
 				{
-					TN_RunnerClass.FL_driver.findElement(Locators.maximumDatField).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
-					TN_RunnerClass.FL_driver.findElement(Locators.maximumDatField).clear();
-					TN_RunnerClass.FL_driver.findElement(Locators.maximumDatField).click();
+					RunnerClass.driver.findElement(Locators.maximumDatField).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					RunnerClass.driver.findElement(Locators.maximumDatField).clear();
+					RunnerClass.driver.findElement(Locators.maximumDatField).click();
 					Thread.sleep(1000);
 					//TN_PropertyWare.clearTextField();
-					//TN_RunnerClass.FL_actions.click(TN_RunnerClass.FL_driver.findElement(Locators.maximumDatField)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.maximumDatField).sendKeys(TN_PropertyWare.additionalLateChargesLimit);
+					//RunnerClass.actions.click(RunnerClass.driver.findElement(Locators.maximumDatField)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+					RunnerClass.driver.findElement(Locators.maximumDatField).sendKeys(TN_PropertyWare.additionalLateChargesLimit);
 				}
 			}
 			catch(Exception e)
@@ -1312,7 +1313,7 @@ public class TN_InsertDataIntoPropertyWare
 			Thread.sleep(2000);
 			try
 			{
-			Select maximumDropdown2 = new Select(TN_RunnerClass.FL_driver.findElement(Locators.maximumDropdown2)) ;
+			Select maximumDropdown2 = new Select(RunnerClass.driver.findElement(Locators.maximumDropdown2)) ;
 			maximumDropdown2.selectByVisibleText(maximumLimitDropdown);
 			}
 			catch(Exception e)
@@ -1331,8 +1332,8 @@ public class TN_InsertDataIntoPropertyWare
 			//{
 				try
 				{
-			    TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.lateFeeType)).build().perform();
-				Select feeType = new Select(TN_RunnerClass.FL_driver.findElement(Locators.lateFeeType));
+			    RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.lateFeeType)).build().perform();
+				Select feeType = new Select(RunnerClass.driver.findElement(Locators.lateFeeType));
 				feeType.selectByVisibleText("Initial Fee + Per Day Fee");
 				}
 				catch(Exception e)
@@ -1361,8 +1362,8 @@ public class TN_InsertDataIntoPropertyWare
 					}
 					else
 					{
-					TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)).build().perform();
-					Select dueDayList = new Select(TN_RunnerClass.FL_driver.findElement(Locators.lateFeeDueDay)) ;
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.lateFeeDueDay)).build().perform();
+					Select dueDayList = new Select(RunnerClass.driver.findElement(Locators.lateFeeDueDay)) ;
 					dueDayList.selectByVisibleText(TN_PropertyWare.lateChargeDay.trim());
 					}
 				}
@@ -1382,13 +1383,13 @@ public class TN_InsertDataIntoPropertyWare
 					}
 					else
 					{
-					TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.initialFee)).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.initialFee).click();
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.initialFee)).build().perform();
+					RunnerClass.driver.findElement(Locators.initialFee).click();
 					Thread.sleep(1000);
-					TN_RunnerClass.FL_driver.findElement(Locators.initialFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					RunnerClass.driver.findElement(Locators.initialFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 					//TN_PropertyWare.clearTextField();
-					//TN_RunnerClass.FL_actions.click(TN_RunnerClass.FL_driver.findElement(Locators.initialFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.initialFee).sendKeys(TN_PropertyWare.lateChargeFee);
+					//RunnerClass.actions.click(RunnerClass.driver.findElement(Locators.initialFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+					RunnerClass.driver.findElement(Locators.initialFee).sendKeys(TN_PropertyWare.lateChargeFee);
 					}
 				}
 				catch(Exception e)
@@ -1403,12 +1404,12 @@ public class TN_InsertDataIntoPropertyWare
 				{
 					if(TN_PropertyWare.lateChargeFee.contains("%"))
 					{
-					Select initialDropdown = new Select(TN_RunnerClass.FL_driver.findElement(Locators.initialFeeDropdown)) ;
+					Select initialDropdown = new Select(RunnerClass.driver.findElement(Locators.initialFeeDropdown)) ;
 					initialDropdown.selectByVisibleText("% of Rent Charges");
 					}
 					else 
 					{
-						Select initialDropdown = new Select(TN_RunnerClass.FL_driver.findElement(Locators.initialFeeDropdown)) ;
+						Select initialDropdown = new Select(RunnerClass.driver.findElement(Locators.initialFeeDropdown)) ;
 						initialDropdown.selectByVisibleText("Fixed Amount");
 					}
 				}
@@ -1429,13 +1430,13 @@ public class TN_InsertDataIntoPropertyWare
 					}
 					else
 					{
-					TN_RunnerClass.FL_actions.moveToElement(TN_RunnerClass.FL_driver.findElement(Locators.perDayFee)).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.perDayFee).click();
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.perDayFee)).build().perform();
+					RunnerClass.driver.findElement(Locators.perDayFee).click();
 					Thread.sleep(1000);
-					TN_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					RunnerClass.driver.findElement(Locators.perDayFee).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 					//TN_PropertyWare.clearTextField();
-					//TN_RunnerClass.FL_actions.click(TN_RunnerClass.FL_driver.findElement(Locators.perDayFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-					TN_RunnerClass.FL_driver.findElement(Locators.perDayFee).sendKeys(TN_PropertyWare.lateFeeChargePerDay);
+					//RunnerClass.actions.click(RunnerClass.driver.findElement(Locators.perDayFee)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+					RunnerClass.driver.findElement(Locators.perDayFee).sendKeys(TN_PropertyWare.lateFeeChargePerDay);
 					}
 				}
 				catch(Exception e)
@@ -1448,7 +1449,7 @@ public class TN_InsertDataIntoPropertyWare
 				Thread.sleep(2000);
 				try
 				{
-				Select perDayFeeDropdown = new Select(TN_RunnerClass.FL_driver.findElement(Locators.perDayFeeDropdown)) ;
+				Select perDayFeeDropdown = new Select(RunnerClass.driver.findElement(Locators.perDayFeeDropdown)) ;
 				perDayFeeDropdown.selectByVisibleText("Fixed Amount");
 				}
 				catch(Exception e)
@@ -1463,7 +1464,7 @@ public class TN_InsertDataIntoPropertyWare
 					Thread.sleep(2000);
 					try
 					{
-					Select maximumDropdown = new Select(TN_RunnerClass.FL_driver.findElement(Locators.maximumYesNoDropdown)) ;
+					Select maximumDropdown = new Select(RunnerClass.driver.findElement(Locators.maximumYesNoDropdown)) ;
 					maximumDropdown.selectByVisibleText("Yes");
 					}
 					catch(Exception e)
@@ -1491,13 +1492,13 @@ public class TN_InsertDataIntoPropertyWare
 						}
 						else
 						{
-							TN_RunnerClass.FL_driver.findElement(Locators.maximumDatField).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
-							TN_RunnerClass.FL_driver.findElement(Locators.maximumDatField).clear();
-							TN_RunnerClass.FL_driver.findElement(Locators.maximumDatField).click();
+							RunnerClass.driver.findElement(Locators.maximumDatField).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+							RunnerClass.driver.findElement(Locators.maximumDatField).clear();
+							RunnerClass.driver.findElement(Locators.maximumDatField).click();
 							Thread.sleep(1000);
 							//TN_PropertyWare.clearTextField();
-							//TN_RunnerClass.FL_actions.click(TN_RunnerClass.FL_driver.findElement(Locators.maximumDatField)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
-							TN_RunnerClass.FL_driver.findElement(Locators.maximumDatField).sendKeys(TN_PropertyWare.additionalLateChargesLimit);
+							//RunnerClass.actions.click(RunnerClass.driver.findElement(Locators.maximumDatField)).sendKeys(Keys.SHIFT).sendKeys(Keys.HOME).sendKeys(Keys.BACK_SPACE).build().perform();
+							RunnerClass.driver.findElement(Locators.maximumDatField).sendKeys(TN_PropertyWare.additionalLateChargesLimit);
 						}
 					}
 					catch(Exception e)
@@ -1508,7 +1509,7 @@ public class TN_InsertDataIntoPropertyWare
 					Thread.sleep(2000);
 					try
 					{
-					Select maximumDropdown2 = new Select(TN_RunnerClass.FL_driver.findElement(Locators.maximumDropdown2)) ;
+					Select maximumDropdown2 = new Select(RunnerClass.driver.findElement(Locators.maximumDropdown2)) ;
 					maximumDropdown2.selectByVisibleText(maximumLimitDropdown);
 					}
 					catch(Exception e)

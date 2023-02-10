@@ -458,8 +458,259 @@ public class TN_ExtractDatFromPDF_Format2
 		return true;
 	}
 	
-	public static void lateFeeRule()
+	public static boolean lateFeeRule()
 	{
+		String lateFeeRuleText ="";
+		try
+		{
+		 lateFeeRuleText = text.substring(text.indexOf(TN_PDFAppConfig_Format2.lateFeeRuleText_Prior)+TN_PDFAppConfig_Format2.lateFeeRuleText_Prior.length(),text.indexOf(TN_PDFAppConfig_Format2.lateFeeRuleText_After));
+		}
+		catch(Exception e)
+		{
+			try
+			{
+			lateFeeRuleText = text.substring(text.indexOf(TN_PDFAppConfig_Format2.lateFeeRuleText_Prior)+TN_PDFAppConfig_Format2.lateFeeRuleText_Prior.length(),text.indexOf(TN_PDFAppConfig_Format2.lateFeeRuleText_After2));
+			}
+			catch(Exception e2)
+			{
+			return false;
+			}
+		}
+		if(lateFeeRuleText.contains(TN_PDFAppConfig.lateFeeRule_whicheverIsGreater))
+		{
+			RunnerClass.lateFeeRuleType = "GreaterOfFlatFeeOrPercentage";
+			RunnerClass.lateFeeType = "GreaterOfFlatFeeOrPercentage";
+			//TN_PropertyWare.lateFeeType ="Greater of Flat Fee or Percentage"; 
+		//Late charge day
+			try
+			{
+		   // TN_PropertyWare.lateChargeDay =  lateFeeRuleText.substring(lateFeeRuleText.indexOf(TN_PDFAppConfig.lateFeeRule_whicheverIsGreater_dueDay_Prior)+TN_PDFAppConfig.lateFeeRule_whicheverIsGreater_dueDay_Prior.length()).trim().split(" ")[0];
+				TN_PropertyWare.lateChargeDay =  lateFeeRuleText.split(TN_PDFAppConfig.lateFeeRule_whicheverIsGreater_dueDay_After)[0].trim();
+				TN_PropertyWare.lateChargeDay =TN_PropertyWare.lateChargeDay.substring(TN_PropertyWare.lateChargeDay.lastIndexOf(" ")+1);
+		    TN_PropertyWare.lateChargeDay =  TN_PropertyWare.lateChargeDay.replaceAll("[^0-9]", "");
+			}
+			catch(Exception e)
+			{
+				TN_PropertyWare.lateChargeDay = "Error";
+			}
+         System.out.println("Late Charge Day = "+TN_PropertyWare.lateChargeDay);
+			RunnerClass.dueDay_GreaterOf = TN_PropertyWare.lateChargeDay;
+		//Late Fee Percentage
+			try
+			{
+		    TN_PropertyWare.lateFeePercentage =  lateFeeRuleText.substring(lateFeeRuleText.indexOf(TN_PDFAppConfig.lateFeeRule_whicheverIsGreater_lateFeePercentage)+TN_PDFAppConfig.lateFeeRule_whicheverIsGreater_lateFeePercentage.length()).trim().split(" ")[0];
+		    TN_PropertyWare.lateFeePercentage = TN_PropertyWare.lateFeePercentage.replaceAll("[^0-9]", "");
+			}
+			catch(Exception e)
+			{
+				TN_PropertyWare.lateFeePercentage = "Error";
+			}
+         System.out.println("Late Fee Percentage = "+TN_PropertyWare.lateFeePercentage);
+         RunnerClass.percentage = TN_PropertyWare.lateFeePercentage;
+         //Late Fee Amount
+         try
+         {
+         String lateFeeAmount  = lateFeeRuleText.substring(lateFeeRuleText.indexOf(TN_PDFAppConfig.lateFeeRule_whicheverIsGreater_lateFeeAmount)+TN_PDFAppConfig.lateFeeRule_whicheverIsGreater_lateFeeAmount.length()).trim().split(" ")[0];
+         TN_PropertyWare.flatFeeAmount = lateFeeAmount.replaceAll("[^.0-9]", "");
+         }
+         catch(Exception e)
+         {
+        	 TN_PropertyWare.flatFeeAmount ="Error";
+         }
+         System.out.println("Late Fee Amount = "+TN_PropertyWare.flatFeeAmount);
+        RunnerClass.flatFee = TN_PropertyWare.flatFeeAmount;
+         return true;
+		}
+		else 
+		if(lateFeeRuleText.contains(TN_PDFAppConfig.lateFeeRule_mayNotExceedMoreThan30Days))
+		{
+			RunnerClass.lateFeeRuleType = "initialFeePluPerDayFee";
+			//RunnerClass.lateFeeRuleType = "Initial Fee + Per Day Fee";
+			
+			TN_PropertyWare.lateFeeType ="initialFeePluPerDayFee"; 
+	         try
+	 	    {
+	 		    TN_PropertyWare.lateChargeFee = text.substring(text.indexOf(TN_PDFAppConfig.AB_lateFee_Prior)+TN_PDFAppConfig.AB_lateFee_Prior.length()).trim().split(" ")[0];
+	 		    //TN_PropertyWare.lateChargeFee =  TN_PropertyWare.lateChargeFee.substring(0,TN_PropertyWare.lateChargeFee.length()-1);
+	 	    }
+	 	    catch(Exception e)
+	 	    {
+	 		    TN_PropertyWare.lateChargeFee ="Error";	
+	 		    e.printStackTrace();
+	 	    }
+	 	    System.out.println("Late Charge Fee = "+TN_PropertyWare.lateChargeFee.trim());
+	 	   RunnerClass.initialFeeAmount = TN_PropertyWare.lateChargeFee;
+	 	    //Per Day Fee
+	 	    try
+	 	    {
+	 	    	TN_PropertyWare.lateFeeChargePerDay = text.substring(text.indexOf(TN_PDFAppConfig.AB_additionalLateChargesPerDay_Prior)+TN_PDFAppConfig.AB_additionalLateChargesPerDay_Prior.length()).split(" ")[0].trim();//,text.indexOf(TN_PDFAppConfig.AB_additionalLateChargesPerDay_After));
+	 	    }
+	 	    catch(Exception e)
+	 	    {
+	 	    	TN_PropertyWare.lateFeeChargePerDay =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Per Day Fee = "+TN_PropertyWare.lateFeeChargePerDay.trim());
+	 	    RunnerClass.perDayFeeAmount = TN_PropertyWare.lateFeeChargePerDay;
+	 	    //Additional Late Charges Limit
+	 	    try
+	 	    {
+	 	    	TN_PropertyWare.additionalLateChargesLimit = text.substring(text.indexOf(TN_PDFAppConfig.AB_additionalLateChargesLimit_Prior)+TN_PDFAppConfig.AB_additionalLateChargesLimit_Prior.length()).trim().split(" ")[0]; //,text.indexOf(TN_PDFAppConfig.AB_additionalLateChargesLimit_After));
+	 	    }
+	 	    catch(Exception e)
+	 	    {
+	 	    	TN_PropertyWare.additionalLateChargesLimit =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("additional Late Charges Limit = "+TN_PropertyWare.additionalLateChargesLimit.trim());
+	 	    RunnerClass.additionalLateChargesLimit = TN_PropertyWare.additionalLateChargesLimit;
+	 	 //Late Charge Day
+			try
+	 	    {
+			TN_PropertyWare.lateChargeDay = lateFeeRuleText.substring(lateFeeRuleText.indexOf("p.m. on the ")+"p.m. on the ".length()).trim().split(" ")[0];
+			TN_PropertyWare.lateChargeDay = TN_PropertyWare.lateChargeDay.replaceAll("[^0-9]", "");
+	 	    }
+			catch(Exception e)
+	 	    {
+	 	    	TN_PropertyWare.lateChargeDay =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Late Charge Due Day = "+TN_PropertyWare.lateChargeDay.trim());
+	 	    RunnerClass.dueDay_initialFee = TN_PropertyWare.lateChargeDay;
+	 	   return true;
+		}
+		else if(lateFeeRuleText.contains(TN_PDFAppConfig.lateFeeRule_mayNotExceedAmount))
+			{
+			RunnerClass.lateFeeRuleType = "initialFeePluPerDayFee";
+			RunnerClass.lateFeeRuleType = "Initial Fee + Per Day Fee";
+			
+			//Late Charge Day
+			try
+	 	    {
+			TN_PropertyWare.lateChargeDay = lateFeeRuleText.substring(lateFeeRuleText.indexOf("an initial late charge on the")+"an initial late charge on the".length()).trim().split(" ")[0];
+			TN_PropertyWare.lateChargeDay = TN_PropertyWare.lateChargeDay.replaceAll("[^0-9]", "");
+	 	    }
+			catch(Exception e)
+	 	    {
+	 	    	TN_PropertyWare.lateChargeDay =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Late Charge Due Day = "+TN_PropertyWare.lateChargeDay.trim());
+	 	   RunnerClass.dueDay_initialFee = TN_PropertyWare.lateChargeDay;
+	 	    // initial Late Charge
+	 	   try
+	 	    {
+			TN_PropertyWare.lateChargeFee = lateFeeRuleText.substring(lateFeeRuleText.indexOf("day of the month equal to $")+"day of the month equal to $".length()).trim().split(" ")[0];
+			TN_PropertyWare.lateChargeFee = TN_PropertyWare.lateChargeFee.replaceAll("[^0-9.]", "");
+	 	    }
+			catch(Exception e)
+	 	    {
+	 	    	TN_PropertyWare.lateChargeFee =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Late Charge Fee = "+TN_PropertyWare.lateChargeFee.trim());
+	 	   RunnerClass.initialFeeAmount = TN_PropertyWare.lateChargeFee;
+	 	    // Additional Late Charges
+	 	   try
+	 	    {
+			TN_PropertyWare.additionalLateCharges = lateFeeRuleText.substring(lateFeeRuleText.indexOf("and additional late charge of $")+"and additional late charge of $".length()).trim().split(" ")[0];
+			TN_PropertyWare.additionalLateCharges = TN_PropertyWare.additionalLateCharges.replaceAll("[^0-9.]", "");
+	 	    }
+			catch(Exception e)
+	 	    {
+	 	    	TN_PropertyWare.additionalLateCharges =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Additional Late Charges = "+TN_PropertyWare.additionalLateCharges.trim());
+	 	   RunnerClass.maximumAmount = TN_PropertyWare.additionalLateCharges;
+	 	    //Additional Late Charges Limit
+	 	   try
+	 	    {
+			TN_PropertyWare.additionalLateChargesLimit = lateFeeRuleText.substring(lateFeeRuleText.indexOf("(initial and additional) may not exceed $")+"(initial and additional) may not exceed $".length()).trim().split(" ")[0];
+			TN_PropertyWare.additionalLateChargesLimit = TN_PropertyWare.additionalLateChargesLimit.replaceAll("[^0-9.]", "");
+	 	    }
+			catch(Exception e)
+	 	    {
+	 	    	TN_PropertyWare.additionalLateChargesLimit =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Additional Late Charges Limit = "+TN_PropertyWare.additionalLateChargesLimit.trim());
+	 	   RunnerClass.additionalLateChargesLimit = TN_PropertyWare.additionalLateChargesLimit;
+			return true;
+			}
+		else 
+			if(lateFeeRuleText.contains(TN_PDFAppConfig.lateFeeRule_totalDelinquentRentDueToTheTenantAccount))
+			{
+				RunnerClass.lateFeeRuleType = "GreaterOfFlatFeeOrPercentage";
+				RunnerClass.lateFeeType = "GreaterOfFlatFeeOrPercentage";
+				
+			//Late Charge Day
+			try
+	 	    {
+			TN_PropertyWare.lateChargeDay = lateFeeRuleText.substring(lateFeeRuleText.indexOf("11:59 PM of the ")+"11:59 PM of the ".length()).trim().split(" ")[0];
+			TN_PropertyWare.lateChargeDay = TN_PropertyWare.lateChargeDay.replaceAll("[^0-9]", "");
+	 	    }
+			catch(Exception e)
+	 	    {
+	 	    	TN_PropertyWare.lateChargeDay =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Late Charge Due Day = "+TN_PropertyWare.lateChargeDay.trim());
+	 	   RunnerClass.dueDay_GreaterOf = TN_PropertyWare.lateChargeDay;
+	 	    // initial Late Charge
+	 	   try
+	 	    {
+			TN_PropertyWare.lateChargeFee = lateFeeRuleText.substring(lateFeeRuleText.indexOf("an initial late charge equal to ")+"an initial late charge equal to ".length()).trim().split(" ")[0];
+			//TN_PropertyWare.lateChargeFee = TN_PropertyWare.lateChargeFee.replaceAll("[^0-9.]", "");
+	 	    }
+			catch(Exception e)
+	 	    {
+	 	    	TN_PropertyWare.lateChargeFee =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Late Charge Fee = "+TN_PropertyWare.lateChargeFee.trim());
+	 	   RunnerClass.percentage = TN_PropertyWare.lateChargeFee;
+	 	   /*
+	 	    // Additional Late Charges
+	 	   try
+	 	    {
+			TN_PropertyWare.additionalLateCharges = lateFeeRuleText.substring(lateFeeRuleText.indexOf("and additional late charge of $")+"and additional late charge of $".length()).trim().split(" ")[0];
+			TN_PropertyWare.additionalLateCharges = TN_PropertyWare.additionalLateCharges.replaceAll("[^0-9.]", "");
+	 	    }
+			catch(Exception e)
+	 	    {
+	 	    	TN_PropertyWare.additionalLateCharges =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Additional Late Charges = "+TN_PropertyWare.additionalLateCharges.trim());
+	 	    RunnerClass.maximumAmount = TN_PropertyWare.additionalLateCharges;
+	 	    //Additional Late Charges Limit
+	 	   try
+	 	    {
+			TN_PropertyWare.additionalLateChargesLimit = lateFeeRuleText.substring(lateFeeRuleText.indexOf("(initial and additional) may not exceed $")+"(initial and additional) may not exceed $".length()).trim().split(" ")[0];
+			TN_PropertyWare.additionalLateChargesLimit = TN_PropertyWare.additionalLateChargesLimit.replaceAll("[^0-9.]", "");
+	 	    }
+			catch(Exception e)
+	 	    {
+	 	    	TN_PropertyWare.additionalLateChargesLimit =  "Error";	
+	 	    	e.printStackTrace();
+	 	    }
+	 	    System.out.println("Additional Late Charges Limit = "+TN_PropertyWare.additionalLateChargesLimit.trim());
+	 	    RunnerClass.additionalLateChargesLimit = TN_PropertyWare.additionalLateChargesLimit;
+			return true;
+			}
+			else
+		   {
+			TN_PropertyWare.lateFeeType ="";
+			return false;
+	 	    */
+		   }
+		return true;
+		
+	}
+		
+		
+		/*
 		//Late Charge Day
 		try
 	    {
@@ -513,7 +764,6 @@ public class TN_ExtractDatFromPDF_Format2
 	    	e.printStackTrace();
 	    }
 	    */
-	}
 	
 
 }

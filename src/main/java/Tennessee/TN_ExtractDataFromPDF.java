@@ -473,8 +473,9 @@ public class TN_ExtractDataFromPDF
 		}
 		if(lateFeeRuleText.contains(TN_PDFAppConfig.lateFeeRule_whicheverIsGreater))
 		{
-			TN_PropertyWare.lateFeeType ="GreaterOfFlatFeeOrPercentage"; 
-			RunnerClass.lateFeeRuleValues.put("RuleType","Initial Fee + Per Day Fee");
+			RunnerClass.lateFeeRuleType = "GreaterOfFlatFeeOrPercentage";
+			RunnerClass.lateFeeType = "GreaterOfFlatFeeOrPercentage";
+			//TN_PropertyWare.lateFeeType ="Greater of Flat Fee or Percentage"; 
 		//Late charge day
 			try
 			{
@@ -488,7 +489,7 @@ public class TN_ExtractDataFromPDF
 				TN_PropertyWare.lateChargeDay = "Error";
 			}
          System.out.println("Late Charge Day = "+TN_PropertyWare.lateChargeDay);
-			
+			RunnerClass.dueDay_GreaterOf = TN_PropertyWare.lateChargeDay;
 		//Late Fee Percentage
 			try
 			{
@@ -500,6 +501,7 @@ public class TN_ExtractDataFromPDF
 				TN_PropertyWare.lateFeePercentage = "Error";
 			}
          System.out.println("Late Fee Percentage = "+TN_PropertyWare.lateFeePercentage);
+         RunnerClass.percentage = TN_PropertyWare.lateFeePercentage;
          //Late Fee Amount
          try
          {
@@ -511,12 +513,15 @@ public class TN_ExtractDataFromPDF
         	 TN_PropertyWare.flatFeeAmount ="Error";
          }
          System.out.println("Late Fee Amount = "+TN_PropertyWare.flatFeeAmount);
-        
+        RunnerClass.flatFee = TN_PropertyWare.flatFeeAmount;
          return true;
 		}
 		else 
 		if(lateFeeRuleText.contains(TN_PDFAppConfig.lateFeeRule_mayNotExceedMoreThan30Days))
 		{
+			RunnerClass.lateFeeRuleType = "initialFeePluPerDayFee";
+			//RunnerClass.lateFeeRuleType = "Initial Fee + Per Day Fee";
+			
 			TN_PropertyWare.lateFeeType ="initialFeePluPerDayFee"; 
 	         try
 	 	    {
@@ -529,6 +534,7 @@ public class TN_ExtractDataFromPDF
 	 		    e.printStackTrace();
 	 	    }
 	 	    System.out.println("Late Charge Fee = "+TN_PropertyWare.lateChargeFee.trim());
+	 	   RunnerClass.initialFeeAmount = TN_PropertyWare.lateChargeFee;
 	 	    //Per Day Fee
 	 	    try
 	 	    {
@@ -540,6 +546,7 @@ public class TN_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("Per Day Fee = "+TN_PropertyWare.lateFeeChargePerDay.trim());
+	 	    RunnerClass.perDayFeeAmount = TN_PropertyWare.lateFeeChargePerDay;
 	 	    //Additional Late Charges Limit
 	 	    try
 	 	    {
@@ -551,6 +558,7 @@ public class TN_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("additional Late Charges Limit = "+TN_PropertyWare.additionalLateChargesLimit.trim());
+	 	    RunnerClass.additionalLateChargesLimit = TN_PropertyWare.additionalLateChargesLimit;
 	 	 //Late Charge Day
 			try
 	 	    {
@@ -563,10 +571,14 @@ public class TN_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("Late Charge Due Day = "+TN_PropertyWare.lateChargeDay.trim());
+	 	    RunnerClass.dueDay_initialFee = TN_PropertyWare.lateChargeDay;
 	 	   return true;
 		}
 		else if(lateFeeRuleText.contains(TN_PDFAppConfig.lateFeeRule_mayNotExceedAmount))
 			{
+			RunnerClass.lateFeeRuleType = "initialFeePluPerDayFee";
+			RunnerClass.lateFeeRuleType = "Initial Fee + Per Day Fee";
+			
 			//Late Charge Day
 			try
 	 	    {
@@ -579,6 +591,7 @@ public class TN_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("Late Charge Due Day = "+TN_PropertyWare.lateChargeDay.trim());
+	 	   RunnerClass.dueDay_initialFee = TN_PropertyWare.lateChargeDay;
 	 	    // initial Late Charge
 	 	   try
 	 	    {
@@ -591,6 +604,7 @@ public class TN_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("Late Charge Fee = "+TN_PropertyWare.lateChargeFee.trim());
+	 	   RunnerClass.initialFeeAmount = TN_PropertyWare.lateChargeFee;
 	 	    // Additional Late Charges
 	 	   try
 	 	    {
@@ -603,6 +617,7 @@ public class TN_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("Additional Late Charges = "+TN_PropertyWare.additionalLateCharges.trim());
+	 	   RunnerClass.maximumAmount = TN_PropertyWare.additionalLateCharges;
 	 	    //Additional Late Charges Limit
 	 	   try
 	 	    {
@@ -615,11 +630,15 @@ public class TN_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("Additional Late Charges Limit = "+TN_PropertyWare.additionalLateChargesLimit.trim());
+	 	   RunnerClass.additionalLateChargesLimit = TN_PropertyWare.additionalLateChargesLimit;
 			return true;
 			}
 		else 
 			if(lateFeeRuleText.contains(TN_PDFAppConfig.lateFeeRule_totalDelinquentRentDueToTheTenantAccount))
 			{
+				RunnerClass.lateFeeRuleType = "GreaterOfFlatFeeOrPercentage";
+				RunnerClass.lateFeeType = "GreaterOfFlatFeeOrPercentage";
+				
 			//Late Charge Day
 			try
 	 	    {
@@ -632,6 +651,7 @@ public class TN_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("Late Charge Due Day = "+TN_PropertyWare.lateChargeDay.trim());
+	 	   RunnerClass.dueDay_GreaterOf = TN_PropertyWare.lateChargeDay;
 	 	    // initial Late Charge
 	 	   try
 	 	    {
@@ -644,6 +664,8 @@ public class TN_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("Late Charge Fee = "+TN_PropertyWare.lateChargeFee.trim());
+	 	   RunnerClass.percentage = TN_PropertyWare.lateChargeFee;
+	 	   /*
 	 	    // Additional Late Charges
 	 	   try
 	 	    {
@@ -656,6 +678,7 @@ public class TN_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("Additional Late Charges = "+TN_PropertyWare.additionalLateCharges.trim());
+	 	    RunnerClass.maximumAmount = TN_PropertyWare.additionalLateCharges;
 	 	    //Additional Late Charges Limit
 	 	   try
 	 	    {
@@ -668,14 +691,16 @@ public class TN_ExtractDataFromPDF
 	 	    	e.printStackTrace();
 	 	    }
 	 	    System.out.println("Additional Late Charges Limit = "+TN_PropertyWare.additionalLateChargesLimit.trim());
+	 	    RunnerClass.additionalLateChargesLimit = TN_PropertyWare.additionalLateChargesLimit;
 			return true;
 			}
 			else
 		   {
 			TN_PropertyWare.lateFeeType ="";
-			return false;
 		   }
-		
+		   */
+			}
+		return true;		
 	}
 
 

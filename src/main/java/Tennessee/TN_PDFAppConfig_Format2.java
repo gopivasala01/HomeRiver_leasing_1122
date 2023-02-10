@@ -65,5 +65,10 @@ public class TN_PDFAppConfig_Format2
 	
 	static String AB1_residentBenefitsPackage_Prior = "home second nature at a cost of $";
 	
+	public static String lateFeeRuleText_Prior = "A. Late Fees:";
+	public static String lateFeeRuleText_After = "B. Insufficient Funds";
+	public static String lateFeeRuleText_After2 = "B. Insufficient Funds";
+	
+	
 
 }

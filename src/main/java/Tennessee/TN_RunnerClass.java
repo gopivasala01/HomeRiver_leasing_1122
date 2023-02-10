@@ -25,9 +25,9 @@ import mainPackage.RunnerClass;
 public class TN_RunnerClass 
 {
 
-public static ChromeDriver FL_driver;
-public static Actions FL_actions;
-public static JavascriptExecutor FL_js;
+//public static ChromeDriver RunnerClass.driver;
+//public static Actions FL_actions;
+//public static JavascriptExecutor FL_js;
 public static File FL_file;
 public static FileInputStream FL_fis;
 public static StringBuilder FL_stringBuilder = new StringBuilder() ;
@@ -93,6 +93,7 @@ public static String chargeCodesTable ="automation.chargeCodesConfiguration_TN";
         
         if(pdfFormatType.equalsIgnoreCase("Format1"))
         {
+        	RunnerClass.PDFFormatType = "Format1";
         	System.out.println("PDF Type = Format 1");
         	TN_ExtractDataFromPDF getDataFromPDF = new TN_ExtractDataFromPDF();
     		boolean getDataFromPDFResult =  getDataFromPDF.arizona();
@@ -101,6 +102,7 @@ public static String chargeCodesTable ="automation.chargeCodesConfiguration_TN";
         }
         else if(pdfFormatType.equalsIgnoreCase("Format2"))
              {
+        	    RunnerClass.PDFFormatType = "Format2";
         	    System.out.println("PDF Type = Format 2");
         	    TN_ExtractDatFromPDF_Format2 getDataFromPDF_format2 = new TN_ExtractDatFromPDF_Format2();
 	    		boolean getDataFromPDFResult =  getDataFromPDF_format2.arizona();
@@ -146,6 +148,7 @@ public static String chargeCodesTable ="automation.chargeCodesConfiguration_TN";
 
 	public  static void openBrowser() throws Exception
 	{
+		/*
 		Map<String, Object> prefs = new HashMap<String, Object>();
         // Use File.separator as it will work on any OS
 		RunnerClass.downloadFilePath = "C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\"+RunnerClass.leaseName.replaceAll("[^a-zA-Z0-9]+","");
@@ -167,12 +170,13 @@ public static String chargeCodesTable ="automation.chargeCodesConfiguration_TN";
          
         // Launching browser with desired capabilities
         WebDriverManager.chromedriver().setup();
-        FL_driver= new ChromeDriver(options);
-        FL_actions = new Actions(FL_driver);
-        FL_js = (JavascriptExecutor)FL_driver;
-        FL_driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
-        FL_wait = new WebDriverWait(FL_driver, Duration.ofSeconds(50));
-       // FL_driver.get(AppConfig.propertyWareURL);
+        RunnerClass.driver= new ChromeDriver(options);
+        RunnerClass.actions = new Actions( RunnerClass.driver);
+        RunnerClass.js = (JavascriptExecutor) RunnerClass.driver;
+        RunnerClass.driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+        */
+        FL_wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(50));
+       // RunnerClass.driver.get(AppConfig.propertyWareURL);
         
 	}
 	
