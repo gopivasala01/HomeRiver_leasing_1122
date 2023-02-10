@@ -389,7 +389,7 @@ public class LR_InsertDataIntoPropertyWare
 					}
 				}
 			}
-			/*
+			
             //Early Termination
             
 			Thread.sleep(2000);
@@ -423,7 +423,7 @@ public class LR_InsertDataIntoPropertyWare
 				e.printStackTrace();
 				temp=1;
 			}
-			*/
+			
 			if(LR_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
 			{
 				if(LR_PropertyWare.residentBenefitsPackage!="Error")

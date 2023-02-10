@@ -75,7 +75,7 @@ public class RunnerClass
 		{
 			market = leasesList[i][0];
 			portfolio = leasesList[i][1];
-			leaseName = leasesList[i][2];
+			leaseName = leasesList[i][2]; 
 			
 			// Change status of In progress to  a temporary
 			InsertDataIntoDatabase.insertData(leaseName, "Started", 6);
