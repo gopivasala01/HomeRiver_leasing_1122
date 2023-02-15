@@ -1,4 +1,4 @@
-package Tennessee;
+package OKC;
 
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -19,7 +19,7 @@ import mainPackage.InsertDataIntoDatabase;
 import mainPackage.Locators;
 import mainPackage.RunnerClass;
 
-public class TN_PropertyWare 
+public class OKC_PropertyWare 
 {
 	//static String leaseName = "CALI949 - (949 N CALIFORNIA ST)_7436";
     //static String leaseOwner = "Abner - Rozan - Rozan";
@@ -114,7 +114,7 @@ public class TN_PropertyWare
 		RunnerClass.driver.findElement(Locators.searchbox).sendKeys(leaseName);//leaseName EARL5002 - (5002 W EARLL DR)_7517
 		try
 		{
-		TN_RunnerClass.FL_wait.until(ExpectedConditions.invisibilityOf(RunnerClass.driver.findElement(Locators.searchingLoader)));
+		OKC_RunnerClass.FL_wait.until(ExpectedConditions.invisibilityOf(RunnerClass.driver.findElement(Locators.searchingLoader)));
 		}
 		catch(Exception e)
 		{}
@@ -127,7 +127,7 @@ public class TN_PropertyWare
 				for(int i =0;i<displayedCompanies.size();i++)
 				{
 					String companyName = displayedCompanies.get(i).getText();
-					if(companyName.contains(RunnerClass.market)&&!companyName.contains("Legacy"))
+					if(companyName.contains("OKC")&&!companyName.contains("Legacy"))
 					{
 						//FL_RunnerClass.GA_driver.findElement(By.xpath("(//*[@class='searchCat4'])["+(i+1)+"]/a")).click();
 						//break;
@@ -205,13 +205,13 @@ public class TN_PropertyWare
 			RunnerClass.js.executeScript("window.scrollBy(0,300)");
 			try
 			{
-			TN_PropertyWare.RCDetails = RunnerClass.driver.findElement(Locators.RCDetails).getText();
+			OKC_PropertyWare.RCDetails = RunnerClass.driver.findElement(Locators.RCDetails).getText();
 			}
 			catch(Exception e)
 			{
-				TN_PropertyWare.RCDetails = "Error";
+				OKC_PropertyWare.RCDetails = "Error";
 			}
-			System.out.println("RC Details = "+TN_PropertyWare.RCDetails);
+			System.out.println("RC Details = "+OKC_PropertyWare.RCDetails);
 			//Click Leases Tab
 			RunnerClass.js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 			Thread.sleep(2000);
@@ -360,12 +360,12 @@ public class TN_PropertyWare
 	}
 	public static void clearTextField()
 	{
-		TN_PropertyWare.robot.keyPress(KeyEvent.VK_CONTROL);
-		TN_PropertyWare.robot.keyPress(KeyEvent.VK_A);
-		TN_PropertyWare.robot.keyPress(KeyEvent.VK_BACK_SPACE);
-		TN_PropertyWare.robot.keyRelease(KeyEvent.VK_BACK_SPACE);
-		TN_PropertyWare.robot.keyRelease(KeyEvent.VK_A);
-		TN_PropertyWare.robot.keyRelease(KeyEvent.VK_CONTROL);
+		OKC_PropertyWare.robot.keyPress(KeyEvent.VK_CONTROL);
+		OKC_PropertyWare.robot.keyPress(KeyEvent.VK_A);
+		OKC_PropertyWare.robot.keyPress(KeyEvent.VK_BACK_SPACE);
+		OKC_PropertyWare.robot.keyRelease(KeyEvent.VK_BACK_SPACE);
+		OKC_PropertyWare.robot.keyRelease(KeyEvent.VK_A);
+		OKC_PropertyWare.robot.keyRelease(KeyEvent.VK_CONTROL);
 	}
 	
 	public static boolean checkProratedRentDateIsInMoveInMonth()
@@ -380,7 +380,7 @@ public class TN_PropertyWare
 		String proratedMonth = proratedDate.split("/")[0];
 		String moveInDate = RunnerClass.convertDate(commensementDate);
 		String moveInMonth = moveInDate.split("/")[0];
-		if(proratedMonth.equalsIgnoreCase(moveInMonth)||Double.parseDouble(TN_PropertyWare.proratedRent)<=200.00)
+		if(proratedMonth.equalsIgnoreCase(moveInMonth)||Double.parseDouble(OKC_PropertyWare.proratedRent)<=200.00)
 		{
 			return true;
 		}
@@ -391,6 +391,7 @@ public class TN_PropertyWare
 			return false;
 		}
 	}
+
 
 
 }

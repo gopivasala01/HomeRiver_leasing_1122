@@ -31,6 +31,7 @@ import Georgia.GA_RunnerClass;
 import Indiana.IN_RunnerClass;
 import LittleRock.LR_RunnerClass;
 import NorthCarolina.NC_RunnerClass;
+import OKC.OKC_RunnerClass;
 import SouthCarolina.SC_RunnerClass;
 import Tennessee.TN_RunnerClass;
 //import Arizona.AZ_PropertyWare;
@@ -103,7 +104,7 @@ public class RunnerClass
 			portfolio = leasesList[i][1];
 			leaseName = leasesList[i][2]; 
 			
-			if(market.equals("Tennessee"))
+			if(market.equals("Tennessee")||market.equals("OKC"))
 			{
 			Map<String, Object> prefs = new HashMap<String, Object>();
 	        // Use File.separator as it will work on any OS
@@ -216,6 +217,14 @@ public class RunnerClass
 					LittleRock.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
 					LR_RunnerClass.FL_driver.quit();
+					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
+					break;
+			case "OKC":
+				//case "Arkansas":
+					OKC_RunnerClass OKC = new OKC_RunnerClass();
+					OKC.runAutomation(portfolio,leaseName,leaseOwnerName);
+					RunnerClass.updateLeaseStatus();
+					//RunnerClass.driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			
