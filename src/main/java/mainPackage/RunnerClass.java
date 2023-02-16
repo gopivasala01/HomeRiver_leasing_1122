@@ -224,7 +224,7 @@ public class RunnerClass
 					OKC_RunnerClass OKC = new OKC_RunnerClass();
 					OKC.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
-					//RunnerClass.driver.quit();
+					RunnerClass.driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			
