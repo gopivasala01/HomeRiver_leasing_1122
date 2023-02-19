@@ -68,6 +68,9 @@ public class Locators
     public static By maximumDatField = By.name("entity.lateFee.maxAmountAsString");
     public static By checkPortfolioType = By.xpath("//*[@title='Click to jump to portfolio']");
     
+    public static By communicationPopup = By.id("communicationDiv");
+    public static By communicationPoupOkButton = By.xpath("//*[@value='OK - I GOT IT!']");
+    
     
     
     

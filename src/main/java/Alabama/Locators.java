@@ -92,5 +92,6 @@ public class Locators
     
     public static By residentBenefitsPackage =By.xpath("//*[contains(text(),'Enrolled in RBP')]/following::select[1]"); //By.xpath("//*[text()='RBP Enrollment Complete *For SN Use Only*']/preceding::th[1]/following::select[1]");
     
+   
 
 }

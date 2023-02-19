@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -196,6 +197,20 @@ public class TN_PropertyWare
 	}
 	public boolean validateSelectedLease(String leaseOwner) throws Exception
 	{
+		RunnerClass.driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
+		try
+		{
+			if(RunnerClass.driver.findElement(Locators.communicationPopup).isDisplayed())
+			{
+				RunnerClass.driver.findElement(Locators.communicationPoupOkButton).click();
+			}
+		}
+        catch(Exception e)
+		{
+	
+		}
+		RunnerClass.driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+		
 		// Get RC Details
 		int temp=0;
 		while(temp==0)

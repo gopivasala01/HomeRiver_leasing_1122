@@ -8,13 +8,13 @@ import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-
 
 import mainPackage.RunnerClass;
 import mainPackage.Locators;
@@ -193,6 +193,20 @@ public class AL_PropertyWare
 	}
 	public boolean validateSelectedLease(String leaseOwner) throws Exception
 	{
+		AL_RunnerClass.AZ_driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
+		try
+		{
+			if(AL_RunnerClass.AZ_driver.findElement(Locators.communicationPopup).isDisplayed())
+			{
+				AL_RunnerClass.AZ_driver.findElement(Locators.communicationPoupOkButton).click();
+			}
+		}
+        catch(Exception e)
+		{
+	
+		}
+		AL_RunnerClass.AZ_driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+		
 		// Get RC Details
 		int temp=0;
 		while(temp==0)

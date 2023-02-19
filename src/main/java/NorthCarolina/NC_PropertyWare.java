@@ -14,7 +14,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
-
 import mainPackage.AppConfig;
 import mainPackage.InsertDataIntoDatabase;
 import mainPackage.Locators;
@@ -197,6 +196,18 @@ public class NC_PropertyWare
 	}
 	public boolean validateSelectedLease(String leaseOwner) throws Exception
 	{
+		try
+		{
+			if(NC_RunnerClass.FL_driver.findElement(Locators.communicationPopup).isDisplayed())
+			{
+				NC_RunnerClass.FL_driver.findElement(Locators.communicationPoupOkButton).click();
+			}
+		}
+        catch(Exception e)
+		{
+	
+		}
+		
 		// Get RC Details
 		int temp=0;
 		while(temp==0)
