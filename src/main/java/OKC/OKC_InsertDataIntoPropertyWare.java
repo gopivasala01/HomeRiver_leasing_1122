@@ -389,7 +389,7 @@ public class OKC_InsertDataIntoPropertyWare
 					}
 				}
 			}
-			/*
+			
             //Early Termination
             
 			Thread.sleep(2000);
@@ -423,7 +423,7 @@ public class OKC_InsertDataIntoPropertyWare
 				e.printStackTrace();
 				temp=1;
 			}
-			*/
+			
 			if(OKC_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
 			{
 				if(OKC_PropertyWare.residentBenefitsPackage!="Error")
@@ -764,7 +764,17 @@ public class OKC_InsertDataIntoPropertyWare
 			{
 				Thread.sleep(2000);
 				if(RunnerClass.saveButtonOnAndOff==true)
+				{
 				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.saveLease)).click(RunnerClass.driver.findElement(Locators.saveLease)).build().perform();
+				Thread.sleep(2000);
+				if(RunnerClass.driver.findElement(Locators.saveLease).isDisplayed())
+				{
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.leaseOccupants)).build().perform();
+					RunnerClass.driver.findElement(Locators.leaseOccupants).clear();
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.saveLease)).click(RunnerClass.driver.findElement(Locators.saveLease)).build().perform();
+					Thread.sleep(2000);
+				}
+				}
 			}
 			catch(Exception e)
 			{
@@ -783,7 +793,16 @@ public class OKC_InsertDataIntoPropertyWare
 			RunnerClass.leaseCompletedStatus = 2;
 			Thread.sleep(2000);
 			if(RunnerClass.saveButtonOnAndOff==true)
+			{
 			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.saveLease)).click(RunnerClass.driver.findElement(Locators.saveLease)).build().perform();
+			if(RunnerClass.driver.findElement(Locators.saveLease).isDisplayed())
+			{
+				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.leaseOccupants)).build().perform();
+				RunnerClass.driver.findElement(Locators.leaseOccupants).clear();
+				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.saveLease)).click(RunnerClass.driver.findElement(Locators.saveLease)).build().perform();
+				Thread.sleep(2000);
+			}
+			}
 			return false;
 		}
 			

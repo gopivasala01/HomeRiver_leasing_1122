@@ -735,7 +735,17 @@ public class InsertDataIntoPropertyWare
 			{
 				Thread.sleep(2000);
 				if(RunnerClass.saveButtonOnAndOff==true)
+				{
 				NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(NC_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+				Thread.sleep(2000);
+				if(NC_RunnerClass.FL_driver.findElement(Locators.saveLease).isDisplayed())
+				{
+					NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.leaseOccupants)).build().perform();
+					NC_RunnerClass.FL_driver.findElement(Locators.leaseOccupants).clear();
+					NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(NC_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+					Thread.sleep(2000);
+				}
+				}
 			}
 			catch(Exception e)
 			{
@@ -754,7 +764,17 @@ public class InsertDataIntoPropertyWare
 			RunnerClass.leaseCompletedStatus = 2;
 			Thread.sleep(2000);
 			if(RunnerClass.saveButtonOnAndOff==true)
+			{
 			NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(NC_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+			Thread.sleep(2000);
+			if(NC_RunnerClass.FL_driver.findElement(Locators.saveLease).isDisplayed())
+			{
+				NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.leaseOccupants)).build().perform();
+				NC_RunnerClass.FL_driver.findElement(Locators.leaseOccupants).clear();
+				NC_RunnerClass.FL_actions.moveToElement(NC_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(NC_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+				Thread.sleep(2000);
+			}
+			}
 			return false;
 		}
 			

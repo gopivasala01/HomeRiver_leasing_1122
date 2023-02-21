@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Alabama.Locators;
-import NorthCarolina.NC_RunnerClass;
 import mainPackage.InsertDataIntoDatabase;
 import mainPackage.RunnerClass;
 
@@ -736,7 +735,17 @@ public class InsertDataIntoPropertyWare
 			{
 				Thread.sleep(2000);
 				if(RunnerClass.saveButtonOnAndOff==true)
+				{
 				SC_RunnerClass.FL_actions.moveToElement(SC_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(SC_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+				Thread.sleep(2000);
+				if(SC_RunnerClass.FL_driver.findElement(Locators.saveLease).isDisplayed())
+				{
+					SC_RunnerClass.FL_actions.moveToElement(SC_RunnerClass.FL_driver.findElement(Locators.leaseOccupants)).build().perform();
+					SC_RunnerClass.FL_driver.findElement(Locators.leaseOccupants).clear();
+					SC_RunnerClass.FL_actions.moveToElement(SC_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(SC_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+					Thread.sleep(2000);
+				}
+				}
 			}
 			catch(Exception e)
 			{
@@ -755,7 +764,17 @@ public class InsertDataIntoPropertyWare
 			RunnerClass.leaseCompletedStatus = 2;
 			Thread.sleep(2000);
 			if(RunnerClass.saveButtonOnAndOff==true)
+			{
 			SC_RunnerClass.FL_actions.moveToElement(SC_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(SC_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+			Thread.sleep(2000);
+			if(SC_RunnerClass.FL_driver.findElement(Locators.saveLease).isDisplayed())
+			{
+				SC_RunnerClass.FL_actions.moveToElement(SC_RunnerClass.FL_driver.findElement(Locators.leaseOccupants)).build().perform();
+				SC_RunnerClass.FL_driver.findElement(Locators.leaseOccupants).clear();
+				SC_RunnerClass.FL_actions.moveToElement(SC_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(SC_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+				Thread.sleep(2000);
+			}
+			}
 			return false;
 		}
 			

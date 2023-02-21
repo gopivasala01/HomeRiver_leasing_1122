@@ -763,7 +763,17 @@ public class AR_InsertDataIntoPropertyWare
 			{
 				Thread.sleep(2000);
 				if(RunnerClass.saveButtonOnAndOff==true)
-				AR_RunnerClass.FL_actions.moveToElement(AR_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(AR_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+				{
+				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.saveLease)).click(RunnerClass.driver.findElement(Locators.saveLease)).build().perform();
+				Thread.sleep(2000);
+				if(RunnerClass.driver.findElement(Locators.saveLease).isDisplayed())
+				{
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.leaseOccupants)).build().perform();
+					RunnerClass.driver.findElement(Locators.leaseOccupants).clear();
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.saveLease)).click(RunnerClass.driver.findElement(Locators.saveLease)).build().perform();
+					Thread.sleep(2000);
+				}
+				}
 			}
 			catch(Exception e)
 			{
@@ -782,7 +792,17 @@ public class AR_InsertDataIntoPropertyWare
 			RunnerClass.leaseCompletedStatus = 2;
 			Thread.sleep(2000);
 			if(RunnerClass.saveButtonOnAndOff==true)
-			AR_RunnerClass.FL_actions.moveToElement(AR_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(AR_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
+			{
+			RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.saveLease)).click(RunnerClass.driver.findElement(Locators.saveLease)).build().perform();
+			Thread.sleep(2000);
+			if(RunnerClass.driver.findElement(Locators.saveLease).isDisplayed())
+			{
+				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.leaseOccupants)).build().perform();
+				RunnerClass.driver.findElement(Locators.leaseOccupants).clear();
+				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.saveLease)).click(RunnerClass.driver.findElement(Locators.saveLease)).build().perform();
+				Thread.sleep(2000);
+			}
+			}
 			return false;
 		}
 			

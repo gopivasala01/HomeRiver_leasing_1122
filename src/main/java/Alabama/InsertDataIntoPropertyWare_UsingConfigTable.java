@@ -870,7 +870,17 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 			{
 				Thread.sleep(2000);
 				if(RunnerClass.saveButtonOnAndOff==true)
+				{
 				AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).click(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).build().perform();
+				Thread.sleep(2000);
+				if(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease).isDisplayed())
+				{
+					AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.leaseOccupants)).build().perform();
+					AL_RunnerClass.AZ_driver.findElement(Locators.leaseOccupants).clear();
+					AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).click(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).build().perform();
+					Thread.sleep(2000);
+				}
+				}
 			}
 			catch(Exception e)
 			{
@@ -889,7 +899,17 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 			AL_RunnerClass.AZ_js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
 			Thread.sleep(2000);
 			if(RunnerClass.saveButtonOnAndOff==true)
+			{
 			AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).click(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).build().perform();
+			Thread.sleep(2000);
+			if(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease).isDisplayed())
+			{
+				AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.leaseOccupants)).build().perform();
+				AL_RunnerClass.AZ_driver.findElement(Locators.leaseOccupants).clear();
+				AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).click(AL_RunnerClass.AZ_driver.findElement(Locators.saveLease)).build().perform();
+				Thread.sleep(2000);
+			}
+			}
 			RunnerClass.leaseCompletedStatus = 2;
 			return false;
 		}
