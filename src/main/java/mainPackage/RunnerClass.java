@@ -26,6 +26,7 @@ import Alabama.AL_PropertyWare;
 import Alabama.AL_RunnerClass;
 import Arizona.AZ_RunnerClass;
 import Arkansas.AR_RunnerClass;
+import DallasFortWorth.DFW_RunnerClass;
 import Florida.FL_RunnerClass;
 import Georgia.GA_RunnerClass;
 import Indiana.IN_RunnerClass;
@@ -104,7 +105,7 @@ public class RunnerClass
 			portfolio = leasesList[i][1];
 			leaseName = leasesList[i][2]; 
 			
-			if(market.equals("Tennessee")||market.equals("OKC"))
+			if(market.equals("Tennessee")||market.equals("OKC")||market.equals("Dallas/Fort Worth"))
 			{
 			Map<String, Object> prefs = new HashMap<String, Object>();
 	        // Use File.separator as it will work on any OS
@@ -223,6 +224,14 @@ public class RunnerClass
 				//case "Arkansas":
 					OKC_RunnerClass OKC = new OKC_RunnerClass();
 					OKC.runAutomation(portfolio,leaseName,leaseOwnerName);
+					RunnerClass.updateLeaseStatus();
+					RunnerClass.driver.quit();
+					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
+					break;
+			case "Dallas/Fort Worth":
+				//case "Arkansas":
+					DFW_RunnerClass DallasFortWorth = new DFW_RunnerClass();
+					DallasFortWorth.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
 					RunnerClass.driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
