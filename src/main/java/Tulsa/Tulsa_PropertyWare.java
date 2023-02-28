@@ -128,7 +128,7 @@ public class Tulsa_PropertyWare
 				for(int i =0;i<displayedCompanies.size();i++)
 				{
 					String companyName = displayedCompanies.get(i).getText();
-					if(companyName.contains("OKC")&&!companyName.contains("Legacy"))
+					if(companyName.contains("Tulsa")&&!companyName.contains("Legacy"))
 					{
 						//FL_RunnerClass.GA_driver.findElement(By.xpath("(//*[@class='searchCat4'])["+(i+1)+"]/a")).click();
 						//break;

@@ -16,7 +16,7 @@ public class GA_ExtractDataFromPDF_Format2 {
 	//public static void main(String[] args) throws Exception 
 	{
 		GA_PropertyWare.petFlag = false;
-		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\Georgia Format 2\\Georgia Format 1\\Lease_10.21_10.22_6425_Raleigh_St_GA_Smith.pdf");
+		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\VILL3640\\Lease_323_924_3640_Village_Pkwy_GA_Goodson.pdf");
 		File file = RunnerClass.getLastModified();
 		FileInputStream fis = new FileInputStream(file);
 		GA_RunnerClass.document = PDDocument.load(fis);
@@ -104,7 +104,8 @@ public class GA_ExtractDataFromPDF_Format2 {
 	    		  System.out.println("Increased Rent - New Rent Start date = "+GA_PropertyWare.increasedRent_newStartDate);
 	    		  
 	    		  String increasedRentRaw = text.substring(text.indexOf(PDFAppConfig_Format2.increasedRent_newStartDate_Prior)+PDFAppConfig_Format2.increasedRent_newStartDate_Prior.length()).trim();
-	    		  GA_PropertyWare.increasedRent_amount = increasedRentRaw.substring(increasedRentRaw.indexOf("shall be $")+"shall be $".length()).trim().split(" ")[0];
+	    		  GA_PropertyWare.increasedRent_amount = increasedRentRaw.substring(increasedRentRaw.indexOf("shall be")+"shall be".length()).trim().split(" ")[0];
+	    		  GA_PropertyWare.increasedRent_amount = GA_PropertyWare.increasedRent_amount.trim().replace("$", "");
 	    		  System.out.println("Increased Rent - Amount = "+GA_PropertyWare.increasedRent_amount); 
 	    		 }
 	    		 else 

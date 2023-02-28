@@ -35,6 +35,7 @@ import NorthCarolina.NC_RunnerClass;
 import OKC.OKC_RunnerClass;
 import SouthCarolina.SC_RunnerClass;
 import Tennessee.TN_RunnerClass;
+import Tulsa.Tulsa_RunnerClass;
 //import Arizona.AZ_PropertyWare;
 //import Arizona.AZ_RunnerClass;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -105,7 +106,7 @@ public class RunnerClass
 			portfolio = leasesList[i][1];
 			leaseName = leasesList[i][2]; 
 			
-			if(market.equals("Tennessee")||market.equals("OKC")||market.equals("Dallas/Fort Worth"))
+			if(market.equals("Tennessee")||market.equals("OKC")||market.equals("Dallas/Fort Worth")||market.equals("Tulsa"))
 			{
 			Map<String, Object> prefs = new HashMap<String, Object>();
 	        // Use File.separator as it will work on any OS
@@ -232,6 +233,14 @@ public class RunnerClass
 				//case "Arkansas":
 					DFW_RunnerClass DallasFortWorth = new DFW_RunnerClass();
 					DallasFortWorth.runAutomation(portfolio,leaseName,leaseOwnerName);
+					RunnerClass.updateLeaseStatus();
+					RunnerClass.driver.quit();
+					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
+					break;
+			case "Tulsa":
+				//case "Arkansas":
+				Tulsa_RunnerClass Tulsa = new Tulsa_RunnerClass();
+				Tulsa.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
 					RunnerClass.driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);

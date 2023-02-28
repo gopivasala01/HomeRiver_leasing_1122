@@ -17,7 +17,7 @@ public class ExtractDataFromPDF_Format2
 	//public static void main(String[] args) throws Exception 
 	{
 		NC_PropertyWare.petFlag = false;
-		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\MAPL421\\Lease__10.21_10.22_5150_Rock_Place_Dr_GA_Mitchell_-_Robinson.pdf");
+		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\HAZE4729\\Lease_0323_0224_4729_Hazelburn_Dr_NC_Jones.pdf");
 		File file = RunnerClass.getLastModified();
 		FileInputStream fis = new FileInputStream(file);
 		NC_RunnerClass.document = PDDocument.load(fis);
@@ -110,6 +110,28 @@ public class ExtractDataFromPDF_Format2
 	    		 }
 	    		 else 
 	    		 {
+	    		 increasedRent_ProviousRentEndDate = "Per the Landlord, Monthly Rent from "+NC_PropertyWare.commensementDate.trim()+" to "; 
+	    		 String endDateArray3[] = text.substring(text.indexOf(increasedRent_ProviousRentEndDate)+increasedRent_ProviousRentEndDate.length()).split(" ");
+	    		 if(endDateArray3[2].trim().length()==4)//&&RunnerClass.onlyDigits(endDateArray[2]))
+	    		 {
+	    		  NC_PropertyWare.increasedRent_previousRentEndDate = endDateArray3[0]+" "+endDateArray3[1]+" "+endDateArray3[2];
+	    		  System.out.println("Increased Rent - Previous rent end date = "+NC_PropertyWare.increasedRent_previousRentEndDate);
+	    		 
+	    		  String newRentStartDate[] = text.substring(text.indexOf(". Monthly Rent from ")+". Monthly Rent from ".length()).trim().split(" ");
+	    		  NC_PropertyWare.increasedRent_newStartDate = newRentStartDate[0]+" "+newRentStartDate[1]+" "+newRentStartDate[2];
+	    		  System.out.println("Increased Rent - New Rent Start date = "+NC_PropertyWare.increasedRent_newStartDate);
+	    		  
+	    		  String increasedRentRaw = text.substring(text.indexOf(". Monthly Rent from ")+". Monthly Rent from ".length()).trim();
+	    		  NC_PropertyWare.increasedRent_amount = increasedRentRaw.substring(increasedRentRaw.indexOf("shall be $")+"shall be $".length()).trim().split(" ")[0];
+                  if(NC_PropertyWare.increasedRent_amount.endsWith("."))
+                  {
+                	  NC_PropertyWare.increasedRent_amount= NC_PropertyWare.increasedRent_amount.substring(0,NC_PropertyWare.increasedRent_amount.length()-1);
+	              }
+	    		  System.out.println("Increased Rent - Amount = "+NC_PropertyWare.increasedRent_amount); 
+	    		 }
+	    		 
+	    		 else 
+	    		 {
 	    			 String adding0toMonth = "0"+NC_PropertyWare.commensementDate.trim().split(" ")[1];
 	    			 String commeseDate = NC_PropertyWare.commensementDate.trim().replace(NC_PropertyWare.commensementDate.trim().split(" ")[1], adding0toMonth);
 	    			 increasedRent_ProviousRentEndDate = "Per the Landlord, Monthly Rent from "+commeseDate+" through ";
@@ -127,6 +149,7 @@ public class ExtractDataFromPDF_Format2
 		    		  NC_PropertyWare.increasedRent_amount = increasedRentRaw.substring(increasedRentRaw.indexOf("shall be $")+"shall be $".length()).trim().split(" ")[0];
 		    		  System.out.println("Increased Rent - Amount = "+NC_PropertyWare.increasedRent_amount); 
 		    		 }
+	    		 }
 	    		 }
 	    	}
 	    }

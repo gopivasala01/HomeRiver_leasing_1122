@@ -135,13 +135,25 @@ public class TN_ExtractDataFromPDF
 		    TN_PropertyWare.adminFee = text.substring(text.indexOf(TN_PDFAppConfig.AB_adminFee_Prior)+TN_PDFAppConfig.AB_adminFee_Prior.length()).trim().split(" ")[0];
 		    if(TN_PropertyWare.adminFee.matches(".*[a-zA-Z]+.*"))
 		    {
-		    	TN_PropertyWare.adminFee = "Error";
+		    	try
+			    {
+				    TN_PropertyWare.adminFee = text.substring(text.indexOf(TN_PDFAppConfig.AB_adminFee_Prior2)+TN_PDFAppConfig.AB_adminFee_Prior2.length()).trim().split(" ")[0];
+				    if(TN_PropertyWare.adminFee.matches(".*[a-zA-Z]+.*"))
+				    {
+				    	TN_PropertyWare.adminFee = "Error";
+				    }
+			    }
+			    catch(Exception e)
+			    {
+				    TN_PropertyWare.adminFee = "Error";
+				    e.printStackTrace();
+			    }
+		    	
 		    }
 	    }
 	    catch(Exception e)
 	    {
-		    TN_PropertyWare.adminFee = "Error";
-		    e.printStackTrace();
+	    	TN_PropertyWare.adminFee = "Error";
 	    }
 	    System.out.println("Admin Fee = "+TN_PropertyWare.adminFee.trim());
 	    

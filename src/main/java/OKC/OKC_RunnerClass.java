@@ -165,7 +165,7 @@ public class OKC_RunnerClass
 	        RunnerClass.js = (JavascriptExecutor) RunnerClass.driver;
 	        RunnerClass.driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
 	        */
-	        FL_wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(50));
+	        FL_wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(150));
 	       // RunnerClass.driver.get(AppConfig.propertyWareURL);
 	        
 		}

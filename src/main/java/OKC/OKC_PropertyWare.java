@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Indiana.IN_RunnerClass;
 import mainPackage.AppConfig;
@@ -120,9 +121,9 @@ public class OKC_PropertyWare
 		}
 		catch(Exception e)
 		{}
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		System.out.println(RunnerClass.leaseName);
-		
+		OKC_RunnerClass.FL_wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(15));
 		// Select Lease from multiple leases
 				List<WebElement> displayedCompanies = RunnerClass.driver.findElements(Locators.searchedLeaseCompanyHeadings);
 				boolean leaseSelected = false;
