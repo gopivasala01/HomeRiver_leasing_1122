@@ -143,6 +143,12 @@ public class OKC_PropertyWare
 							String lease = leaseList.get(j).getText();
 							if(lease.contains(RunnerClass.leaseName))
 							{
+								try
+								{
+								RunnerClass.portfolio = RunnerClass.driver.findElement(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li["+(j+1)+"]/a")).getText().trim().split(":")[0];
+								System.out.println("Portfolio type = "+RunnerClass.portfolio);
+								}
+								catch(Exception e) {}
 								RunnerClass.driver.findElement(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li["+(j+1)+"]/a")).click();
 								leaseSelected = true;
 								break;
@@ -154,8 +160,8 @@ public class OKC_PropertyWare
 				}
 				
 		//RunnerClass.driver.findElement(Locators.selectSearchedLease).click();
-		Thread.sleep(5000); 
-		
+		//Thread.sleep(5000); 
+		/*
 		// Get Portfolio Type
 		try
 		{
@@ -187,6 +193,8 @@ public class OKC_PropertyWare
 			e.printStackTrace();
 			return true;
 		}
+		*/
+		return true;
 		}
 		catch(Exception e)
 		{
