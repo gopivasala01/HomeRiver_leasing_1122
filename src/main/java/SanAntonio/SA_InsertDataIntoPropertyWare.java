@@ -379,7 +379,7 @@ public class SA_InsertDataIntoPropertyWare
 				temp=1;
 				}
 			}
-			/*
+			
             //Early Termination
             
 			Thread.sleep(2000);
@@ -395,16 +395,16 @@ public class SA_InsertDataIntoPropertyWare
 				{
 				if(SA_PropertyWare.earlyTermination.contains("2"))
 				{
-					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.earlyTermFee2x)).build().perform();
-					RunnerClass.driver.findElement(Locators.earlyTermFee2x).click();
-					Select earlyTermination_List = new Select(RunnerClass.driver.findElement(Locators.earlyTermination_List));
-					earlyTermination_List.selectByVisibleText("YES");
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.earlyTermFee2x_textBox)).build().perform();
+					RunnerClass.driver.findElement(Locators.earlyTermFee2x_textBox).clear();
+					RunnerClass.driver.findElement(Locators.earlyTermFee2x_textBox).sendKeys("Yes");
 				}
 				else
 				{
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Early Termination"+'\n');
 					temp=1;
 				}
+				
 				}
 			}
 			catch(Exception e)
@@ -413,7 +413,7 @@ public class SA_InsertDataIntoPropertyWare
 				e.printStackTrace();
 				temp=1;
 			}
-			*/
+			
 			if(SA_PropertyWare.residentBenefitsPackageAvailabilityCheck==true)
 			{
 				if(SA_PropertyWare.residentBenefitsPackage!="Error")

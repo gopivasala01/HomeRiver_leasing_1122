@@ -771,6 +771,8 @@ public class Tulsa_InsertDataIntoPropertyWare
 				{
 					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.leaseOccupants)).build().perform();
 					RunnerClass.driver.findElement(Locators.leaseOccupants).clear();
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Lease Occupants"+'\n');
+					temp=1;
 					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.saveLease)).click(RunnerClass.driver.findElement(Locators.saveLease)).build().perform();
 					Thread.sleep(2000);
 				}
@@ -800,6 +802,7 @@ public class Tulsa_InsertDataIntoPropertyWare
 				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.leaseOccupants)).build().perform();
 				RunnerClass.driver.findElement(Locators.leaseOccupants).clear();
 				RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.saveLease)).click(RunnerClass.driver.findElement(Locators.saveLease)).build().perform();
+				
 				Thread.sleep(2000);
 			}
 			}

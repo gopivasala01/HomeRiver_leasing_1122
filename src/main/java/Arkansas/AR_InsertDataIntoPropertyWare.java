@@ -211,6 +211,7 @@ public class AR_InsertDataIntoPropertyWare
 		
 		// Get Auto charges
 	     AR_GetDataFromDB.getAutoCharges();
+	     //AR_RunnerClass.FL_driver.navigate().refresh();
 	     System.out.println("------Auto Charges-------");
 			// Auto Charges
 			Thread.sleep(3000);

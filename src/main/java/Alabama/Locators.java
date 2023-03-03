@@ -51,6 +51,7 @@ public class Locators
     public static By autoCharge_SaveButton = By.xpath("(//*[@class='primaryButtons'])[3]/input[1]");
     public static By autoCharge_refField = By.name("charge.refNo");
     public static By earlyTermFee2x = By.xpath("//*[text()='Early Term Fee 2x Rent?']/following::select[1]");
+    public static By earlyTermFee2x_textBox = By.xpath("//*[text()='Early Term Fee 2x Rent?']/following::input[1]");
     public static By enrolledInFilterEasy = By.xpath("//*[text()='Enrolled in FilterEasy rev']/following::select[1]");
     public static By enrolledInFilterEasy_List = By.xpath("//*[text()='Enrolled in FilterEasy rev']/following::select[1]");
     public static By earlyTermination_List = By.xpath("//*[text()='Early Term Fee 2x Rent?']/following::select[1]");
