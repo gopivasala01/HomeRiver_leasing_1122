@@ -149,14 +149,47 @@ public class OKC_PropertyWare
 								System.out.println("Portfolio type = "+RunnerClass.portfolio);
 								}
 								catch(Exception e) {}
-								RunnerClass.driver.findElement(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li["+(j+1)+"]/a")).click();
-								leaseSelected = true;
-								break;
+								try
+								{
+									RunnerClass.js.executeScript("arguments[0].click();", RunnerClass.driver.findElement(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li["+(j+1)+"]/a")));
+								//RunnerClass.driver.findElement(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li["+(j+1)+"]/a")).click();
+								Thread.sleep(2000);
+								if(RunnerClass.driver.findElement(Locators.confirmLeaseIsClicked).isDisplayed())
+								{
+									leaseSelected = true;
+									break;
+								}
+								else 
+								{
+									System.out.println("Lease Name is not found");
+									InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Lease Name Not Found");
+									RunnerClass.leaseCompletedStatus =2;
+									return false;
+								}
+								
+								}
+								catch(Exception e)
+								{
+									System.out.println("Lease Name is not found");
+									InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Lease Name Not Found");
+									e.printStackTrace();
+									RunnerClass.leaseCompletedStatus =2;
+									return false;
+								}
+								
 							}
 						}
 						
 					}
-					if(leaseSelected==true) break;
+					if(leaseSelected==true) 
+						break;
+				}
+				if(leaseSelected==false)
+				{
+					System.out.println("Lease Name is not found");
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Lease Name Not Found");
+					RunnerClass.leaseCompletedStatus =2;
+					return false;
 				}
 				
 		//RunnerClass.driver.findElement(Locators.selectSearchedLease).click();

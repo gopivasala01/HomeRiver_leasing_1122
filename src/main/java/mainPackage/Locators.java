@@ -13,6 +13,7 @@ public class Locators
 	public static By searchingLoader = By.xpath("//*[@id='eqsResult']/h1");
 	public static By searchedLeaseCompanyHeadings = By.xpath("//*[@id='eqsResult']/div/div/h1");
 	public static By selectSearchedLease = By.partialLinkText(RunnerClass.leaseName);
+	public static By confirmLeaseIsClicked = By.xpath("//*[text()='Back To Properties Home']");
 	public static By getLeaseCDEType = By.xpath("//*[@id='summary']/table[1]/tbody/tr[3]/td");
     public static By leasesTab = By.xpath("(//a[text()='Leases'])[2]");	
     public static By RCDetails = By.xpath("//*[contains(text(),'Resident Coordinator [Name/Phone/Email]')]/following::td[1]/div");
