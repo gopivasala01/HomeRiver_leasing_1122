@@ -126,8 +126,8 @@ public class RunnerClass
 	        // Adding cpabilities to ChromeOptions
 	        ChromeOptions options = new ChromeOptions();
 	        options.setExperimentalOption("prefs", prefs);
+	        options.addArguments("--remote-allow-origins=*");
 	        // Printing set download directory
-	         
 	        // Launching browser with desired capabilities
 	        WebDriverManager.chromedriver().setup();
 	        RunnerClass.driver= new ChromeDriver(options);

@@ -135,7 +135,6 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 					System.out.println(moveInCharges[i][0]+"   is already available");
 					flagToCheckIfMoveInChargeAlreadyAvailable=1;
 					break;
-					
 				}
 			}
 			if(flagToCheckIfMoveInChargeAlreadyAvailable==1)

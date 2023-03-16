@@ -160,6 +160,7 @@ public static String chargeCodesTable ="automation.chargeCodesConfiguration_GA";
         // Adding cpabilities to ChromeOptions
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs", prefs);
+        options.addArguments("--remote-allow-origins=*");
         // Printing set download directory
          
         // Launching browser with desired capabilities

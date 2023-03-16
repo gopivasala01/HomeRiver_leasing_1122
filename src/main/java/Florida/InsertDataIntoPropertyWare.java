@@ -674,9 +674,6 @@ public class InsertDataIntoPropertyWare
 				
 				}
 				
-				
-				
-			
 
 			//Initial Monthly Payment
 			try
