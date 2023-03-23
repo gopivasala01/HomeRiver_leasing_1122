@@ -12,5 +12,5 @@ public class AppConfig
 	public static String browserPath = "C:\\Gopi\\Automation\\Chrome Drivers\\chromedriver_103.exe"; 
 	public static String sqlQueryToFetchInProgressLeases = "Select Company, [Portfolio ],BuildingName,OwnerName from  Automation.LeaseInfo where Status ='In Progress' order by SNO asc";
 
-	public static String[] IAGClientList = {"510","AVE","BTH","CAP","FOR","HRG","HS","MAN","MCH","OFF","PIN","RF","SFR3","TH","HH","Lofty"};  //SOFFERIRA
+	public static String[] IAGClientList = {"510","AVE","BTH","CAP","FOR","HRG","HS","MAN","MCH","OFF","PIN","RF","SFR3","TH","HH","Lofty","TA"};  //SOFFERIRA
 }
