@@ -17,7 +17,7 @@ public class IN_ExtractDataFromPDF_Format2
 	//public static void main(String[] args) throws Exception 
 	{
 		IN_PropertyWare.petFlag = false;
-		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\Georgia Format 2\\Georgia Format 1\\Lease_10.21_10.22_6425_Raleigh_St_GA_Smith.pdf");
+		//File file = new File("C:\\Gopi\\Projects\\Property ware\\Lease Close Outs\\PDFS\\MANS7148\\Lease_0323_0924_7148_Manship_Cir_IN_Limam-H.pdf");
 		File file = RunnerClass.getLastModified();
 		FileInputStream fis = new FileInputStream(file);
 		IN_RunnerClass.document = PDDocument.load(fis);
@@ -93,8 +93,40 @@ public class IN_ExtractDataFromPDF_Format2
 	    		IN_PropertyWare.incrementRentFlag = true;
 	    		IN_PropertyWare.monthlyRent = IN_PropertyWare.monthlyRent.replace("*", "");
 	    		System.out.println("Monthly Rent has Asterick *");
-	    		String increasedRent_ProviousRentEndDate = "Per the Landlord, Monthly Rent from "+IN_PropertyWare.commensementDate.trim()+" through ";
-	    		 String endDateArray[] = text.substring(text.indexOf(increasedRent_ProviousRentEndDate)+increasedRent_ProviousRentEndDate.length()).split(" ");
+	    		String increasedRent_ProviousRentEndDate = "*Per the Landlord, Monthly Rent";//"Per the Landlord, Monthly Rent from "+IN_PropertyWare.commensementDate.trim()+" through ";
+	    		
+	    		String endDateArray = text.substring(text.indexOf(increasedRent_ProviousRentEndDate)+increasedRent_ProviousRentEndDate.length());
+	    		try
+	    		{
+	    		 IN_PropertyWare.increasedRent_amount = endDateArray.substring(endDateArray.indexOf("shall be $")+"shall be $".length()).trim().split(" ")[0];
+	    		 System.out.println("incresed Rent Amount = "+IN_PropertyWare.increasedRent_amount);
+	    		}
+	    		catch(Exception e)
+	    		{
+	    			IN_PropertyWare.increasedRent_amount = "Error";
+	    		}
+	    		try
+	    		{
+	    		 IN_PropertyWare.increasedRent_newStartDate = endDateArray.substring(endDateArray.indexOf("Monthly Rent from")+"Monthly Rent from".length()).trim();
+	    		 IN_PropertyWare.increasedRent_newStartDate = IN_PropertyWare.increasedRent_newStartDate.substring(0,endDateArray.indexOf("through")-"through".length()).trim();
+	    		 System.out.println("incresed Rent Start Date = "+IN_PropertyWare.increasedRent_newStartDate);
+	    		}
+	    		catch(Exception e)
+	    		{
+	    			IN_PropertyWare.increasedRent_newStartDate = "Error";
+	    		}
+	    		
+	    		try
+	    		{
+	    		IN_PropertyWare.increasedRent_previousRentEndDate = endDateArray.substring(endDateArray.indexOf("through")+"through".length(),endDateArray.indexOf("shall be")).trim();
+	    		}
+	    		catch(Exception e)
+	    		{
+	    			IN_PropertyWare.increasedRent_previousRentEndDate = "Error";
+	    		}
+	    		System.out.println("Previous Rent End Date = "+IN_PropertyWare.increasedRent_previousRentEndDate);
+	    		 
+	    		 /*
 	    		 if(endDateArray[2].trim().length()==4)//&&RunnerClass.onlyDigits(endDateArray[2]))
 	    		 {
 	    		  IN_PropertyWare.increasedRent_previousRentEndDate = endDateArray[0]+" "+endDateArray[1]+" "+endDateArray[2];
@@ -128,6 +160,7 @@ public class IN_ExtractDataFromPDF_Format2
 		    		  System.out.println("Increased Rent - Amount = "+IN_PropertyWare.increasedRent_amount); 
 		    		 }
 	    		 }
+	    		 */
 	    	}
 	    }
 	    catch(Exception e)

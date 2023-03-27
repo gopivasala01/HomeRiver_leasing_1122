@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
+import Indiana.IN_PropertyWare;
 import mainPackage.InsertDataIntoDatabase;
 import mainPackage.RunnerClass;
 
@@ -129,6 +130,47 @@ public class ExtractDataFromPDF
 	    	 e.printStackTrace();
 	    }
 	    System.out.println("Monthly Rent "+NC_PropertyWare.monthlyRent.trim());
+	    
+	    if(NC_PropertyWare.monthlyRent.contains("*")||text.contains(PDFAppConfig_Format2.monthlyRentAvailabilityCheck)==true)
+    	{
+    		NC_PropertyWare.incrementRentFlag = true;
+    		NC_PropertyWare.monthlyRent = NC_PropertyWare.monthlyRent.replace("*", "");
+    		System.out.println("Monthly Rent has Asterick *");
+    		
+            String increasedRent_ProviousRentEndDate = "*Per the Landlord, Monthly Rent";//"Per the Landlord, Monthly Rent from "+IN_PropertyWare.commensementDate.trim()+" through ";
+    		
+    		String endDateArray = text.substring(text.indexOf(increasedRent_ProviousRentEndDate)+increasedRent_ProviousRentEndDate.length());
+    		try
+    		{
+    		 IN_PropertyWare.increasedRent_amount = endDateArray.substring(endDateArray.indexOf("shall be $")+"shall be $".length()).trim().split(" ")[0];
+    		 System.out.println("incresed Rent Amount = "+IN_PropertyWare.increasedRent_amount);
+    		}
+    		catch(Exception e)
+    		{
+    			IN_PropertyWare.increasedRent_amount = "Error";
+    		}
+    		try
+    		{
+    		 IN_PropertyWare.increasedRent_newStartDate = endDateArray.substring(endDateArray.indexOf("Monthly Rent from")+"Monthly Rent from".length()).trim();
+    		 IN_PropertyWare.increasedRent_newStartDate = IN_PropertyWare.increasedRent_newStartDate.substring(0,endDateArray.indexOf("through")-"through".length()).trim();
+    		 System.out.println("incresed Rent Start Date = "+IN_PropertyWare.increasedRent_newStartDate);
+    		}
+    		catch(Exception e)
+    		{
+    			IN_PropertyWare.increasedRent_newStartDate = "Error";
+    		}
+    		
+    		try
+    		{
+    		IN_PropertyWare.increasedRent_previousRentEndDate = endDateArray.substring(endDateArray.indexOf("through")+"through".length(),endDateArray.indexOf("shall be")).trim();
+    		}
+    		catch(Exception e)
+    		{
+    			IN_PropertyWare.increasedRent_previousRentEndDate = "Error";
+    		}
+    		System.out.println("Previous Rent End Date = "+IN_PropertyWare.increasedRent_previousRentEndDate);
+    	}
+	    
 	    try
 	    {
 		    NC_PropertyWare.adminFee = text.substring(text.indexOf(PDFAppConfig.AB_adminFee_Prior)+PDFAppConfig.AB_adminFee_Prior.length()).split(" ")[0];

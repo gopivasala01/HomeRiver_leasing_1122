@@ -107,6 +107,9 @@ public class RunnerClass
 			portfolio = leasesList[i][1];
 			leaseName = leasesList[i][2]; 
 			
+			if("Alabama,Florida,North Carolina,Georgia,South Carolina,Indiana,Tennessee,Arkansas,Little Rock,OKC,Dallas/Fort Worth,Tulsa,San Antonio".contains(market))
+			{
+			
 			if(market.equals("Tennessee")||market.equals("OKC")||market.equals("Dallas/Fort Worth")||market.equals("Tulsa")||market.equals("San Antonio"))
 			{
 			Map<String, Object> prefs = new HashMap<String, Object>();
@@ -261,6 +264,7 @@ public class RunnerClass
 			catch(Exception e)
 			{
 				//AL_RunnerClass.AZ_driver.close();
+			}
 			}
 			
 		}
