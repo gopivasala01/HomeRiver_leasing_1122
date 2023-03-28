@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
@@ -142,7 +143,7 @@ public class ExtractDataFromPDF
     		String endDateArray = text.substring(text.indexOf(increasedRent_ProviousRentEndDate)+increasedRent_ProviousRentEndDate.length());
     		try
     		{
-    		 IN_PropertyWare.increasedRent_amount = endDateArray.substring(endDateArray.indexOf("shall be $")+"shall be $".length()).trim().split(" ")[0];
+    		 IN_PropertyWare.increasedRent_amount = endDateArray.substring(StringUtils.ordinalIndexOf(endDateArray, "shall be $", 2)+"shall be $".length()).trim().split(" ")[0];
     		 System.out.println("incresed Rent Amount = "+IN_PropertyWare.increasedRent_amount);
     		}
     		catch(Exception e)

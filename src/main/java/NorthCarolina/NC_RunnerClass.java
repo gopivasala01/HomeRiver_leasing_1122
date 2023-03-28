@@ -183,6 +183,7 @@ public static PDDocument document;
 		NC_RunnerClass.document = PDDocument.load(fis);
 	    String text = new PDFTextStripper().getText(document);
 	    NC_PropertyWare.pdfText  = text;
+	    System.out.println(text);
 	    if(text.contains(AppConfig.PDFFormatConfirmationText)) 
 	    {
 	    	document.close();

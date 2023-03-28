@@ -289,7 +289,7 @@ public class SA_PropertyWare
 			boolean checkLeaseAgreementAvailable = false;
 			for(int i =0;i<documents.size();i++)
 			{
-				if(documents.get(i).getText().contains("REVISED_Lease_"))//&&documents.get(i).getText().contains(leaseFirstName))
+				if(documents.get(i).getText().contains("REVISED_Lease_")&&documents.get(i).getText().contains(RunnerClass.companyCode))//&&documents.get(i).getText().contains(leaseFirstName))
 				{
 					documents.get(i).click();
 					checkLeaseAgreementAvailable = true;
@@ -301,7 +301,7 @@ public class SA_PropertyWare
 			{
 			for(int i =0;i<documents.size();i++)
 			{
-				if(documents.get(i).getText().startsWith("Lease_"))//&&documents.get(i).getText().contains(leaseFirstName))
+				if(documents.get(i).getText().startsWith("Lease_")&&documents.get(i).getText().contains(RunnerClass.companyCode))//&&documents.get(i).getText().contains(leaseFirstName))
 				{
 					documents.get(i).click();
 					checkLeaseAgreementAvailable = true;
@@ -314,7 +314,7 @@ public class SA_PropertyWare
 			{
 			for(int i =0;i<documents.size();i++)
 			{
-				if(documents.get(i).getText().contains("Lease_"))//&&documents.get(i).getText().contains(leaseFirstName))
+				if(documents.get(i).getText().contains("Lease_")&&documents.get(i).getText().contains(RunnerClass.companyCode))//&&documents.get(i).getText().contains(leaseFirstName))
 				{
 					documents.get(i).click();
 					checkLeaseAgreementAvailable = true;

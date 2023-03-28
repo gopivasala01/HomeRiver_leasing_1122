@@ -85,6 +85,8 @@ public class RunnerClass
 	public static String maximumDropdown2_GreaterOf ="";
 	public static String minimumDue_GreaterOf ="";
 	
+	//Company Code
+	public static String companyCode ="";
 	
 	public static void main(String[] args) throws Exception
 	{
@@ -106,6 +108,8 @@ public class RunnerClass
 			market = leasesList[i][0];
 			portfolio = leasesList[i][1];
 			leaseName = leasesList[i][2]; 
+			companyCode =AppConfig.getCompanyCode(market);
+			
 			
 			if("Alabama,Florida,North Carolina,Georgia,South Carolina,Indiana,Tennessee,Arkansas,Little Rock,OKC,Dallas/Fort Worth,Tulsa,San Antonio".contains(market))
 			{

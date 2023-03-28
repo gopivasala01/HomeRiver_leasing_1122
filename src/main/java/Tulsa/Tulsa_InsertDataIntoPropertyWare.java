@@ -769,6 +769,7 @@ public class Tulsa_InsertDataIntoPropertyWare
 				Thread.sleep(2000);
 				if(RunnerClass.driver.findElement(Locators.saveLease).isDisplayed())
 				{
+					
 					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.leaseOccupants)).build().perform();
 					RunnerClass.driver.findElement(Locators.leaseOccupants).clear();
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Lease Occupants"+'\n');
