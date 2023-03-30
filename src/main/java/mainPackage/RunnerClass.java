@@ -110,7 +110,6 @@ public class RunnerClass
 			leaseName = leasesList[i][2]; 
 			companyCode =AppConfig.getCompanyCode(market);
 			
-			
 			if("Alabama,Florida,North Carolina,Georgia,South Carolina,Indiana,Tennessee,Arkansas,Little Rock,OKC,Dallas/Fort Worth,Tulsa,San Antonio".contains(market))
 			{
 			
