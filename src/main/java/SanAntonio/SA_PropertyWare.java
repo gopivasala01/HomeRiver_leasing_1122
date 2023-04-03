@@ -122,8 +122,14 @@ public class SA_PropertyWare
 		{}
 		Thread.sleep(5000);
 		System.out.println(RunnerClass.leaseName);
-		SA_RunnerClass.FL_wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(15));
+		SA_RunnerClass.FL_wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(30));
 		// Select Lease from multiple leases
+		try
+		{
+		SA_RunnerClass.FL_wait.until(ExpectedConditions.visibilityOfAllElements(RunnerClass.driver.findElements(Locators.searchedLeaseCompanyHeadings)));
+		}
+		catch(Exception e) {}
+		SA_RunnerClass.FL_wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(15));
 				List<WebElement> displayedCompanies = RunnerClass.driver.findElements(Locators.searchedLeaseCompanyHeadings);
 				boolean leaseSelected = false;
 				for(int i =0;i<displayedCompanies.size();i++)
