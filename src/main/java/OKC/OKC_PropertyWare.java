@@ -154,6 +154,9 @@ public class OKC_PropertyWare
 									RunnerClass.js.executeScript("arguments[0].click();", RunnerClass.driver.findElement(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li["+(j+1)+"]/a")));
 								//RunnerClass.driver.findElement(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li["+(j+1)+"]/a")).click();
 								Thread.sleep(2000);
+								try
+								{
+								OKC_RunnerClass.FL_wait.until(ExpectedConditions.visibilityOf(RunnerClass.driver.findElement(Locators.confirmLeaseIsClicked)));
 								if(RunnerClass.driver.findElement(Locators.confirmLeaseIsClicked).isDisplayed())
 								{
 									leaseSelected = true;
@@ -166,7 +169,8 @@ public class OKC_PropertyWare
 									RunnerClass.leaseCompletedStatus =2;
 									return false;
 								}
-								
+								}
+								catch(Exception e) {}
 								}
 								catch(Exception e)
 								{
