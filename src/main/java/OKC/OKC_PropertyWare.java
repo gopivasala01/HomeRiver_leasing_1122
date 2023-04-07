@@ -120,7 +120,9 @@ public class OKC_PropertyWare
 		OKC_RunnerClass.FL_wait.until(ExpectedConditions.invisibilityOf(RunnerClass.driver.findElement(Locators.searchingLoader)));
 		}
 		catch(Exception e)
-		{}
+		{
+			e.printStackTrace();
+		}
 		Thread.sleep(5000);
 		System.out.println(RunnerClass.leaseName);
 		OKC_RunnerClass.FL_wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(15));
@@ -235,6 +237,7 @@ public class OKC_PropertyWare
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			System.out.println("Lease Name is not found");
 			InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Lease Name Not Found");
 			e.printStackTrace();
@@ -242,6 +245,148 @@ public class OKC_PropertyWare
 			return false;
 		}
 	}
+	public boolean searchBuilding(String company, String building)
+	{
+		RunnerClass.driver.manage().timeouts().implicitlyWait(200,TimeUnit.SECONDS);
+		try
+		{
+	    RunnerClass.driver.findElement(Locators.dashboardsTab).click();
+		RunnerClass.driver.findElement(Locators.searchbox).clear();
+		RunnerClass.driver.findElement(Locators.searchbox).sendKeys(building);
+			try
+			{
+			RunnerClass.wait.until(ExpectedConditions.invisibilityOf(RunnerClass.driver.findElement(Locators.searchingLoader)));
+			}
+			catch(Exception e)
+			{
+				try
+				{
+				RunnerClass.driver.manage().timeouts().implicitlyWait(200,TimeUnit.SECONDS);
+				RunnerClass.driver.navigate().refresh();
+				RunnerClass.driver.findElement(Locators.dashboardsTab).click();
+				RunnerClass.driver.findElement(Locators.searchbox).clear();
+				RunnerClass.driver.findElement(Locators.searchbox).sendKeys(building);
+				RunnerClass.wait.until(ExpectedConditions.invisibilityOf(RunnerClass.driver.findElement(Locators.searchingLoader)));
+				}
+				catch(Exception e2) {}
+			}
+			try
+			{
+			RunnerClass.driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
+			if(RunnerClass.driver.findElement(Locators.noItemsFoundMessagewhenLeaseNotFound).isDisplayed())
+			{
+				long count = building.chars().filter(ch -> ch == '.').count();
+				if(building.chars().filter(ch -> ch == '.').count()>=2)
+				{
+					building = building.substring(building.indexOf(".")+1,building.length());
+					RunnerClass.driver.manage().timeouts().implicitlyWait(200,TimeUnit.SECONDS);
+					RunnerClass.driver.navigate().refresh();
+					RunnerClass.driver.findElement(Locators.dashboardsTab).click();
+					RunnerClass.driver.findElement(Locators.searchbox).clear();
+					RunnerClass.driver.findElement(Locators.searchbox).sendKeys(building);
+					RunnerClass.wait.until(ExpectedConditions.invisibilityOf(RunnerClass.driver.findElement(Locators.searchingLoader)));
+					try
+					{
+					RunnerClass.driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
+					if(RunnerClass.driver.findElement(Locators.noItemsFoundMessagewhenLeaseNotFound).isDisplayed())
+					{
+						System.out.println("Building Not Found");
+					    //RunnerClass.failedReason =  RunnerClass.failedReason+","+ "Building Not Found";
+						return false;
+					}
+					}
+					catch(Exception e3) {}
+				}
+				else
+				{
+				System.out.println("Building Not Found");
+			    //RunnerClass.failedReason =  RunnerClass.failedReason+","+ "Building Not Found";
+				return false;
+				}
+			}
+			}
+			catch(Exception e2)
+			{
+			}
+			RunnerClass.driver.manage().timeouts().implicitlyWait(100,TimeUnit.SECONDS);
+			Thread.sleep(1000);
+			System.out.println(building);
+		// Select Lease from multiple leases
+			List<WebElement> displayedCompanies =null;
+			try
+			{
+				displayedCompanies = RunnerClass.driver.findElements(Locators.searchedLeaseCompanyHeadings);
+			}
+			catch(Exception e)
+			{
+				
+			}
+				boolean leaseSelected = false;
+				for(int i =0;i<displayedCompanies.size();i++)
+				{
+					String companyName = displayedCompanies.get(i).getText();
+					if(companyName.toLowerCase().contains(company.toLowerCase())&&!companyName.contains("Legacy"))
+					{
+						
+						List<WebElement> leaseList = RunnerClass.driver.findElements(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li/a"));
+						//System.out.println(leaseList.size());
+						for(int j=0;j<leaseList.size();j++)
+						{
+							String lease = leaseList.get(j).getText();
+							if(lease.toLowerCase().contains(building.toLowerCase())&&lease.contains(":"))
+							{
+								
+								try
+								{
+								RunnerClass.portfolio = RunnerClass.driver.findElement(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li["+(j+1)+"]/a")).getText().trim().split(":")[0];
+								System.out.println("Portfolio type = "+RunnerClass.portfolio);
+								}
+								catch(Exception e) 
+								{}
+								
+								RunnerClass.driver.findElement(By.xpath("(//*[@class='section'])["+(i+1)+"]/ul/li["+(j+1)+"]/a")).click();
+								leaseSelected = true;
+								break;
+							}
+						}
+					}
+					if(leaseSelected==true)
+					{
+						/*
+						//Decide Portfolio Type
+						int portfolioFlag =0;
+						for(int k=0;k<mainPackage.AppConfig.IAGClientList.length;k++)
+						{
+							String portfolioStarting = mainPackage.AppConfig.IAGClientList[k].toLowerCase();
+							if(RunnerClass.portfolioType.toLowerCase().startsWith(portfolioStarting))
+							{
+								portfolioFlag =1;
+								break;
+								//PDFReader.portfolioType = "MCH";
+							}
+						}
+						
+						if(portfolioFlag==1)
+							RunnerClass.portfolioType = "MCH";
+						else RunnerClass.portfolioType = "Others";
+						*/
+					     return true;
+					}
+				}
+				if(leaseSelected==false)
+				{
+				    //RunnerClass.failedReason =  RunnerClass.failedReason+","+ "Building Not Found";
+					return false;
+				}
+	         } catch(Exception e) 
+		     {
+	         //RunnerClass.failedReason = RunnerClass.failedReason+","+  "Issue in selecting Building";
+		     return false;
+		     }
+		return true;
+	}
+	
+	
 	public boolean validateSelectedLease(String leaseOwner) throws Exception
 	{
 		RunnerClass.driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
@@ -273,6 +418,8 @@ public class OKC_PropertyWare
 			{
 				OKC_PropertyWare.RCDetails = "Error";
 			}
+			
+			
 			System.out.println("RC Details = "+OKC_PropertyWare.RCDetails);
 			//Click Leases Tab
 			RunnerClass.js.executeScript("window.scrollBy(0,document.body.scrollHeight)");

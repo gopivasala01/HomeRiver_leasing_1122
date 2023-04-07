@@ -10,7 +10,7 @@ public class Locators
 	
 	public static By searchbox = By.name("eqsSearchText");
 	public static By dashboardsTab = By.linkText("Dashboards");
-	public static By searchingLoader = By.xpath("//*[@id='eqsResult']/h1");
+	public static By searchingLoader = By.xpath("//*[text()='Searching ...']");
 	public static By noItemsFoundMessagewhenLeaseNotFound = By.xpath("//*[text()='No Items Found']");
 	public static By selectSearchedLease = By.xpath("//*[@class='results']/descendant::li/a");
 	public static By getLeaseCDEType = By.xpath("//*[@id='summary']/table[1]/tbody/tr[3]/td");

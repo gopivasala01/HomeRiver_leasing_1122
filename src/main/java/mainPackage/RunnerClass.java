@@ -241,7 +241,7 @@ public class RunnerClass
 					DFW_RunnerClass DallasFortWorth = new DFW_RunnerClass();
 					DallasFortWorth.runAutomation(portfolio,leaseName,leaseOwnerName);
 					RunnerClass.updateLeaseStatus();
-					RunnerClass.driver.quit();
+					//RunnerClass.driver.quit();
 					RunnerClass.deleteDirectory(RunnerClass.downloadFilePath);
 					break;
 			case "Tulsa":

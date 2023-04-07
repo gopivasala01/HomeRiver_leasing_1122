@@ -36,7 +36,8 @@ public class OKC_RunnerClass
 			OKC_PropertyWare downloadLeaseAgreement =new  OKC_PropertyWare();
 			downloadLeaseAgreement.login();
 			
-			boolean selectLeaseResult = downloadLeaseAgreement.selectLease(leaseName);
+			boolean selectLeaseResult = downloadLeaseAgreement.searchBuilding(RunnerClass.market, leaseName);
+			//boolean selectLeaseResult = downloadLeaseAgreement.selectLease(leaseName);
 			if(selectLeaseResult==false)
 				return false;
 			//Empty all static variable values

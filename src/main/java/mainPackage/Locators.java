@@ -11,6 +11,7 @@ public class Locators
 	public static By searchbox = By.name("eqsSearchText");
 	public static By dashboardsTab = By.linkText("Dashboards");
 	public static By searchingLoader = By.xpath("//*[@id='eqsResult']/h1");
+	public static By noItemsFoundMessagewhenLeaseNotFound = By.xpath("//*[text()='No Items Found']");
 	public static By searchedLeaseCompanyHeadings = By.xpath("//*[@id='eqsResult']/div/div/h1");
 	public static By selectSearchedLease = By.partialLinkText(RunnerClass.leaseName);
 	public static By confirmLeaseIsClicked = By.xpath("//*[text()='Back To Properties Home']");
