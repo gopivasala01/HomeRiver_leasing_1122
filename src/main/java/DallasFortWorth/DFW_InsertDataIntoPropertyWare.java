@@ -630,6 +630,52 @@ public class DFW_InsertDataIntoPropertyWare
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "pet One Time Non-Refundable Fee"+'\n');
 					temp=1;
 				}
+				
+				//Initial Pet Rent Amount
+				try
+				{
+					if(DFW_PropertyWare.petRent.equalsIgnoreCase("Error"))
+					{
+						InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Pet Rent"+'\n');
+						temp=1;
+					}
+					else
+					{
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.initialPetRentAmount)).build().perform();
+					//RunnerClass.driver.findElement(Locators.initialMonthlyRent).clear();
+					RunnerClass.driver.findElement(Locators.initialPetRentAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					RunnerClass.driver.findElement(Locators.initialPetRentAmount).sendKeys(DFW_PropertyWare.petRent);
+					
+					}
+				}
+				catch(Exception e)
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Pet Rent"+'\n');
+					//temp=1;
+				}
+				
+				//Pet Rent Amount
+				try
+				{
+					if(DFW_PropertyWare.petRent.equalsIgnoreCase("Error"))
+					{
+						InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Pet Rent"+'\n');
+						temp=1;
+					}
+					else
+					{
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.petRentAmount)).build().perform();
+					//RunnerClass.driver.findElement(Locators.initialMonthlyRent).clear();
+					RunnerClass.driver.findElement(Locators.petRentAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					RunnerClass.driver.findElement(Locators.petRentAmount).sendKeys(DFW_PropertyWare.petRent);
+					
+					}
+				}
+				catch(Exception e)
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Pet Rent"+'\n');
+					temp=1;
+				}
 			
 			}
 				//Service Animal Information
@@ -745,6 +791,29 @@ public class DFW_InsertDataIntoPropertyWare
 				//RunnerClass.driver.findElement(Locators.initialMonthlyRent).clear();
 				RunnerClass.driver.findElement(Locators.initialMonthlyRent).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 				RunnerClass.driver.findElement(Locators.initialMonthlyRent).sendKeys(DFW_PropertyWare.monthlyRent);
+				
+				}
+			}
+			catch(Exception e)
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+				temp=1;
+			}
+			
+			//Current Monthly Rent
+			try
+			{
+				if(DFW_PropertyWare.monthlyRent.equalsIgnoreCase("Error"))
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+					temp=1;
+				}
+				else
+				{
+					RunnerClass.actions.moveToElement(RunnerClass.driver.findElement(Locators.currentMonthlyRent)).build().perform();
+				//RunnerClass.driver.findElement(Locators.initialMonthlyRent).clear();
+					RunnerClass.driver.findElement(Locators.currentMonthlyRent).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					RunnerClass.driver.findElement(Locators.currentMonthlyRent).sendKeys(DFW_PropertyWare.monthlyRent);
 				
 				}
 			}

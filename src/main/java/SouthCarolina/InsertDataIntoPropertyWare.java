@@ -602,6 +602,52 @@ public class InsertDataIntoPropertyWare
 					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "pet One Time Non-Refundable Fee"+'\n');
 					temp=1;
 				}
+				
+				//Initial Pet Rent Amount
+				try
+				{
+					if(SC_PropertyWare.petRent.equalsIgnoreCase("Error"))
+					{
+						InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Pet Rent"+'\n');
+						temp=1;
+					}
+					else
+					{
+					SC_RunnerClass.FL_actions.moveToElement(SC_RunnerClass.FL_driver.findElement(Locators.initialPetRentAmount)).build().perform();
+					//SC_RunnerClass.FL_driver.findElement(Locators.initialMonthlyRent).clear();
+					SC_RunnerClass.FL_driver.findElement(Locators.initialPetRentAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					SC_RunnerClass.FL_driver.findElement(Locators.initialPetRentAmount).sendKeys(SC_PropertyWare.petRent);
+					
+					}
+				}
+				catch(Exception e)
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Pet Rent"+'\n');
+					//temp=1;
+				}
+				
+				//Pet Rent Amount
+				try
+				{
+					if(SC_PropertyWare.petRent.equalsIgnoreCase("Error"))
+					{
+						InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Pet Rent"+'\n');
+						temp=1;
+					}
+					else
+					{
+					SC_RunnerClass.FL_actions.moveToElement(SC_RunnerClass.FL_driver.findElement(Locators.petRentAmount)).build().perform();
+					//SC_RunnerClass.FL_driver.findElement(Locators.initialMonthlyRent).clear();
+					SC_RunnerClass.FL_driver.findElement(Locators.petRentAmount).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					SC_RunnerClass.FL_driver.findElement(Locators.petRentAmount).sendKeys(SC_PropertyWare.petRent);
+					
+					}
+				}
+				catch(Exception e)
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Pet Rent"+'\n');
+					temp=1;
+				}
 			
 			}
 				//Service Animal Information
@@ -717,6 +763,29 @@ public class InsertDataIntoPropertyWare
 				//SC_RunnerClass.FL_driver.findElement(Locators.initialMonthlyRent).clear();
 				SC_RunnerClass.FL_driver.findElement(Locators.initialMonthlyRent).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 				SC_RunnerClass.FL_driver.findElement(Locators.initialMonthlyRent).sendKeys(SC_PropertyWare.monthlyRent);
+				
+				}
+			}
+			catch(Exception e)
+			{
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+				temp=1;
+			}
+			
+			//Current Monthly Rent
+			try
+			{
+				if(SC_PropertyWare.monthlyRent.equalsIgnoreCase("Error"))
+				{
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+					temp=1;
+				}
+				else
+				{
+					SC_RunnerClass.FL_actions.moveToElement(RunnerClass.driver.findElement(Locators.currentMonthlyRent)).build().perform();
+				//RunnerClass.driver.findElement(Locators.initialMonthlyRent).clear();
+					SC_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
+					SC_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent).sendKeys(SC_PropertyWare.monthlyRent);
 				
 				}
 			}

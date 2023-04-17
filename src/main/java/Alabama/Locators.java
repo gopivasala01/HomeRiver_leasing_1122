@@ -85,6 +85,9 @@ public class Locators
     public static By maximumDatField = By.name("entity.lateFee.maxAmountAsString");
     public static By saveLease = By.xpath("(//*[@class='primaryButtons'])[2]/input[1]");
     public static By initialMonthlyRent = By.xpath("//*[text()='Initial Monthly Rent']/following::input[1]");
+    public static By initialPetRentAmount = By.xpath("//*[text()='Initial Pet Rent Amount']/following::input[1]");
+    public static By petRentAmount = By.xpath("//*[text()='Pet Rent Amount']/following::input[1]");
+    public static By currentMonthlyRent = By.xpath("//*[text()='Current Monthly Rent']/following::input[1]");
     public static By somethingWrongInSavingCharge = By.xpath("//*[text()='You must correct the following:']");
     
     public static By lateFeeType = By.name("entity.lateFee.feeType");
