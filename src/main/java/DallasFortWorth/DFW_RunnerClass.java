@@ -26,7 +26,7 @@ public class DFW_RunnerClass
 	public static FileOutputStream FL_fos;
 	public static String pdfFormatType;
 	public static PDDocument document;
-	public static String chargeCodesTable ="Automation.ChargeCodesConfiguration";
+	public static String chargeCodesTable ="Automation.ChargeCodesConfiguration_DFW";
 
 		public boolean runAutomation(String portfolio, String leaseName, String leaseOwnername)  throws Exception
 		{
