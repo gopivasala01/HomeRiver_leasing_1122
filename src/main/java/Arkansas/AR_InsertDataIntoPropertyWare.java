@@ -785,7 +785,7 @@ public class AR_InsertDataIntoPropertyWare
 			{
 				if(AR_PropertyWare.monthlyRent.equalsIgnoreCase("Error"))
 				{
-					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Initial Monthly Rent"+'\n');
 					temp=1;
 				}
 				else
@@ -799,7 +799,7 @@ public class AR_InsertDataIntoPropertyWare
 			}
 			catch(Exception e)
 			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Initial Monthly Rent"+'\n');
 				temp=1;
 			}
 			
@@ -808,7 +808,7 @@ public class AR_InsertDataIntoPropertyWare
 			{
 				if(AR_PropertyWare.monthlyRent.equalsIgnoreCase("Error"))
 				{
-					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Current Monthly Rent"+'\n');
 					temp=1;
 				}
 				else
@@ -822,7 +822,7 @@ public class AR_InsertDataIntoPropertyWare
 			}
 			catch(Exception e)
 			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Current Monthly Rent"+'\n');
 				temp=1;
 			}
 			

@@ -29,7 +29,7 @@ public class InsertDataIntoPropertyWare
 		try
 		{
 		//Change all values in ChargeCodesConfiguration table to NULL
-		String query = "Update automation.ChargeCodesConfiguration Set Amount=NULL,StartDate=NULL,EndDate=NULL,MoveINCharge=NULL,autoCharge=NULL,AutoCharge_StartDate=NULL";
+		String query = "Update "+FL_RunnerClass.chargeCodesTable+" Set Amount=NULL,StartDate=NULL,EndDate=NULL,MoveINCharge=NULL,autoCharge=NULL,AutoCharge_StartDate=NULL";
 		InsertDataIntoDatabase.updateTable(query);
 
 		//Check if Prorated Rent Date is in Move in Date month
@@ -583,7 +583,7 @@ public class InsertDataIntoPropertyWare
 				{
 					if(FL_PropertyWare.petRent.equalsIgnoreCase("Error"))
 					{
-						InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Pet Rent"+'\n');
+						InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Initial Pet Rent"+'\n');
 						temp=1;
 					}
 					else
@@ -597,7 +597,7 @@ public class InsertDataIntoPropertyWare
 				}
 				catch(Exception e)
 				{
-					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Pet Rent"+'\n');
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Initial Pet Rent"+'\n');
 					//temp=1;
 				}
 				
@@ -750,12 +750,12 @@ public class InsertDataIntoPropertyWare
 			{
 				if(FL_PropertyWare.monthlyRent.equalsIgnoreCase("Error"))
 				{
-					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Current Monthly Rent"+'\n');
 					temp=1;
 				}
 				else
 				{
-					FL_RunnerClass.FL_actions.moveToElement(RunnerClass.driver.findElement(Locators.currentMonthlyRent)).build().perform();
+					FL_RunnerClass.FL_actions.moveToElement(FL_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent)).build().perform();
 				//RunnerClass.driver.findElement(Locators.initialMonthlyRent).clear();
 					FL_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 					FL_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent).sendKeys(FL_PropertyWare.monthlyRent);
@@ -764,7 +764,7 @@ public class InsertDataIntoPropertyWare
 			}
 			catch(Exception e)
 			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Current Monthly Rent"+'\n');
 				temp=1;
 			}
 			
@@ -950,7 +950,7 @@ public class InsertDataIntoPropertyWare
 				{
 				FL_RunnerClass.FL_actions.moveToElement(FL_RunnerClass.FL_driver.findElement(Locators.saveLease)).click(FL_RunnerClass.FL_driver.findElement(Locators.saveLease)).build().perform();
 				Thread.sleep(2000);
-				if(RunnerClass.driver.findElement(Locators.saveLease).isDisplayed())
+				if(FL_RunnerClass.FL_driver.findElement(Locators.saveLease).isDisplayed())
 				{
 					FL_RunnerClass.FL_actions.moveToElement(FL_RunnerClass.FL_driver.findElement(Locators.leaseOccupants)).build().perform();
 					FL_RunnerClass.FL_driver.findElement(Locators.leaseOccupants).clear();
@@ -1005,18 +1005,18 @@ public class InsertDataIntoPropertyWare
 		{
 			firstFullMonth = RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim();
 			secondFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
-			String updateStartDateAndEndDate = "Update [Automation].[ChargeCodesConfiguration] Set StartDate='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
-					+ "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+secondFullMonth+"' where AutoCharge =1 \n"
-							+ "Update [Automation].[ChargeCodesConfiguration] Set endDate='"+RunnerClass.DateModified(firstFullMonth)+"' where Charge ='Pro Rate Rent' ";
+			String updateStartDateAndEndDate = "Update "+FL_RunnerClass.chargeCodesTable+" Set StartDate='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
+					+ "Update "+FL_RunnerClass.chargeCodesTable+" Set autoCharge_StartDate='"+secondFullMonth+"' where AutoCharge =1 \n"
+							+ "Update "+FL_RunnerClass.chargeCodesTable+" Set endDate='"+RunnerClass.DateModified(firstFullMonth)+"' where Charge ='Pro Rate Rent' ";
 			InsertDataIntoDatabase.updateTable(updateStartDateAndEndDate);
 		}
 		else 
 		{
 		firstFullMonth = RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
 		secondFullMonth = RunnerClass.NextMonthOffirstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate));
-		String updateStartDateAndEndDate = "Update [Automation].[ChargeCodesConfiguration] Set StartDate='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
-				+ "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+firstFullMonth+"' where AutoCharge =1 \n"
-						+ "Update [Automation].[ChargeCodesConfiguration] Set endDate='"+RunnerClass.DateModified(firstFullMonth)+"' where Charge ='Pro Rate Rent' ";
+		String updateStartDateAndEndDate = "Update "+FL_RunnerClass.chargeCodesTable+" Set StartDate='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate)+"' where moveInCharge =1 \n"
+				+ "Update "+FL_RunnerClass.chargeCodesTable+" Set autoCharge_StartDate='"+firstFullMonth+"' where AutoCharge =1 \n"
+						+ "Update "+FL_RunnerClass.chargeCodesTable+" Set endDate='"+RunnerClass.DateModified(firstFullMonth)+"' where Charge ='Pro Rate Rent' ";
 		InsertDataIntoDatabase.updateTable(updateStartDateAndEndDate);
 		}
 		
@@ -1024,7 +1024,7 @@ public class InsertDataIntoPropertyWare
 		
 		if(RunnerClass.onlyDigits(FL_PropertyWare.increasedRent_amount.trim().replace(",", "").replace(".", ""))==true)
 		{
-		String updateMonthlyRentStartDateToNextMonthOfFirstFullMonth = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate))+"',EndDate ='"+RunnerClass.convertDate(FL_PropertyWare.increasedRent_previousRentEndDate.trim())+"'  where ID=2";
+		String updateMonthlyRentStartDateToNextMonthOfFirstFullMonth = "Update "+FL_RunnerClass.chargeCodesTable+" Set autoCharge_StartDate='"+RunnerClass.firstDayOfFullMonth(RunnerClass.convertDate(FL_PropertyWare.commensementDate))+"',EndDate ='"+RunnerClass.convertDate(FL_PropertyWare.increasedRent_previousRentEndDate.trim())+"'  where ID=2";
 		InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateToNextMonthOfFirstFullMonth);
 		}
 		else {
@@ -1033,7 +1033,7 @@ public class InsertDataIntoPropertyWare
 		{
 		if(FL_PropertyWare.portfolioType=="Others") //Double.parseDouble(FL_PropertyWare.proratedRent.trim())<=200.00||  /// ||FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true
 		{
-			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+secondFullMonth+"' where ID=2";
+			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update "+FL_RunnerClass.chargeCodesTable+" Set autoCharge_StartDate='"+secondFullMonth+"' where ID=2";
 			InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers);
 		}
 		}
@@ -1045,7 +1045,7 @@ public class InsertDataIntoPropertyWare
 		if(FL_PropertyWare.proratedRentDateIsInMoveInMonthFlag==true&&(FL_PropertyWare.proratedPetRent!=""||FL_PropertyWare.proratedPetRent!=null||!FL_PropertyWare.proratedPetRent.equalsIgnoreCase("na")||!FL_PropertyWare.proratedPetRent.equalsIgnoreCase("n/a"))&&(DayInCommensementDate.equalsIgnoreCase("01")||DayInCommensementDate.equalsIgnoreCase("1"))) //Double.parseDouble(FL_PropertyWare.proratedRent.trim())<=200.00||
 		{
 			
-			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update [Automation].[ChargeCodesConfiguration] Set autoCharge_StartDate='"+secondFullMonth+"' where ID=8";
+			String updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers = "Update "+FL_RunnerClass.chargeCodesTable+" Set autoCharge_StartDate='"+secondFullMonth+"' where ID=8";
 			InsertDataIntoDatabase.updateTable(updateMonthlyRentStartDateWhenProrateRentIsUnder200Dollers);
 		}
 		}
@@ -1060,58 +1060,58 @@ public class InsertDataIntoPropertyWare
 			switch(charge)
 			{
 			case "Pro Rate Rent":
-				query = "Update [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.proratedRent+"' where charge ='Pro Rate Rent'";
+				query = "Update "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.proratedRent+"' where charge ='Pro Rate Rent'";
 				//InsertDataIntoDatabase.updateTable(query1);
 				continue;
 				
 			case "Monthly Rent":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.monthlyRent+"' where charge ='Monthly Rent'";
+				query = query+"\nUpdate "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.monthlyRent+"' where charge ='Monthly Rent'";
 				//InsertDataIntoDatabase.updateTable(query2);
 				continue;
 			case "Tenant Admin Revenue":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.adminFee+"' where charge ='Tenant Admin Revenue'";
+				query = query+"\nUpdate "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.adminFee+"' where charge ='Tenant Admin Revenue'";
 				//InsertDataIntoDatabase.updateTable(query3);
 				continue;
 			case "Pro Rated Pet Rent":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.proratedPetRent+"' where charge ='Pro Rated Pet Rent'";
+				query = query+"\nUpdate "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.proratedPetRent+"' where charge ='Pro Rated Pet Rent'";
 				//InsertDataIntoDatabase.updateTable(query4);
 				continue;
 			case "Pet Security Deposit":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.petSecurityDeposit+"' where charge ='Pet Security Deposit'";
+				query = query+"\nUpdate "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.petSecurityDeposit+"' where charge ='Pet Security Deposit'";
 				//InsertDataIntoDatabase.updateTable(query5);
 				continue;
 			case "Pet One Time Non Refundable":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.petOneTimeNonRefundableFee+"' where charge ='Pet One Time Non Refundable'";
+				query = query+"\nUpdate "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.petOneTimeNonRefundableFee+"' where charge ='Pet One Time Non Refundable'";
 				//InsertDataIntoDatabase.updateTable(query6);
 				continue;
 			case "HVAC Filter Fee":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.airFilterFee+"' where charge ='HVAC Filter Fee'";
+				query = query+"\nUpdate "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.airFilterFee+"' where charge ='HVAC Filter Fee'";
 				//InsertDataIntoDatabase.updateTable(query7);
 				continue;
 			case "Pet Rent":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.petRent+"' where charge ='Pet Rent'";
+				query = query+"\nUpdate "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.petRent+"' where charge ='Pet Rent'";
 				//InsertDataIntoDatabase.updateTable(query8);
 				continue;
 			case "Pre Payment Charge":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.prepaymentCharge+"' where charge ='Pre Payment Charge'";
+				query = query+"\nUpdate "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.prepaymentCharge+"' where charge ='Pre Payment Charge'";
 				//InsertDataIntoDatabase.updateTable(query9);
 				continue;
 			case "Increased Rent":
 				try {
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.increasedRent_amount+"',autoCharge_StartDate ='"+RunnerClass.convertDate(FL_PropertyWare.increasedRent_newStartDate)+"' where charge ='Increased Rent'";
+				query = query+"\nUpdate "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.increasedRent_amount+"',autoCharge_StartDate ='"+RunnerClass.convertDate(FL_PropertyWare.increasedRent_newStartDate)+"' where charge ='Increased Rent'";
 				//InsertDataIntoDatabase.updateTable(query10);
 				}
 				catch(Exception e) {}
 				continue;
 			case "Resident Benefits Package":
 				if(FL_PropertyWare.proratedRentDate.equalsIgnoreCase("n/a")||FL_PropertyWare.proratedRentDate.equalsIgnoreCase("na")||FL_PropertyWare.proratedRentDate.equalsIgnoreCase("N/A")||FL_PropertyWare.proratedRentDate.equalsIgnoreCase("NA"))
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.residentBenefitsPackage+"',startDate ='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+secondFullMonth+"'  where charge ='Resident Benefits Package'";
+				query = query+"\nUpdate "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.residentBenefitsPackage+"',startDate ='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+secondFullMonth+"'  where charge ='Resident Benefits Package'";
 				else 
-					query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.residentBenefitsPackage+"',startDate ='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where charge ='Resident Benefits Package'";
+					query = query+"\nUpdate "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.residentBenefitsPackage+"',startDate ='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where charge ='Resident Benefits Package'";
 				//InsertDataIntoDatabase.updateTable(query9);
 				continue;
 			case "Monthly Rent - New MCH":
-				query = query+"\nUpdate [Automation].[ChargeCodesConfiguration] Set Amount ='"+FL_PropertyWare.monthlyRent+"',startDate ='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where ID = 12";
+				query = query+"\nUpdate "+FL_RunnerClass.chargeCodesTable+" Set Amount ='"+FL_PropertyWare.monthlyRent+"',startDate ='"+RunnerClass.convertDate(FL_PropertyWare.commensementDate).trim()+"',autoCharge_startDate='"+firstFullMonth+"'  where ID = 12";
 				//InsertDataIntoDatabase.updateTable(query9);
 				continue;
 				
@@ -1134,7 +1134,7 @@ public class InsertDataIntoPropertyWare
 			moveInCharges_1 = "3";
 			autoCharges_1 = "7";
 			}
-			InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+			GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 		}
 		else
 		{
@@ -1150,7 +1150,7 @@ public class InsertDataIntoPropertyWare
 				moveInCharges_1 = "3,6,4";
 				autoCharges_1 = "7,8";
 				}
-				InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 			else//(FL_PropertyWare.portfolioType=="Others"&&FL_PropertyWare.petFlag==true&&FL_PropertyWare.petSecurityDepositFlag==true)
 			{
@@ -1164,7 +1164,7 @@ public class InsertDataIntoPropertyWare
 				moveInCharges_1 = "3,5,4";
 				autoCharges_1 = "7,8";
 				}
-				InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 		}
 	}
@@ -1198,7 +1198,7 @@ public class InsertDataIntoPropertyWare
 				     autoCharges_1 = "1,2,7";
 				}
 			}
-			InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+			GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 		}
 		else
 		{
@@ -1230,7 +1230,7 @@ public class InsertDataIntoPropertyWare
 				      autoCharges_1 = "1,2,7,8";
 					}
 				}
-				InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 			else//(FL_PropertyWare.portfolioType=="Others"&&FL_PropertyWare.petFlag==true&&FL_PropertyWare.petSecurityDepositFlag==true)
 			{
@@ -1244,7 +1244,7 @@ public class InsertDataIntoPropertyWare
 				moveInCharges_1 = "2,3,4,5";
 				autoCharges_1 = "1,2,7,8";
 				}
-				InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 		}
 	}
@@ -1266,7 +1266,7 @@ public class InsertDataIntoPropertyWare
 			autoCharges_1 = "2,7,10";
 			else autoCharges_1 = "2,7";
 			}
-			InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);	
+			GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);	
 		}
 		else
 		{
@@ -1286,7 +1286,7 @@ public class InsertDataIntoPropertyWare
 					autoCharges_1 = "2,7,8,10";
 					else autoCharges_1 = "2,7,8";
 				}
-				InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 		    else
 		    {
@@ -1306,7 +1306,7 @@ public class InsertDataIntoPropertyWare
 					autoCharges_1 = "2,7,8,10";
 					else autoCharges_1 = "2,7,8";
 					}
-					InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+					GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 				}
 		    }
 		}
@@ -1326,7 +1326,7 @@ public class InsertDataIntoPropertyWare
 			moveInCharges_1 = "3";
 			autoCharges_1 = "7";
 			}
-			InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);	
+			GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);	
 		}
 		else
 		{
@@ -1342,7 +1342,7 @@ public class InsertDataIntoPropertyWare
 				moveInCharges_1 = "3,6,4";
 				autoCharges_1 = "7,8";
 				}
-				InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+				GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 			}
 		    else
 		    {
@@ -1358,7 +1358,7 @@ public class InsertDataIntoPropertyWare
 					moveInCharges_1 = "3,5,4";
 					autoCharges_1 = "7,8";
 					}
-					InsertDataIntoDatabase.assignChargeCodes(moveInCharges_1, autoCharges_1);
+					GetDataFromDB.assignChargeCodes(moveInCharges_1, autoCharges_1);
 				}
 		    }
 		}
