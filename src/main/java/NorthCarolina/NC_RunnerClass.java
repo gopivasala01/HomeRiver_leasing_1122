@@ -36,6 +36,7 @@ public static WebDriverWait FL_wait;
 public static FileOutputStream FL_fos;
 public static String pdfFormatType;
 public static PDDocument document;
+public static String chargeCodesTable ="automation.chargeCodesConfiguration_NC";
 
 	public boolean runAutomation(String portfolio, String leaseName, String leaseOwnername)  throws Exception
 	{

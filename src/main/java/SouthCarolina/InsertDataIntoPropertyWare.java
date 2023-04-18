@@ -782,7 +782,7 @@ public class InsertDataIntoPropertyWare
 				}
 				else
 				{
-					SC_RunnerClass.FL_actions.moveToElement(RunnerClass.driver.findElement(Locators.currentMonthlyRent)).build().perform();
+					SC_RunnerClass.FL_actions.moveToElement(SC_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent)).build().perform();
 				//RunnerClass.driver.findElement(Locators.initialMonthlyRent).clear();
 					SC_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 					SC_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent).sendKeys(SC_PropertyWare.monthlyRent);

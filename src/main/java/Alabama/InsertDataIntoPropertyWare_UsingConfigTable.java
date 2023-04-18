@@ -746,7 +746,7 @@ public class InsertDataIntoPropertyWare_UsingConfigTable
 				}
 				else
 				{
-					AL_RunnerClass.AZ_actions.moveToElement(RunnerClass.driver.findElement(Locators.currentMonthlyRent)).build().perform();
+					AL_RunnerClass.AZ_actions.moveToElement(AL_RunnerClass.AZ_driver.findElement(Locators.currentMonthlyRent)).build().perform();
 				//RunnerClass.driver.findElement(Locators.initialMonthlyRent).clear();
 					AL_RunnerClass.AZ_driver.findElement(Locators.currentMonthlyRent).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 					AL_RunnerClass.AZ_driver.findElement(Locators.currentMonthlyRent).sendKeys(AL_PropertyWare.monthlyRent);

@@ -813,7 +813,7 @@ public class AR_InsertDataIntoPropertyWare
 				}
 				else
 				{
-					AR_RunnerClass.FL_actions.moveToElement(RunnerClass.driver.findElement(Locators.currentMonthlyRent)).build().perform();
+					AR_RunnerClass.FL_actions.moveToElement(AR_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent)).build().perform();
 				//RunnerClass.driver.findElement(Locators.initialMonthlyRent).clear();
 					AR_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 					AR_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent).sendKeys(AR_PropertyWare.monthlyRent);

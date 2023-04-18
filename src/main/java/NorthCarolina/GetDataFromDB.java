@@ -3,6 +3,7 @@ package NorthCarolina;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 
@@ -17,7 +18,7 @@ public class GetDataFromDB
         ResultSet rs = null;
             //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "Select Charge from [Automation].[ChargeCodesConfiguration]";
+            String SQL = "Select Charge from "+NC_RunnerClass.chargeCodesTable+"";
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
            // stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
@@ -67,7 +68,7 @@ public class GetDataFromDB
         ResultSet rs = null;
             //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "Select Charge, ChargeCode,Description,StartDate,Amount from [Automation].[ChargeCodesConfiguration] where MoveInCharge = 1";
+            String SQL = "Select Charge, ChargeCode,Description,StartDate,Amount from "+NC_RunnerClass.chargeCodesTable+" where MoveInCharge = 1";
             
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
            // stmt = con.createStatement();
@@ -122,7 +123,7 @@ public class GetDataFromDB
         ResultSet rs = null;
             //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "Select Charge, ChargeCode,Description,autoCharge_StartDate,Amount,endDate from [Automation].[ChargeCodesConfiguration] where AutoCharge = 1";
+            String SQL = "Select Charge, ChargeCode,Description,autoCharge_StartDate,Amount,endDate from "+NC_RunnerClass.chargeCodesTable+" where AutoCharge = 1";
             
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
            // stmt = con.createStatement();
@@ -170,4 +171,25 @@ public class GetDataFromDB
             con.close();
             
 	}
+	public static boolean assignChargeCodes(String moveInChargesIDs, String autoChargesIDs)
+	{
+	  String connectionUrl = "jdbc:sqlserver://azrsrv001.database.windows.net;databaseName=HomeRiverDB;user=service_sql02;password=xzqcoK7T;encrypt=true;trustServerCertificate=true;";
+	    String sql = "update "+NC_RunnerClass.chargeCodesTable+" Set MoveInCharge ='1' where ID in  ("+moveInChargesIDs+")\n"
+	    		+ "update "+NC_RunnerClass.chargeCodesTable+" Set AutoCharge ='1' where ID in  ("+autoChargesIDs+")";
+
+	    try (Connection conn = DriverManager.getConnection(connectionUrl);
+	        Statement stmt = conn.createStatement();) 
+	    {
+	      stmt.executeUpdate(sql);
+	      System.out.println("Charge Codes are assigned");
+	      stmt.close();
+            conn.close();
+            return true;
+	    } catch (SQLException e) 
+	    {
+	      e.printStackTrace();
+	      return false;
+	    }
+	}
+	
 	}
