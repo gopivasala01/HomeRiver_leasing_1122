@@ -783,7 +783,7 @@ public class LR_InsertDataIntoPropertyWare
 			{
 				if(LR_PropertyWare.monthlyRent.equalsIgnoreCase("Error"))
 				{
-					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Initial Monthly Rent"+'\n');
 					temp=1;
 				}
 				else
@@ -797,7 +797,7 @@ public class LR_InsertDataIntoPropertyWare
 			}
 			catch(Exception e)
 			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Initial Monthly Rent"+'\n');
 				temp=1;
 			}
 			
@@ -806,12 +806,12 @@ public class LR_InsertDataIntoPropertyWare
 			{
 				if(LR_PropertyWare.monthlyRent.equalsIgnoreCase("Error"))
 				{
-					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+					InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Current Monthly Rent"+'\n');
 					temp=1;
 				}
 				else
 				{
-					LR_RunnerClass.FL_actions.moveToElement(RunnerClass.driver.findElement(Locators.currentMonthlyRent)).build().perform();
+					LR_RunnerClass.FL_actions.moveToElement(LR_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent)).build().perform();
 				//RunnerClass.driver.findElement(Locators.initialMonthlyRent).clear();
 					LR_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
 					LR_RunnerClass.FL_driver.findElement(Locators.currentMonthlyRent).sendKeys(LR_PropertyWare.monthlyRent);
@@ -820,7 +820,7 @@ public class LR_InsertDataIntoPropertyWare
 			}
 			catch(Exception e)
 			{
-				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Intial Monthly Rent"+'\n');
+				InsertDataIntoDatabase.notAutomatedFields(RunnerClass.leaseName, "Current Monthly Rent"+'\n');
 				temp=1;
 			}
 			
