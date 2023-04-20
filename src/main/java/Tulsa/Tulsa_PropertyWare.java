@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import mainPackage.AppConfig;
 import mainPackage.InsertDataIntoDatabase;
@@ -106,6 +107,7 @@ public class Tulsa_PropertyWare
 	
 	public boolean selectLease(String leaseName) throws Exception
 	{
+		 Tulsa.Tulsa_RunnerClass.FL_wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(200));
 		Thread.sleep(2000);
 		try
 		{
@@ -119,7 +121,7 @@ public class Tulsa_PropertyWare
 		}
 		catch(Exception e)
 		{}
-		Thread.sleep(10000);
+		//Thread.sleep(10000);
 		System.out.println(RunnerClass.leaseName);
 		
 		// Select Lease from multiple leases
@@ -153,7 +155,7 @@ public class Tulsa_PropertyWare
 				
 		//RunnerClass.driver.findElement(Locators.selectSearchedLease).click();
 		Thread.sleep(5000); 
-		
+		Tulsa.Tulsa_RunnerClass.FL_wait = new WebDriverWait(RunnerClass.driver, Duration.ofSeconds(50));
 		// Get Portfolio Type
 		try
 		{

@@ -110,10 +110,10 @@ public class RunnerClass
 			leaseName = leasesList[i][2]; 
 			companyCode =AppConfig.getCompanyCode(market);
 			
-			if("Alabama,Florida,North Carolina,Georgia,South Carolina,Indiana,Tennessee,Arkansas,Little Rock,OKC,Dallas/Fort Worth,Tulsa,San Antonio".contains(market))
+			if("Florida,Georgia,South Carolina,Tennessee,OKC".contains(market))
 			{
 			
-			if(market.equals("Tennessee")||market.equals("OKC")||market.equals("Dallas/Fort Worth")||market.equals("Tulsa")||market.equals("San Antonio"))
+			if(market.equals("Tennessee")||market.equals("OKC"))
 			{
 			Map<String, Object> prefs = new HashMap<String, Object>();
 	        // Use File.separator as it will work on any OS
