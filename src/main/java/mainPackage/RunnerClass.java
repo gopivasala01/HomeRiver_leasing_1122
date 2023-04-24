@@ -110,7 +110,7 @@ public class RunnerClass
 			leaseName = leasesList[i][2]; 
 			companyCode =AppConfig.getCompanyCode(market);
 			
-			if("Florida,Georgia,South Carolina,Tennessee,OKC".contains(market))
+			if("Florida,Tennessee".contains(market))
 			{
 			
 			if(market.equals("Tennessee")||market.equals("OKC"))
